@@ -1,10 +1,11 @@
 const { Router } = require('express');
-const alquilerController = require('../controllers/alquilerController');
+const { getAll, getById, create, registrarDevolucion } = require('../controllers/alquilerController');
 
 const router = Router();
 
-// GET  /api/alquileres
-// GET  /api/alquileres/:id
-// POST /api/alquileres
+router.get('/', getAll);
+router.get('/:id', getById);
+router.post('/', create);
+router.put('/:id/devolucion', registrarDevolucion);
 
 module.exports = router;

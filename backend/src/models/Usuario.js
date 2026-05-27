@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Cliente = sequelize.define('Cliente', {
+const Usuario = sequelize.define('Usuario', {
   nombre: {
     type: DataTypes.STRING,
     allowNull: false,
@@ -10,28 +10,29 @@ const Cliente = sequelize.define('Cliente', {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  dni: {
+  email: {
     type: DataTypes.STRING,
     allowNull: false,
     unique: true,
+    validate: { isEmail: true },
   },
-  telefono: {
+  password: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  email: {
-    type: DataTypes.STRING,
-    allowNull: true,
-    validate: { isEmail: true },
+  rol: {
+    type: DataTypes.ENUM('admin', 'empleado'),
+    allowNull: false,
+    defaultValue: 'empleado',
   },
   estado: {
-    type: DataTypes.ENUM('activo', 'inactivo', 'con_deuda'),
+    type: DataTypes.ENUM('activo', 'inactivo'),
     allowNull: false,
     defaultValue: 'activo',
   },
 }, {
-  tableName: 'clientes',
+  tableName: 'usuarios',
   timestamps: true,
 });
 
-module.exports = Cliente;
+module.exports = Usuario;
