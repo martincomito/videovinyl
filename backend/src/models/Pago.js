@@ -1,36 +1,35 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
-const Venta = sequelize.define('Venta', {
-  clienteId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-  usuarioId: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
+const Pago = sequelize.define('Pago', {
   metodoPagoId: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
-  total: {
+  ventaId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  alquilerId: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+  },
+  monto: {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
-  },
-  estado: {
-    type: DataTypes.ENUM('pendiente', 'completada', 'anulada'),
-    allowNull: false,
-    defaultValue: 'completada',
   },
   fecha: {
     type: DataTypes.DATE,
     allowNull: false,
     defaultValue: DataTypes.NOW,
   },
+  notas: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
 }, {
-  tableName: 'ventas',
+  tableName: 'pagos',
   timestamps: true,
 });
 
-module.exports = Venta;
+module.exports = Pago;
