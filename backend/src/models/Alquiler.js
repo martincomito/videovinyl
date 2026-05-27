@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+import { DataTypes } from 'sequelize';
+import sequelize from '../config/database.js';
 
 const Alquiler = sequelize.define('Alquiler', {
   clienteId: {
@@ -45,4 +45,4 @@ const Alquiler = sequelize.define('Alquiler', {
   timestamps: true,
 });
 
-module.exports = Alquiler;
+export default Alquiler;

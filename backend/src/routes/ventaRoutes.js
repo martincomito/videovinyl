@@ -1,11 +1,11 @@
-const { Router } = require('express');
-const { getAll, getById, create, anular } = require('../controllers/ventaController');
+import express from 'express';
+import { getAll, getById, create, anular } from '../controllers/ventaController.js';
 
-const router = Router();
+const router = express.Router();
 
 router.get('/', getAll);
 router.get('/:id', getById);
 router.post('/', create);
 router.put('/:id/anular', anular);
 
-module.exports = router;
+export default router;

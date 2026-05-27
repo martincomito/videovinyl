@@ -1,9 +1,9 @@
-const { Router } = require('express');
-const { getAll, upsert } = require('../controllers/tarifaAlquilerController');
+import express from 'express';
+import { getAll, upsert } from '../controllers/tarifaAlquilerController.js';
 
-const router = Router();
+const router = express.Router();
 
 router.get('/', getAll);
 router.put('/:tipo', upsert);
 
-module.exports = router;
+export default router;

@@ -1,4 +1,4 @@
-const { TarifaAlquiler } = require('../models');
+import { TarifaAlquiler } from '../models/index.js';
 
 const getAll = async (req, res, next) => {
   try {
@@ -26,4 +26,4 @@ const upsert = async (req, res, next) => {
   }
 };
 
-module.exports = { getAll, upsert };
+export { getAll, upsert };

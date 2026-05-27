@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+import { DataTypes } from 'sequelize';
+import sequelize from '../config/database.js';
 
 const Producto = sequelize.define('Producto', {
   titulo: {
@@ -31,4 +31,4 @@ const Producto = sequelize.define('Producto', {
 
 Producto.TIPOS_ALQUILABLES = ['DVD', 'VHS'];
 
-module.exports = Producto;
+export default Producto;

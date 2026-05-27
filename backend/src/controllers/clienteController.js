@@ -1,4 +1,4 @@
-const { Cliente, Venta, Alquiler, Producto, MetodoPago } = require('../models');
+import { Cliente, Venta, Alquiler, Producto, MetodoPago } from '../models/index.js';
 
 const getAll = async (req, res, next) => {
   try {
@@ -74,4 +74,4 @@ const remove = async (req, res, next) => {
   }
 };
 
-module.exports = { getAll, getById, create, update, remove };
+export { getAll, getById, create, update, remove };

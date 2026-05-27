@@ -1,4 +1,4 @@
-const { Pago, Venta, Alquiler, MetodoPago } = require('../models');
+import { Pago, Venta, Alquiler, MetodoPago } from '../models/index.js';
 
 const getAll = async (req, res, next) => {
   try {
@@ -49,4 +49,4 @@ const create = async (req, res, next) => {
   }
 };
 
-module.exports = { getAll, getById, create };
+export { getAll, getById, create };

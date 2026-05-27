@@ -1,13 +1,13 @@
-const sequelize = require('../config/database');
-const Cliente = require('./Cliente');
-const Producto = require('./Producto');
-const Venta = require('./Venta');
-const Alquiler = require('./Alquiler');
-const Usuario = require('./Usuario');
-const TarifaAlquiler = require('./TarifaAlquiler');
-const MetodoPago = require('./MetodoPago');
-const VentaProducto = require('./VentaProducto');
-const Pago = require('./Pago');
+import sequelize from '../config/database.js';
+import Cliente from './Cliente.js';
+import Producto from './Producto.js';
+import Venta from './Venta.js';
+import Alquiler from './Alquiler.js';
+import Usuario from './Usuario.js';
+import TarifaAlquiler from './TarifaAlquiler.js';
+import MetodoPago from './MetodoPago.js';
+import VentaProducto from './VentaProducto.js';
+import Pago from './Pago.js';
 
 // Venta ↔ Cliente
 Venta.belongsTo(Cliente, { foreignKey: 'clienteId', as: 'cliente' });
@@ -53,7 +53,7 @@ Venta.hasMany(Pago, { foreignKey: 'ventaId', as: 'pagos' });
 Pago.belongsTo(Alquiler, { foreignKey: 'alquilerId', as: 'alquiler' });
 Alquiler.hasMany(Pago, { foreignKey: 'alquilerId', as: 'pagos' });
 
-module.exports = {
+export {
   sequelize,
   Cliente,
   Producto,

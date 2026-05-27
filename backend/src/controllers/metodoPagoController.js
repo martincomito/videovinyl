@@ -1,4 +1,4 @@
-const { MetodoPago } = require('../models');
+import { MetodoPago } from '../models/index.js';
 
 const getAll = async (req, res, next) => {
   try {
@@ -31,4 +31,4 @@ const update = async (req, res, next) => {
   }
 };
 
-module.exports = { getAll, create, update };
+export { getAll, create, update };

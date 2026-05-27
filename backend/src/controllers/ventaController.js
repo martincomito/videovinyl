@@ -1,4 +1,4 @@
-const { sequelize, Venta, VentaProducto, Producto, Cliente, Usuario, MetodoPago } = require('../models');
+import { sequelize, Venta, VentaProducto, Producto, Cliente, Usuario, MetodoPago } from '../models/index.js';
 
 const ventaConDetalle = (id) =>
   Venta.findByPk(id, {
@@ -120,4 +120,4 @@ const anular = async (req, res, next) => {
   }
 };
 
-module.exports = { getAll, getById, create, anular };
+export { getAll, getById, create, anular };

@@ -1,14 +1,14 @@
-const { Router } = require('express');
-const clienteRoutes = require('./clienteRoutes');
-const productoRoutes = require('./productoRoutes');
-const ventaRoutes = require('./ventaRoutes');
-const alquilerRoutes = require('./alquilerRoutes');
-const usuarioRoutes = require('./usuarioRoutes');
-const tarifaAlquilerRoutes = require('./tarifaAlquilerRoutes');
-const metodoPagoRoutes = require('./metodoPagoRoutes');
-const pagoRoutes = require('./pagoRoutes');
+import express from 'express';
+import clienteRoutes from './clienteRoutes.js';
+import productoRoutes from './productoRoutes.js';
+import ventaRoutes from './ventaRoutes.js';
+import alquilerRoutes from './alquilerRoutes.js';
+import usuarioRoutes from './usuarioRoutes.js';
+import tarifaAlquilerRoutes from './tarifaAlquilerRoutes.js';
+import metodoPagoRoutes from './metodoPagoRoutes.js';
+import pagoRoutes from './pagoRoutes.js';
 
-const router = Router();
+const router = express.Router();
 
 router.use('/clientes', clienteRoutes);
 router.use('/productos', productoRoutes);
@@ -19,4 +19,4 @@ router.use('/tarifas-alquiler', tarifaAlquilerRoutes);
 router.use('/metodos-pago', metodoPagoRoutes);
 router.use('/pagos', pagoRoutes);
 
-module.exports = router;
+export default router;

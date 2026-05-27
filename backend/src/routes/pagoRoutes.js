@@ -1,10 +1,10 @@
-const { Router } = require('express');
-const { getAll, getById, create } = require('../controllers/pagoController');
+import express from 'express';
+import { getAll, getById, create } from '../controllers/pagoController.js';
 
-const router = Router();
+const router = express.Router();
 
 router.get('/', getAll);
 router.get('/:id', getById);
 router.post('/', create);
 
-module.exports = router;
+export default router;

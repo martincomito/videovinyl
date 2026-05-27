@@ -1,11 +1,11 @@
-const { Router } = require('express');
-const { getAll, getById, create, registrarDevolucion } = require('../controllers/alquilerController');
+import express from 'express';
+import { getAll, getById, create, registrarDevolucion } from '../controllers/alquilerController.js';
 
-const router = Router();
+const router = express.Router();
 
 router.get('/', getAll);
 router.get('/:id', getById);
 router.post('/', create);
 router.put('/:id/devolucion', registrarDevolucion);
 
-module.exports = router;
+export default router;

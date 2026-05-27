@@ -1,4 +1,4 @@
-const { Producto, Alquiler } = require('../models');
+import { Producto, Alquiler } from '../models/index.js';
 
 const calcularEstadoInventario = (producto, cantidadAlquileresActivos) => {
   if (producto.stock > 0) return 'disponible';
@@ -93,4 +93,4 @@ const remove = async (req, res, next) => {
   }
 };
 
-module.exports = { getAll, getById, create, update, remove };
+export { getAll, getById, create, update, remove };
