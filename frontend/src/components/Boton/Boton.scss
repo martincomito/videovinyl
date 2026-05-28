@@ -1,0 +1,6 @@
+@use "../../styles/variables.scss";
+
+.primario {
+  color: variables.$color-boton-primario-texto;
+  background-color: variables.$color-boton-primario-fondo;
+}
