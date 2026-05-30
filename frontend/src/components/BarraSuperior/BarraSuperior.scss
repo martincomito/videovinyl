@@ -1,0 +1,76 @@
+@use "../../styles/variables.scss";
+
+.barra-superior {
+    width: 100%;
+    height: 50px;
+    background-color: variables.$color-barra-superior-primario-fondo;
+
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+
+    border-bottom: 1px solid #dcdcdc;
+
+    &__logo {
+
+        align-self: stretch;
+
+        display: flex;
+        align-items: center;
+        padding-right: 20px;
+        border-right: 1px solid #dcdcdc;
+
+        img {
+            height: 50px;
+            object-fit: contain;
+            cursor: pointer;
+        }
+    }
+
+    &__usuario {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-family: sans-serif;
+    }
+
+    &__datos {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+
+        .nombre {
+            font-size: 13px;
+            font-weight: 600;
+            color: #222;
+        }
+
+        .email {
+            font-size: 11px;
+            color: #777;
+        }
+    }
+
+    &__avatar {
+        width: 34px;
+        height: 34px;
+        margin-right: 24px;
+
+        border-radius: 50%;
+        background-color: #f2d6df;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        font-size: 14px;
+        font-weight: bold;
+        color: #7d3b53;
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    }
+}

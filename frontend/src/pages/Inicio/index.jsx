@@ -1,8 +1,10 @@
 import Boton from "../../components/Boton/Boton";
+import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 
 function InicioPage() {
   return (
     <div>
+      <BarraSuperior />
       Página de Inicio
       <Boton
         texto="Boton inicio"
