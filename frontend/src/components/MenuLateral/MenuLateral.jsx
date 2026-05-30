@@ -60,7 +60,7 @@ const MenuLateral = () => {
                 flex-col
                 justify-between
                 w-[var(--ancho-menu-lateral)]
-                min-h-screen
+                h-full
                 border-r
                 border-[var(--color-menu-lateral-borde)]
                 bg-[var(--color-menu-lateral-fondo)]

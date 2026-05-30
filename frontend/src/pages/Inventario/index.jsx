@@ -9,7 +9,7 @@ function InventarioPage() {
 
       <div className="flex 
                       bg-[var(--color-fondo-paginas-primario)]
-                      min-h-screen">
+                      h-[calc(100vh-50px)]">
         <MenuLateral />
 
         <main className="flex-1 
