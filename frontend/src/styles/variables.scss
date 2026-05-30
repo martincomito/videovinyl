@@ -1,3 +1,24 @@
 $color-boton-primario-fondo: #ffffff;
 $color-boton-primario-texto: #000000;
-$color-barra-superior-primario-fondo: #ffffff;
+$color-barra-superior-primario-fondo: #fffefe;
+$ancho-menu-lateral: 231px;
+$color-menu-lateral-fondo: #fffefe;
+$color-menu-lateral-borde: #dcdcdc;
+$color-menu-lateral-hover-fondo: #f1f3f8;
+$color-menu-lateral-activo-fondo: #eef1ff;
+$color-texto-primario: #1f2937;
+$color-texto-secundario: #6b7280;
+$color-primario: #4f46e5;
+$color-fondo-paginas-primario: #f8f8f8;
+
+:root {
+    --ancho-menu-lateral: #{$ancho-menu-lateral};
+    --color-menu-lateral-fondo: #{$color-menu-lateral-fondo};
+    --color-menu-lateral-borde: #{$color-menu-lateral-borde};
+    --color-menu-lateral-hover-fondo: #{$color-menu-lateral-hover-fondo};
+    --color-menu-lateral-activo-fondo: #{$color-menu-lateral-activo-fondo};
+    --color-texto-primario: #{$color-texto-primario};
+    --color-texto-secundario: #{$color-texto-secundario};
+    --color-primario: #{$color-primario};
+    --color-fondo-paginas-primario: #{$color-fondo-paginas-primario};
+}

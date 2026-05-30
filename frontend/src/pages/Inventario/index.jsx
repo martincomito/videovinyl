@@ -2,7 +2,7 @@ import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import "../../styles/variables.scss";
 
-function ClientesPage() {
+function InventarioPage() {
   return (
     <>
       <BarraSuperior />
@@ -17,11 +17,11 @@ function ClientesPage() {
                          text-2xl 
                          font-bold 
                          text-[var(--color-texto-primario)]">
-          <h1>Página de Clientes EN DESARROLLO</h1>
+          <h1>Página de Inventario EN DESARROLLO</h1>
         </main>
       </div>
     </>
   );
 }
 
-export default ClientesPage;
+export default InventarioPage;
