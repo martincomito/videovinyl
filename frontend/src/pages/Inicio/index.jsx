@@ -17,7 +17,7 @@ function InicioPage() {
                          text-2xl 
                          font-bold 
                          text-[var(--color-texto-primario)]">
-          <h1>Página de Inicio EN DESARROLLO</h1>
+          <h1>Página de Inicio -EN DESARROLLO-</h1>
         </main>
       </div>
     </>

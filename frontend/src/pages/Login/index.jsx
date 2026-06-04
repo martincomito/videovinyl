@@ -1,4 +1,5 @@
 import "../../styles/variables.scss";
+import TarjetaLogin from "../../components/TarjetaLogin/TarjetaLogin";
 
 function LoginPage() {
     return (
@@ -8,11 +9,14 @@ function LoginPage() {
                       bg-[var(--color-fondo-paginas-primario)]
                       min-h-screen">
                 <main className="flex-1 
+                        justify-center 
+                        items-center 
+                        flex
                          p-6 
                          text-2xl 
                          font-bold 
                          text-[var(--color-texto-primario)]">
-                    <h1>Página de Login EN DESARROLLO</h1>
+                    <TarjetaLogin/>
                 </main>
             </div>
         </>
