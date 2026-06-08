@@ -1,5 +1,28 @@
-const BASE_URL = '/api';
+import axios from 'axios';
 
-// Las funciones para llamar a la API se agregarán aquí
+const api = axios.create({
+  baseURL: '/api',
+});
 
-export default BASE_URL;
+// Agrega el token JWT a cada request saliente si el usuario está logueado
+api.interceptors.request.use((config) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    // Si el servidor rechaza la sesión, limpia el token y manda al login
+    if (error.response?.status === 401) {
+      localStorage.removeItem('token');
+      window.location.href = '/login';
+    }
+    return Promise.reject(error);
+  }
+);
+
+export default api;
