@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../../styles/variables.scss";
 
 import {
@@ -14,6 +14,13 @@ import {
 
 const MenuLateral = () => {
     const location = useLocation();
+    const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("usuario");
+        navigate("/login");
+    };
 
     const items = [
         {
@@ -109,10 +116,11 @@ const MenuLateral = () => {
                     p-3
                 "
             >
-                <Link
-                    to="/login"
+                <button
+                    onClick={handleLogout}
                     className="
                         flex
+                        w-full
                         items-center
                         gap-3
                         rounded-md
@@ -125,7 +133,7 @@ const MenuLateral = () => {
                 >
                     <LogOut size={18} />
                     <span>Cerrar Sesión</span>
-                </Link>
+                </button>
             </div>
         </aside>
     );
