@@ -1,4 +1,5 @@
 import express from 'express';
+import authRoutes from './authRoutes.js';
 import clienteRoutes from './clienteRoutes.js';
 import productoRoutes from './productoRoutes.js';
 import ventaRoutes from './ventaRoutes.js';
@@ -10,6 +11,7 @@ import pagoRoutes from './pagoRoutes.js';
 
 const router = express.Router();
 
+router.use('/auth', authRoutes);
 router.use('/clientes', clienteRoutes);
 router.use('/productos', productoRoutes);
 router.use('/ventas', ventaRoutes);
