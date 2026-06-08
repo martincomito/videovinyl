@@ -8,10 +8,12 @@ import usuarioRoutes from './usuarioRoutes.js';
 import tarifaAlquilerRoutes from './tarifaAlquilerRoutes.js';
 import metodoPagoRoutes from './metodoPagoRoutes.js';
 import pagoRoutes from './pagoRoutes.js';
+import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
 
 router.use('/auth', authRoutes);
+router.use(authMiddleware);
 router.use('/clientes', clienteRoutes);
 router.use('/productos', productoRoutes);
 router.use('/ventas', ventaRoutes);
