@@ -1,5 +1,6 @@
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
+import Lista from "../../components/Lista/Lista";
 import "../../styles/variables.scss";
 
 function UsuariosPage() {
@@ -17,7 +18,9 @@ function UsuariosPage() {
                                  text-2xl 
                                  font-bold 
                                  text-[var(--color-texto-primario)]">
-                    <h1>Página de Usuarios EN DESARROLLO</h1>
+                    {/* <h1>Página de Usuarios EN DESARROLLO</h1> */}
+                    <Lista />
+
                 </main>
             </div>
         </>
