@@ -1,82 +1,111 @@
-import { Eye } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { useMemo, useState } from "react";
+import { Search } from "lucide-react";
+import usuarios from "../../components/Lista/lista.json";
 import "../../styles/variables.scss";
 
 function Lista({
     columnas = [],
-    datos = [],
+    datos = usuarios,
     mostrarBuscador = false,
-    placeholderBuscador = "Buscar...",
-    valorBusqueda = "",
-    onBusquedaChange = () => {},
-    onVerDetalle = () => {},
 }) {
-    const obtenerClaseEstado = (estado) => {
-        switch (estado?.toLowerCase()) {
-            case "completado":
-                return `
-                    bg-[var(--color-lista-estado-completado-fondo)]
-                    text-[var(--color-lista-estado-completado-texto)]
-                `;
+    const registrosPorPagina = 10;
 
-            case "pendiente":
-                return `
-                    bg-[var(--color-lista-estado-pendiente-fondo)]
-                    text-[var(--color-lista-estado-pendiente-texto)]
-                `;
+    const [paginaActual, setPaginaActual] = useState(1);
+    const [textoBusqueda, setTextoBusqueda] = useState("");
 
-            case "anulado":
-                return `
-                    bg-[var(--color-lista-estado-anulado-fondo)]
-                    text-[var(--color-lista-estado-anulado-texto)]
-                `;
-
-            default:
-                return `
-                    bg-slate-100
-                    text-slate-700
-                `;
+    const datosFiltrados = useMemo(() => {
+        if (!textoBusqueda.trim()) {
+            return datos;
         }
-    };
+
+        const texto = textoBusqueda.toLowerCase();
+
+        return datos.filter((fila) =>
+            Object.values(fila).some((valor) =>
+                String(valor)
+                    .toLowerCase()
+                    .includes(texto)
+            )
+        );
+    }, [datos, textoBusqueda]);
+
+    const totalPaginas = Math.ceil(
+        datosFiltrados.length / registrosPorPagina
+    );
+
+    const datosPaginados = useMemo(() => {
+        const inicio =
+            (paginaActual - 1) *
+            registrosPorPagina;
+
+        const fin =
+            inicio + registrosPorPagina;
+
+        return datosFiltrados.slice(
+            inicio,
+            fin
+        );
+    }, [
+        datosFiltrados,
+        paginaActual,
+    ]);
 
     return (
         <div
             className="
-                overflow-hidden
-                rounded-xl
+                rounded-lg
                 border
                 border-[var(--color-lista-borde)]
                 bg-[var(--color-lista-fondo)]
-                shadow-sm
             "
         >
             {mostrarBuscador && (
                 <div
                     className="
+                        flex
+                        items-center
+                        justify-between
                         border-b
                         border-[var(--color-lista-borde)]
-                        p-4
+                        p-3
                     "
                 >
-                    <input
-                        type="text"
-                        value={valorBusqueda}
-                        onChange={(e) =>
-                            onBusquedaChange(e.target.value)
-                        }
-                        placeholder={placeholderBuscador}
-                        className="
-                            w-full
-                            rounded-md
-                            border
-                            border-[var(--color-login-input-borde)]
-                            px-4
-                            py-2
-                            text-sm
-                            outline-none
-                            focus:border-[var(--color-login-input-focus)]
-                        "
-                    />
+                    <div className="relative w-full max-w-md">
+                        <Search
+                            size={16}
+                            className="
+                                absolute
+                                left-3
+                                top-1/2
+                                -translate-y-1/2
+                                text-slate-400
+                            "
+                        />
+
+                        <input
+                            type="text"
+                            placeholder="Buscar..."
+                            value={textoBusqueda}
+                            onChange={(e) => {
+                                setTextoBusqueda(
+                                    e.target.value
+                                );
+                                setPaginaActual(1);
+                            }}
+                            className="
+                                w-full
+                                rounded-md
+                                border
+                                border-[var(--color-lista-borde)]
+                                py-2
+                                pl-10
+                                pr-3
+                                text-sm
+                                outline-none
+                                focus:border-[var(--color-primario)]
+                            "
+                        />
+                    </div>
                 </div>
             )}
 
@@ -85,125 +114,129 @@ function Lista({
                     <thead>
                         <tr
                             className="
-                                bg-[var(--color-lista-header-fondo)]
                                 border-b
                                 border-[var(--color-lista-borde)]
                             "
                         >
-                            {columnas.map((columna) => (
-                                <th
-                                    key={columna.key}
-                                    className="
-                                        px-6
-                                        py-4
-                                        text-left
-                                        text-xs
-                                        font-semibold
-                                        uppercase
-                                        tracking-wider
-                                        text-[var(--color-lista-header-texto)]
-                                    "
-                                >
-                                    {columna.label}
-                                </th>
-                            ))}
+                            {columnas.map(
+                                (columna) => (
+                                    <th
+                                        key={
+                                            columna.key
+                                        }
+                                        className="
+                                            px-4
+                                            py-3
+                                            text-left
+                                            text-[11px]
+                                            font-medium
+                                            uppercase
+                                            text-[var(--color-lista-encabezado)]
+                                        "
+                                    >
+                                        {
+                                            columna.label
+                                        }
+                                    </th>
+                                )
+                            )}
                         </tr>
                     </thead>
 
                     <tbody>
-                        {datos.map((fila) => (
-                            <tr
-                                key={fila.id}
-                                className="
-                                    border-b
-                                    border-[var(--color-lista-fila-borde)]
-                                    hover:bg-[var(--color-lista-fila-hover)]
-                                "
-                            >
-                                {columnas.map((columna) => {
-                                    if (columna.key === "estado") {
-                                        return (
+                        {datosPaginados.map(
+                            (fila) => (
+                                <tr
+                                    key={
+                                        fila.id
+                                    }
+                                    className="
+                                        border-b
+                                        border-[var(--color-lista-borde)]
+                                    "
+                                >
+                                    {columnas.map(
+                                        (
+                                            columna
+                                        ) => (
                                             <td
-                                                key={columna.key}
+                                                key={
+                                                    columna.key
+                                                }
                                                 className="
-                                                    px-6
-                                                    py-4
+                                                    px-4
+                                                    py-3
                                                     text-sm
                                                 "
                                             >
-                                                <span
-                                                    className={`
-                                                        rounded-full
-                                                        px-3
-                                                        py-1
-                                                        text-xs
-                                                        font-medium
-                                                        ${obtenerClaseEstado(
-                                                            fila.estado
-                                                        )}
-                                                    `}
-                                                >
-                                                    {fila.estado}
-                                                </span>
+                                                {columna.render
+                                                    ? columna.render(
+                                                        fila[
+                                                        columna.key
+                                                        ],
+                                                        fila
+                                                    )
+                                                    : fila[
+                                                    columna.key
+                                                    ]}
                                             </td>
-                                        );
-                                    }
-
-                                    if (columna.key === "acciones") {
-                                        return (
-                                            <td
-                                                key={columna.key}
-                                                className="
-                                                    px-6
-                                                    py-4
-                                                "
-                                            >
-                                                <button
-                                                    onClick={() =>
-                                                        onVerDetalle(fila)
-                                                    }
-                                                    className="
-                                                        flex
-                                                        items-center
-                                                        gap-2
-                                                        rounded-md
-                                                        border
-                                                        border-[var(--color-lista-boton-borde)]
-                                                        bg-[var(--color-lista-boton-fondo)]
-                                                        px-3
-                                                        py-2
-                                                        text-xs
-                                                        text-[var(--color-lista-boton-texto)]
-                                                        transition-colors
-                                                        hover:bg-[var(--color-lista-boton-hover)]
-                                                    "
-                                                >
-                                                    <Eye size={14} />
-                                                    Ver detalle
-                                                </button>
-                                            </td>
-                                        );
-                                    }
-
-                                    return (
-                                        <td
-                                            key={columna.key}
-                                            className="
-                                                px-6
-                                                py-4
-                                                text-sm
-                                                text-[var(--color-lista-texto)]
-                                            "
-                                        >
-                                            {fila[columna.key]}
-                                        </td>
-                                    );
-                                })}
-                            </tr>
-                        ))}
+                                        )
+                                    )}
+                                </tr>
+                            )
+                        )}
                     </tbody>
                 </table>
             </div>
+
+            {totalPaginas > 1 && (
+                <div
+                    className="
+                        flex
+                        justify-center
+                        gap-2
+                        border-t
+                        border-[var(--color-lista-borde)]
+                        p-4
+                    "
+                >
+                    {Array.from(
+                        {
+                            length:
+                                totalPaginas,
+                        },
+                        (_, index) => (
+                            <button
+                                key={
+                                    index + 1
+                                }
+                                onClick={() =>
+                                    setPaginaActual(
+                                        index +
+                                        1
+                                    )
+                                }
+                                className={`
+                                    min-w-[34px]
+                                    rounded-md
+                                    px-3
+                                    py-1
+                                    text-sm
+                                    transition-colors
+                                    ${paginaActual ===
+                                        index +
+                                        1
+                                        ? "bg-[var(--color-primario)] text-white"
+                                        : "border hover:bg-slate-100"
+                                    }
+                                `}
+                            >
+                                {index + 1}
+                            </button>
+                        )
+                    )}
+                </div>
+            )}
         </div>
     );
 }
