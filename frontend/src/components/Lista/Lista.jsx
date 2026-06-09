@@ -1,6 +1,6 @@
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
-import usuarios from "../../components/Lista/lista.json";
+import usuarios from "../../components/Lista/usuarios.json";
 import "../../styles/variables.scss";
 
 function Lista({
