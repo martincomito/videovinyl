@@ -1,7 +1,10 @@
+import { Navigate } from "react-router-dom";
 import "../../styles/variables.scss";
 import TarjetaLogin from "../../components/TarjetaLogin/TarjetaLogin";
 
 function LoginPage() {
+    if (localStorage.getItem("token")) return <Navigate to="/" replace />;
+
     return (
         <>
 

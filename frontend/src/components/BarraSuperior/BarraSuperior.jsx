@@ -2,6 +2,8 @@ import "./BarraSuperior.scss";
 import { Link } from "react-router-dom";
 
 const BarraSuperior = () => {
+    const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
+
     return (
         <header className="barra-superior">
             <div className="barra-superior__logo">
@@ -12,8 +14,8 @@ const BarraSuperior = () => {
 
             <div className="barra-superior__usuario">
                 <div className="barra-superior__datos">
-                    <span className="nombre">Admin Usuario</span>
-                    <span className="email">admin@videovinyl.com</span>
+                    <span className="nombre">{usuario.nombre} {usuario.apellido}</span>
+                    <span className="email">{usuario.email}</span>
                 </div>
 
                 <div className="barra-superior__avatar">
