@@ -1,11 +1,10 @@
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
-import usuarios from "../../components/Lista/usuarios.json";
 import "../../styles/variables.scss";
 
 function Lista({
     columnas = [],
-    datos = usuarios,
+    datos = [],
     mostrarBuscador = false,
 }) {
     const registrosPorPagina = 10;
@@ -223,11 +222,12 @@ function Lista({
                                     py-1
                                     text-sm
                                     transition-colors
+                                    cursor-pointer
                                     ${paginaActual ===
                                         index +
                                         1
                                         ? "bg-[var(--color-primario)] text-white"
-                                        : "border hover:bg-slate-100"
+                                        : "border border-slate-300 text-slate-500 hover:bg-slate-100"
                                     }
                                 `}
                             >
