@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "codigo": "A-501",
+    "clienteNombre": "Martín Comito",
+    "producto": "Matrix (VHS)",
+    "fechaRetiro": "2026-04-20",
+    "fechaVencimiento": "2026-04-23",
+    "estado": "Atrasado"
+  },
+  {
+    "id": 2,
+    "codigo": "A-502",
+    "clienteNombre": "Lucrecia Pedraza",
+    "producto": "The Godfather (DVD)",
+    "fechaRetiro": "2026-04-24",
+    "fechaVencimiento": "2026-04-26",
+    "estado": "Activo"
+  },
+  {
+    "id": 3,
+    "codigo": "A-503",
+    "clienteNombre": "Leandro Seoane",
+    "producto": "Inception (DVD)",
+    "fechaRetiro": "2026-04-25",
+    "fechaVencimiento": "2026-04-27",
+    "estado": "Activo"
+  },
+  {
+    "id": 4,
+    "codigo": "A-498",
+    "clienteNombre": "Carlos Ruiz",
+    "producto": "Star Wars (VHS)",
+    "fechaRetiro": "2026-04-18",
+    "fechaVencimiento": "2026-04-21",
+    "estado": "Devuelto"
+  },
+  {
+    "id": 5,
+    "codigo": "A-490",
+    "clienteNombre": "Ana Martínez",
+    "producto": "Pulp Fiction (DVD)",
+    "fechaRetiro": "2026-04-10",
+    "fechaVencimiento": "2026-04-13",
+    "estado": "Atrasado"
+  },
+  {
+    "id": 6,
+    "codigo": "A-491",
+    "clienteNombre": "Juan Pérez",
+    "producto": "The Shining (VHS)",
+    "fechaRetiro": "2026-04-12",
+    "fechaVencimiento": "2026-04-15",
+    "estado": "Devuelto"
+  },
+  {
+    "id": 7,
+    "codigo": "A-504",
+    "clienteNombre": "María Gómez",
+    "producto": "Matrix (VHS)",
+    "fechaRetiro": "2026-04-26",
+    "fechaVencimiento": "2026-04-28",
+    "estado": "Activo"
+  },
+  {
+    "id": 8,
+    "codigo": "A-505",
+    "clienteNombre": "Diego Ferraro",
+    "producto": "Inception (DVD)",
+    "fechaRetiro": "2026-04-27",
+    "fechaVencimiento": "2026-04-30",
+    "estado": "Activo"
+  }
+]
