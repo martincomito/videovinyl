@@ -42,9 +42,9 @@ function InventarioPage() {
     { key: "acciones", label: "Acciones",
       render: (_, fila) => (
         <div className="flex gap-2">
-          <button className="rounded border px-2 py-1 text-xs hover:bg-slate-50"
+          <button className="rounded border px-2 py-1 text-xs hover:bg-slate-50 cursor-pointer"
             onClick={() => console.log("Editar:", fila.id)}>✏</button>
-          <button className="rounded border px-2 py-1 text-xs hover:bg-slate-50"
+          <button className="rounded border px-2 py-1 text-xs hover:bg-slate-50 cursor-pointer"
             onClick={() => console.log("Eliminar:", fila.id)}>🗑</button>
         </div>
       ),
