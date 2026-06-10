@@ -223,11 +223,12 @@ function Lista({
                                     py-1
                                     text-sm
                                     transition-colors
+                                    cursor-pointer
                                     ${paginaActual ===
                                         index +
                                         1
                                         ? "bg-[var(--color-primario)] text-white"
-                                        : "border hover:bg-slate-100"
+                                        : "border border-slate-300 text-slate-500 hover:bg-slate-100"
                                     }
                                 `}
                             >
