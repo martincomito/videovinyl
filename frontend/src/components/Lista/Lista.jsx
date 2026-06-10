@@ -7,6 +7,7 @@ function Lista({
     columnas = [],
     datos = usuarios,
     mostrarBuscador = false,
+    placeholderBuscador = "Buscar...",
 }) {
     const registrosPorPagina = 10;
 
@@ -84,7 +85,7 @@ function Lista({
 
                         <input
                             type="text"
-                            placeholder="Buscar..."
+                            placeholder={placeholderBuscador} 
                             value={textoBusqueda}
                             onChange={(e) => {
                                 setTextoBusqueda(
