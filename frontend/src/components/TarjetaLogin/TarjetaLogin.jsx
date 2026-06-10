@@ -1,9 +1,33 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock } from "lucide-react";
 import logo from "../../img/videovinyl-logo.png";
 import "../../styles/variables.scss";
+import { login } from "../../api/auth.js";
 
 function TarjetaLogin() {
+    const navigate = useNavigate();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setError("");
+        setLoading(true);
+        try {
+            const { token, usuario } = await login(email, password);
+            localStorage.setItem("token", token);
+            localStorage.setItem("usuario", JSON.stringify(usuario));
+            navigate("/");
+        } catch (err) {
+            setError(err.response?.data?.error || "Error al iniciar sesión");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
         <div
             className="
@@ -26,8 +50,7 @@ function TarjetaLogin() {
                 />
             </div>
 
-        
-            <form className="flex flex-col gap-4">
+            <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                 <div className="relative">
                     <Mail
                         size={18}
@@ -39,10 +62,12 @@ function TarjetaLogin() {
                             text-slate-400
                         "
                     />
-
                     <input
                         type="email"
                         placeholder="Correo electrónico"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
                         className="
                             w-full
                             rounded-md
@@ -69,10 +94,12 @@ function TarjetaLogin() {
                             text-slate-400
                         "
                     />
-
                     <input
                         type="password"
                         placeholder="Contraseña"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
                         className="
                             w-full
                             rounded-md
@@ -108,25 +135,30 @@ function TarjetaLogin() {
                     </Link>
                 </div>
 
-                <Link
-                    to="/"
+                {error && (
+                    <p className="text-sm text-red-500 text-center">{error}</p>
+                )}
+
+                <button
+                    type="submit"
+                    disabled={loading}
                     className="
                         mt-2
-                        block
                         w-full
                         rounded-md
                         bg-[var(--color-login-boton-fondo)]
                         py-3
-                        text-center
                         text-sm
                         font-medium
                         text-white
                         transition-colors
                         hover:bg-[var(--color-login-boton-hover)]
+                        disabled:opacity-50
+                        disabled:cursor-not-allowed
                     "
                 >
-                    Iniciar Sesión
-                </Link>
+                    {loading ? "Iniciando sesión..." : "Iniciar Sesión"}
+                </button>
             </form>
         </div>
     );
