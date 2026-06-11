@@ -1,5 +1,6 @@
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
+import Lista from "../../components/Lista/Lista";
 import "../../styles/variables.scss";
 
 function InicioPage() {
