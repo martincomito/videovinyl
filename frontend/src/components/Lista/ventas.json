@@ -1,0 +1,212 @@
+[
+    {
+        "numeroVenta": 1050,
+        "fechaHora": "25-04-2026 14:30",
+        "cliente": "Juan Pérez",
+        "total": "$12,500",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1049,
+        "fechaHora": "25-04-2026 12:15",
+        "cliente": "María Gómez",
+        "total": "$8,200",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1048,
+        "fechaHora": "25-04-2026 18:45",
+        "cliente": "Consumidor Final",
+        "total": "$3,500",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1047,
+        "fechaHora": "25-04-2026 15:20",
+        "cliente": "Carlos Ruiz",
+        "total": "$25,000",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1046,
+        "fechaHora": "25-04-2026 10:05",
+        "cliente": "Consumidor Final",
+        "total": "$1,200",
+        "estado": "Anulado"
+    },
+    {
+        "numeroVenta": 1045,
+        "fechaHora": "24-04-2026 16:40",
+        "cliente": "Laura Sánchez",
+        "total": "$6,750",
+        "estado": "Pendiente"
+    },
+    {
+        "numeroVenta": 1044,
+        "fechaHora": "24-04-2026 14:10",
+        "cliente": "Miguel Torres",
+        "total": "$9,300",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1043,
+        "fechaHora": "24-04-2026 13:50",
+        "cliente": "Ana Morales",
+        "total": "$4,900",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1042,
+        "fechaHora": "24-04-2026 11:25",
+        "cliente": "Consumidor Final",
+        "total": "$2,100",
+        "estado": "Pendiente"
+    },
+    {
+        "numeroVenta": 1041,
+        "fechaHora": "24-04-2026 09:00",
+        "cliente": "Luis Fernández",
+        "total": "$7,800",
+        "estado": "Anulado"
+    },
+    {
+        "numeroVenta": 1040,
+        "fechaHora": "23-04-2026 17:45",
+        "cliente": "Sofía Herrera",
+        "total": "$11,600",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1039,
+        "fechaHora": "23-04-2026 15:30",
+        "cliente": "Consumidor Final",
+        "total": "$1,900",
+        "estado": "Pendiente"
+    },
+    {
+        "numeroVenta": 1038,
+        "fechaHora": "23-04-2026 14:20",
+        "cliente": "Pedro Ramírez",
+        "total": "$13,400",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1037,
+        "fechaHora": "23-04-2026 12:05",
+        "cliente": "Valentina Díaz",
+        "total": "$5,700",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1036,
+        "fechaHora": "22-04-2026 18:10",
+        "cliente": "Consumidor Final",
+        "total": "$2,800",
+        "estado": "Pendiente"
+    },
+    {
+        "numeroVenta": 1035,
+        "fechaHora": "22-04-2026 16:50",
+        "cliente": "Martín López",
+        "total": "$17,200",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1034,
+        "fechaHora": "22-04-2026 15:00",
+        "cliente": "Natalia Vega",
+        "total": "$8,900",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1033,
+        "fechaHora": "22-04-2026 11:40",
+        "cliente": "Consumidor Final",
+        "total": "$950",
+        "estado": "Anulado"
+    },
+    {
+        "numeroVenta": 1032,
+        "fechaHora": "21-04-2026 17:20",
+        "cliente": "Diego Acosta",
+        "total": "$14,600",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1031,
+        "fechaHora": "21-04-2026 14:35",
+        "cliente": "Julieta Silva",
+        "total": "$6,300",
+        "estado": "Pendiente"
+    },
+    {
+        "numeroVenta": 1030,
+        "fechaHora": "21-04-2026 10:50",
+        "cliente": "Consumidor Final",
+        "total": "$1,450",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1029,
+        "fechaHora": "20-04-2026 18:25",
+        "cliente": "Gabriel Romero",
+        "total": "$19,800",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1028,
+        "fechaHora": "20-04-2026 16:15",
+        "cliente": "Camila Torres",
+        "total": "$7,400",
+        "estado": "Pendiente"
+    },
+    {
+        "numeroVenta": 1027,
+        "fechaHora": "20-04-2026 13:30",
+        "cliente": "Consumidor Final",
+        "total": "$2,300",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1026,
+        "fechaHora": "20-04-2026 09:45",
+        "cliente": "Tomás Navarro",
+        "total": "$10,900",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1025,
+        "fechaHora": "19-04-2026 17:10",
+        "cliente": "Lucía Castro",
+        "total": "$5,200",
+        "estado": "Anulado"
+    },
+    {
+        "numeroVenta": 1024,
+        "fechaHora": "19-04-2026 15:25",
+        "cliente": "Consumidor Final",
+        "total": "$1,700",
+        "estado": "Pendiente"
+    },
+    {
+        "numeroVenta": 1023,
+        "fechaHora": "19-04-2026 12:00",
+        "cliente": "Nicolás Suárez",
+        "total": "$16,500",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1022,
+        "fechaHora": "18-04-2026 16:40",
+        "cliente": "Florencia Paz",
+        "total": "$9,800",
+        "estado": "Completado"
+    },
+    {
+        "numeroVenta": 1021,
+        "fechaHora": "18-04-2026 11:15",
+        "cliente": "Consumidor Final",
+        "total": "$1,100",
+        "estado": "Pendiente"
+    }
+]

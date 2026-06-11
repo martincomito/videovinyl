@@ -1,13 +1,11 @@
 import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
-import usuarios from "../../components/Lista/usuarios.json";
 import "../../styles/variables.scss";
 
 function Lista({
     columnas = [],
-    datos = usuarios,
+    datos = [],
     mostrarBuscador = false,
-    placeholderBuscador = "Buscar...",
 }) {
     const registrosPorPagina = 10;
 
@@ -85,7 +83,7 @@ function Lista({
 
                         <input
                             type="text"
-                            placeholder={placeholderBuscador} 
+                            placeholder="Buscar..."
                             value={textoBusqueda}
                             onChange={(e) => {
                                 setTextoBusqueda(
