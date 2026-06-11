@@ -1,0 +1,102 @@
+[
+  {
+    "id": 1,
+    "codigo": "P-100",
+    "titulo": "The Dark Side of the Moon",
+    "formato": "Vinilo",
+    "stock": 15,
+    "precioAlquiler": null,
+    "precioVenta": 12500,
+    "estado": "Disponible"
+  },
+  {
+    "id": 2,
+    "codigo": "P-101",
+    "titulo": "The Godfather",
+    "formato": "DVD",
+    "stock": 3,
+    "precioAlquiler": 1200,
+    "precioVenta": 4500,
+    "estado": "Disponible"
+  },
+  {
+    "id": 3,
+    "codigo": "P-102",
+    "titulo": "Matrix",
+    "formato": "VHS",
+    "stock": 1,
+    "precioAlquiler": 1500,
+    "precioVenta": null,
+    "estado": "Alquilado"
+  },
+  {
+    "id": 4,
+    "codigo": "P-103",
+    "titulo": "Abbey Road",
+    "formato": "Vinilo",
+    "stock": 8,
+    "precioAlquiler": null,
+    "precioVenta": 15000,
+    "estado": "Disponible"
+  },
+  {
+    "id": 5,
+    "codigo": "P-104",
+    "titulo": "Inception",
+    "formato": "DVD",
+    "stock": 0,
+    "precioAlquiler": 1200,
+    "precioVenta": 4500,
+    "estado": "Agotado"
+  },
+  {
+    "id": 6,
+    "codigo": "P-105",
+    "titulo": "Dark Side of the Moon",
+    "formato": "Vinilo",
+    "stock": 5,
+    "precioAlquiler": null,
+    "precioVenta": 18000,
+    "estado": "Disponible"
+  },
+  {
+    "id": 7,
+    "codigo": "P-106",
+    "titulo": "Pulp Fiction",
+    "formato": "DVD",
+    "stock": 4,
+    "precioAlquiler": 1200,
+    "precioVenta": 4500,
+    "estado": "Disponible"
+  },
+  {
+    "id": 8,
+    "codigo": "P-107",
+    "titulo": "Led Zeppelin IV",
+    "formato": "Vinilo",
+    "stock": 2,
+    "precioAlquiler": null,
+    "precioVenta": 14000,
+    "estado": "Disponible"
+  },
+  {
+    "id": 9,
+    "codigo": "P-108",
+    "titulo": "The Shining",
+    "formato": "VHS",
+    "stock": 0,
+    "precioAlquiler": 1000,
+    "precioVenta": null,
+    "estado": "Agotado"
+  },
+  {
+    "id": 10,
+    "codigo": "P-109",
+    "titulo": "Thriller",
+    "formato": "Vinilo",
+    "stock": 7,
+    "precioAlquiler": null,
+    "precioVenta": 11000,
+    "estado": "Disponible"
+  }
+]

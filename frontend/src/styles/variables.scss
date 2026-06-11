@@ -18,7 +18,6 @@ $color-login-boton-fondo: #0f172a;
 $color-login-boton-hover: #1e293b;
 $color-login-link: #4f46e5;
 
-
 :root {
     --ancho-menu-lateral: #{$ancho-menu-lateral};
     --color-menu-lateral-fondo: #{$color-menu-lateral-fondo};
@@ -36,4 +35,13 @@ $color-login-link: #4f46e5;
     --color-login-boton-fondo: #{$color-login-boton-fondo};
     --color-login-boton-hover: #{$color-login-boton-hover};
     --color-login-link: #{$color-login-link};
+    --color-lista-fondo: #ffffff;
+    --color-lista-borde: #e5e7eb;
+    --color-lista-hover: #f9fafb;
+    --color-lista-encabezado: #94a3b8;
+    --color-badge-fondo: #eef2ff;
+    --color-lista-fondo: #ffffff;
+    --color-lista-borde: #e5e7eb;
+    --color-lista-encabezado: #94a3b8;
+    --color-boton-primario: #111827;
 }
