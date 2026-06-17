@@ -71,7 +71,7 @@ function Lista({
                         p-3
                     "
                 >
-                    <div className="relative w-full max-w-md">
+                    <div className="relative w-full">
                         <Search
                             size={16}
                             className="
