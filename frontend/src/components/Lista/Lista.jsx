@@ -6,6 +6,7 @@ function Lista({
     columnas = [],
     datos = [],
     mostrarBuscador = false,
+    titulo,
 }) {
     const registrosPorPagina = 10;
 
@@ -58,6 +59,14 @@ function Lista({
                 bg-[var(--color-lista-fondo)]
             "
         >
+            {titulo && (
+              <div className="px-4 pt-4 pb-2">
+                <h2 className="text-sm font-semibold text-[var(--color-texto-primario)]">
+                  {titulo}
+                </h2>
+              </div>
+            )}
+
             {mostrarBuscador && (
                 <div
                     className="
