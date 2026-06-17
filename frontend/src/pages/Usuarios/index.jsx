@@ -1,8 +1,8 @@
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
+import usuarios from "../../components/Lista/usuarios.json";
 import Lista from "../../components/Lista/Lista";
 import { Settings } from "lucide-react";
-
 import "../../styles/variables.scss";
 
 function UsuariosPage() {
@@ -59,9 +59,13 @@ function UsuariosPage() {
             render: (_, fila) => (
                 <button
                     className="
+                        flex
+                        items-center
+                        gap-1
                         rounded
                         border
-                        px-3
+                        border-slate-300
+                        px-2
                         py-1
                         text-xs
                         hover:bg-slate-50
@@ -153,6 +157,7 @@ function UsuariosPage() {
                     <Lista
                         columnas={columnas}
                         mostrarBuscador={true}
+                        datos={usuarios}
                     />
                 </main>
             </div>
