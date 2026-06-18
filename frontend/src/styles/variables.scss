@@ -17,6 +17,9 @@ $color-login-input-focus: #4f46e5;
 $color-login-boton-fondo: #0f172a;
 $color-login-boton-hover: #1e293b;
 $color-login-link: #4f46e5;
+$color-card-fondo: #ffffff;
+$color-card-borde: #e5e7eb;
+$color-boton-dashboard-primario: #0f172a;
 
 :root {
     --ancho-menu-lateral: #{$ancho-menu-lateral};
@@ -44,4 +47,7 @@ $color-login-link: #4f46e5;
     --color-lista-borde: #e5e7eb;
     --color-lista-encabezado: #94a3b8;
     --color-boton-primario: #111827;
+    --color-card-fondo: #{$color-card-fondo};
+    --color-card-borde: #{$color-card-borde};
+    --color-boton-dashboard-primario: #{$color-boton-dashboard-primario};
 }

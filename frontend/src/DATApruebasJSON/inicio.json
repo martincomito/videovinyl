@@ -1,0 +1,48 @@
+{
+    "tarjetas": {
+        "ventasHoy": "$45.200",
+        "alquileresActivos": 32,
+        "nuevosClientes": 5,
+        "stockCritico": 8
+    },
+    "ventasRecientes": [
+        {
+            "id": 1,
+            "numero": "#1045",
+            "producto": "Vinilo - The Dark Side of The Moon",
+            "importe": "$12.500",
+            "tiempo": "Hace 10 min"
+        },
+        {
+            "id": 2,
+            "numero": "#1046",
+            "producto": "Vinilo - Thriller",
+            "importe": "$12.500",
+            "tiempo": "Hace 20 min"
+        },
+        {
+            "id": 3,
+            "numero": "#1047",
+            "producto": "Vinilo - Origin Of Symmetry",
+            "importe": "$12.500",
+            "tiempo": "Hace 30 min"
+        }
+    ],
+    "devolucionesPendientes": [
+        {
+            "id": 1,
+            "cliente": "Leandro Seoane",
+            "titulo": "Donnie Darko (2001)"
+        },
+        {
+            "id": 2,
+            "cliente": "Lucrecia Pedraza",
+            "titulo": "El señor de los anillos: El Retorno del Rey (2003)"
+        },
+        {
+            "id": 3,
+            "cliente": "Martin Comito",
+            "titulo": "La gran estafa (2001)"
+        }
+    ]
+}
