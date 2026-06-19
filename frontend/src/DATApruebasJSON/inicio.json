@@ -1,9 +1,9 @@
 {
     "tarjetas": {
-        "ventasHoy": "$45.200",
-        "alquileresActivos": 32,
+        "ventasHoy": "$62.500",
+        "alquileresActivos": 15,
         "nuevosClientes": 5,
-        "stockCritico": 8
+        "stockCritico": 2
     },
     "ventasRecientes": [
         {
@@ -32,17 +32,17 @@
         {
             "id": 1,
             "cliente": "Leandro Seoane",
-            "titulo": "Donnie Darko (2001)"
+            "titulo": "Donnie Darko"
         },
         {
             "id": 2,
             "cliente": "Lucrecia Pedraza",
-            "titulo": "El Señor de los Anillos: El Retorno del Rey (2003)"
+            "titulo": "El Señor de los Anillos: El Retorno del Rey"
         },
         {
             "id": 3,
             "cliente": "Martin Comito",
-            "titulo": "La Gran Estafa (2001)"
+            "titulo": "La Gran Estafa"
         }
     ]
 }
