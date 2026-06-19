@@ -2,7 +2,7 @@ import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
 import alquileres from "../../DATApruebasJSON/alquileres.json";
-import { CalendarDays } from "lucide-react";
+import { CalendarClock } from "lucide-react";
 import "../../styles/variables.scss";
 
 function AlquileresPage() {
@@ -65,7 +65,7 @@ function AlquileresPage() {
 
             <div>
               <div className="flex items-center gap-2">
-                <CalendarDays size={18} className=" text-[var(--color-primario)]" />
+                <CalendarClock size={18} className=" text-[var(--color-primario)]" />
 
                 <h1 className="text-lg
                              font-semibold

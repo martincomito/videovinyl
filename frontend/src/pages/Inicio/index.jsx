@@ -4,14 +4,7 @@ import TarjetaInfoSimple from "../../components/TarjetaInfoSimple/TarjetaInfoSim
 import TarjetaInfoCompleta from "../../components/TarjetaInfoCompleta/TarjetaInfoCompleta";
 import dashboard from "../../DATApruebasJSON/inicio.json";
 import "../../styles/variables.scss";
-import {
-  TrendingUp,
-  CalendarClock,
-  Users,
-  AlertCircle,
-  ShoppingCart,
-  CalendarPlus,
-} from "lucide-react";
+import { TrendingUp, CalendarClock, Users, AlertCircle, ShoppingCart } from "lucide-react";
 
 function InicioPage() {
   return (
@@ -100,11 +93,11 @@ function InicioPage() {
                                     text-sm
                                     font-medium
                                     cursor-pointer
-                                    transition-opacity
-                                    hover:opacity-90
+                                    transition-colors
+                                    hover:bg-slate-50
                                 "
               >
-                <CalendarPlus size={16} />
+                <CalendarClock size={16} />
                 Nuevo Alquiler
               </button>
             </div>
@@ -270,8 +263,8 @@ function InicioPage() {
                                             text-xs
                                             font-medium
                                             cursor-pointer
-                                            transition-opacity
-                                            hover:opacity-90
+                                            transition-colors
+                                            hover:bg-slate-50
                                         "
                   >
                     Registrar Devolución

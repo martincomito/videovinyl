@@ -1,16 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../../styles/variables.scss";
-
-import {
-    House,
-    ShoppingCart,
-    CalendarDays,
-    Package,
-    Users,
-    Settings,
-    BarChart3,
-    LogOut,
-} from "lucide-react";
+import { House, ShoppingCart, CalendarClock, Package, Users, Settings, BarChart3, LogOut } from "lucide-react";
 
 const MenuLateral = () => {
     const location = useLocation();
@@ -36,7 +26,7 @@ const MenuLateral = () => {
         {
             texto: "Alquileres",
             ruta: "/alquileres",
-            icono: CalendarDays,
+            icono: CalendarClock,
         },
         {
             texto: "Inventario",

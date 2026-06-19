@@ -37,12 +37,12 @@
         {
             "id": 2,
             "cliente": "Lucrecia Pedraza",
-            "titulo": "El señor de los anillos: El Retorno del Rey (2003)"
+            "titulo": "El Señor de los Anillos: El Retorno del Rey (2003)"
         },
         {
             "id": 3,
             "cliente": "Martin Comito",
-            "titulo": "La gran estafa (2001)"
+            "titulo": "La Gran Estafa (2001)"
         }
     ]
 }
