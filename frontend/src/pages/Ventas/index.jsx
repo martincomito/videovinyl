@@ -1,7 +1,7 @@
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
-import ventas from "../../components/Lista/ventas.json";
+import ventas from "../../DATApruebasJSON/ventas.json";
 import { ShoppingCart, Eye } from "lucide-react";
 import "../../styles/variables.scss";
 
