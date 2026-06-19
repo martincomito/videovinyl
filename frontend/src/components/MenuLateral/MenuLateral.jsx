@@ -119,6 +119,7 @@ const MenuLateral = () => {
                         text-sm
                         text-[var(--color-texto-primario)]
                         hover:bg-[var(--color-menu-lateral-hover-fondo)]
+                        cursor-pointer
                     "
                 >
                     <LogOut size={18} />

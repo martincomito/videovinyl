@@ -1,0 +1,62 @@
+[
+  {
+    "fechaHora": "Hoy 15:30",
+    "tipo": "Alquiler",
+    "detalle": "DVD - Inception (Juan Pérez)",
+    "monto": 1200
+  },
+  {
+    "fechaHora": "Hoy 12:45",
+    "tipo": "Venta",
+    "detalle": "Vinilo - Abbey Road (Consumidor Final)",
+    "monto": 15000
+  },
+  {
+    "fechaHora": "Hoy 10:15",
+    "tipo": "Recargo",
+    "detalle": "Atraso VHS Matrix (Martín C.)",
+    "monto": 1000
+  },
+  {
+    "fechaHora": "Hoy 09:50",
+    "tipo": "Alquiler",
+    "detalle": "Blu-Ray - Interstellar (María Gómez)",
+    "monto": 1500
+  },
+  {
+    "fechaHora": "Ayer 19:20",
+    "tipo": "Venta",
+    "detalle": "Vinilo - Dark Side of the Moon (Carlos Ruiz)",
+    "monto": 18500
+  },
+  {
+    "fechaHora": "Ayer 18:05",
+    "tipo": "Recargo",
+    "detalle": "Atraso DVD Pulp Fiction (Ana Martínez)",
+    "monto": 800
+  },
+  {
+    "fechaHora": "Ayer 16:40",
+    "tipo": "Alquiler",
+    "detalle": "VHS - Back to the Future (Diego Sosa)",
+    "monto": 1000
+  },
+  {
+    "fechaHora": "Ayer 14:10",
+    "tipo": "Venta",
+    "detalle": "Vinilo - Thriller (Consumidor Final)",
+    "monto": 22000
+  },
+  {
+    "fechaHora": "Ayer 11:30",
+    "tipo": "Alquiler",
+    "detalle": "DVD - El Padrino (Lucía Fernández)",
+    "monto": 1200
+  },
+  {
+    "fechaHora": "Ayer 09:15",
+    "tipo": "Recargo",
+    "detalle": "Atraso Blu-Ray Gladiator (Federico Núñez)",
+    "monto": 1200
+  }
+]
