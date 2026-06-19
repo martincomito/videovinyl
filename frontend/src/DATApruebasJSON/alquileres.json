@@ -3,27 +3,27 @@
     "id": 1,
     "codigo": "A-501",
     "clienteNombre": "Martín Comito",
-    "producto": "Matrix (VHS)",
+    "producto": "La Gran Estafa",
     "fechaRetiro": "2026-04-20",
-    "fechaVencimiento": "2026-04-23",
-    "estado": "Atrasado"
+    "fechaVencimiento": "2026-04-25",
+    "estado": "Activo"
   },
   {
     "id": 2,
     "codigo": "A-502",
     "clienteNombre": "Lucrecia Pedraza",
-    "producto": "The Godfather (DVD)",
-    "fechaRetiro": "2026-04-24",
-    "fechaVencimiento": "2026-04-26",
+    "producto": "El Señor de los Anillos: El Retorno del Rey",
+    "fechaRetiro": "2026-04-20",
+    "fechaVencimiento": "2026-04-25",
     "estado": "Activo"
   },
   {
     "id": 3,
     "codigo": "A-503",
     "clienteNombre": "Leandro Seoane",
-    "producto": "Inception (DVD)",
-    "fechaRetiro": "2026-04-25",
-    "fechaVencimiento": "2026-04-27",
+    "producto": "Donnie Darko",
+    "fechaRetiro": "2026-04-20",
+    "fechaVencimiento": "2026-04-25",
     "estado": "Activo"
   },
   {

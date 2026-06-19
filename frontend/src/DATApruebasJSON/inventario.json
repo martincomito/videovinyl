@@ -12,7 +12,7 @@
   {
     "id": 2,
     "codigo": "P-101",
-    "titulo": "The Godfather",
+    "titulo": "Donnie Darko",
     "formato": "DVD",
     "stock": 3,
     "precioAlquiler": 1200,
@@ -22,7 +22,7 @@
   {
     "id": 3,
     "codigo": "P-102",
-    "titulo": "Matrix",
+    "titulo": "La Gran Estafa",
     "formato": "VHS",
     "stock": 1,
     "precioAlquiler": 1500,
@@ -52,7 +52,7 @@
   {
     "id": 6,
     "codigo": "P-105",
-    "titulo": "Dark Side of the Moon",
+    "titulo": "Origin of Symmetry",
     "formato": "Vinilo",
     "stock": 5,
     "precioAlquiler": null,
@@ -82,7 +82,7 @@
   {
     "id": 9,
     "codigo": "P-108",
-    "titulo": "The Shining",
+    "titulo": "El Señor de los Anillos: El Retorno del Rey",
     "formato": "VHS",
     "stock": 0,
     "precioAlquiler": 1000,

@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "nombre": "Admin General",
+        "email": "admin@videovinyl.com",
+        "rol": "Administrador",
+        "estado": true
+    },
+    {
+        "id": 2,
+        "nombre": "Empleado Ventas",
+        "email": "ventas@videovinyl.com",
+        "rol": "Empleado",
+        "estado": true
+    },
+    {
+        "id": 3,
+        "nombre": "Cajero Tarde",
+        "email": "caja_tarde@videovinyl.com",
+        "rol": "Empleado",
+        "estado": true
+    },
+    {
+        "id": 4,
+        "nombre": "Usuario Prueba",
+        "email": "test@videovinyl.com",
+        "rol": "Empleado",
+        "estado": false
+    },
+    {
+        "id": 5,
+        "nombre": "Kevin Del Bello",
+        "email": "kevinofbeautiful@videovinyl.com",
+        "rol": "Supervisor",
+        "estado": true
+    },
+    {
+        "id": 6,
+        "nombre": "Martin Comito",
+        "email": "tinchi@videovinyl.com",
+        "rol": "Empleado",
+        "estado": true
+    },
+    {
+        "id": 7,
+        "nombre": "Lucrecia Pedraza",
+        "email": "lucritilla@videovinyl.com",
+        "rol": "Empleado",
+        "estado": true
+    },
+    {
+        "id": 8,
+        "nombre": "Leandro Seoane",
+        "email": "lichon@videovinyl.com",
+        "rol": "Supervisor",
+        "estado": true
+    }
+]

@@ -1,6 +1,6 @@
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
-import usuarios from "../../components/Lista/usuarios.json";
+import usuarios from "../../DATApruebasJSON/usuarios.json";
 import Lista from "../../components/Lista/Lista";
 import { Settings } from "lucide-react";
 import "../../styles/variables.scss";

@@ -2,74 +2,56 @@ import { useMemo, useState } from "react";
 import { Search } from "lucide-react";
 import "../../styles/variables.scss";
 
-function Lista({
-    columnas = [],
-    datos = [],
-    mostrarBuscador = false,
-    titulo,
-}) {
-    const registrosPorPagina = 10;
+function Lista({ columnas = [], datos = [], mostrarBuscador = false, titulo }) {
+  const registrosPorPagina = 10;
 
-    const [paginaActual, setPaginaActual] = useState(1);
-    const [textoBusqueda, setTextoBusqueda] = useState("");
+  const [paginaActual, setPaginaActual] = useState(1);
+  const [textoBusqueda, setTextoBusqueda] = useState("");
 
-    const datosFiltrados = useMemo(() => {
-        if (!textoBusqueda.trim()) {
-            return datos;
-        }
+  const datosFiltrados = useMemo(() => {
+    if (!textoBusqueda.trim()) {
+      return datos;
+    }
 
-        const texto = textoBusqueda.toLowerCase();
+    const texto = textoBusqueda.toLowerCase();
 
-        return datos.filter((fila) =>
-            Object.values(fila).some((valor) =>
-                String(valor)
-                    .toLowerCase()
-                    .includes(texto)
-            )
-        );
-    }, [datos, textoBusqueda]);
-
-    const totalPaginas = Math.ceil(
-        datosFiltrados.length / registrosPorPagina
+    return datos.filter((fila) =>
+      Object.values(fila).some((valor) =>
+        String(valor).toLowerCase().includes(texto),
+      ),
     );
+  }, [datos, textoBusqueda]);
 
-    const datosPaginados = useMemo(() => {
-        const inicio =
-            (paginaActual - 1) *
-            registrosPorPagina;
+  const totalPaginas = Math.ceil(datosFiltrados.length / registrosPorPagina);
 
-        const fin =
-            inicio + registrosPorPagina;
+  const datosPaginados = useMemo(() => {
+    const inicio = (paginaActual - 1) * registrosPorPagina;
 
-        return datosFiltrados.slice(
-            inicio,
-            fin
-        );
-    }, [
-        datosFiltrados,
-        paginaActual,
-    ]);
+    const fin = inicio + registrosPorPagina;
 
-    return (
-        <div
-            className="
+    return datosFiltrados.slice(inicio, fin);
+  }, [datosFiltrados, paginaActual]);
+
+  return (
+    <div
+      className="
                 rounded-lg
                 border
                 border-[var(--color-lista-borde)]
                 bg-[var(--color-lista-fondo)]
             "
-        >
-            {titulo && (
-              <div className="px-4 pt-4 pb-2">
-                <h2 className="text-sm font-semibold text-[var(--color-texto-primario)]">
-                  {titulo}
-                </h2>
-              </div>
-            )}
+    >
+      {titulo && (
+        <div className="px-4 pt-4 pb-2">
+          <h2 className="text-sm font-semibold text-[var(--color-texto-primario)]">
+            {titulo}
+          </h2>
+        </div>
+      )}
 
-            {mostrarBuscador && (
-                <div
-                    className="
+      {mostrarBuscador && (
+        <div
+          className="
                         flex
                         items-center
                         justify-between
@@ -77,30 +59,28 @@ function Lista({
                         border-[var(--color-lista-borde)]
                         p-3
                     "
-                >
-                    <div className="relative w-full">
-                        <Search
-                            size={16}
-                            className="
+        >
+          <div className="relative w-full">
+            <Search
+              size={16}
+              className="
                                 absolute
                                 left-3
                                 top-1/2
                                 -translate-y-1/2
                                 text-slate-400
                             "
-                        />
+            />
 
-                        <input
-                            type="text"
-                            placeholder="Buscar..."
-                            value={textoBusqueda}
-                            onChange={(e) => {
-                                setTextoBusqueda(
-                                    e.target.value
-                                );
-                                setPaginaActual(1);
-                            }}
-                            className="
+            <input
+              type="text"
+              placeholder="Buscar..."
+              value={textoBusqueda}
+              onChange={(e) => {
+                setTextoBusqueda(e.target.value);
+                setPaginaActual(1);
+              }}
+              className="
                                 w-full
                                 rounded-md
                                 border
@@ -112,27 +92,24 @@ function Lista({
                                 outline-none
                                 focus:border-[var(--color-primario)]
                             "
-                        />
-                    </div>
-                </div>
-            )}
+            />
+          </div>
+        </div>
+      )}
 
-            <div className="overflow-x-auto">
-                <table className="w-full">
-                    <thead>
-                        <tr
-                            className="
+      <div className="overflow-x-auto">
+        <table className="w-full">
+          <thead>
+            <tr
+              className="
                                 border-b
                                 border-[var(--color-lista-borde)]
                             "
-                        >
-                            {columnas.map(
-                                (columna) => (
-                                    <th
-                                        key={
-                                            columna.key
-                                        }
-                                        className="
+            >
+              {columnas.map((columna) => (
+                <th
+                  key={columna.key}
+                  className="
                                             px-4
                                             py-3
                                             text-left
@@ -141,65 +118,45 @@ function Lista({
                                             uppercase
                                             text-[var(--color-lista-encabezado)]
                                         "
-                                    >
-                                        {
-                                            columna.label
-                                        }
-                                    </th>
-                                )
-                            )}
-                        </tr>
-                    </thead>
+                >
+                  {columna.label}
+                </th>
+              ))}
+            </tr>
+          </thead>
 
-                    <tbody>
-                        {datosPaginados.map(
-                            (fila) => (
-                                <tr
-                                    key={
-                                        fila.id
-                                    }
-                                    className="
+          <tbody>
+            {datosPaginados.map((fila) => (
+              <tr
+                key={fila.id}
+                className="
                                         border-b
                                         border-[var(--color-lista-borde)]
                                     "
-                                >
-                                    {columnas.map(
-                                        (
-                                            columna
-                                        ) => (
-                                            <td
-                                                key={
-                                                    columna.key
-                                                }
-                                                className="
+              >
+                {columnas.map((columna) => (
+                  <td
+                    key={columna.key}
+                    className="
                                                     px-4
                                                     py-3
                                                     text-sm
                                                 "
-                                            >
-                                                {columna.render
-                                                    ? columna.render(
-                                                        fila[
-                                                        columna.key
-                                                        ],
-                                                        fila
-                                                    )
-                                                    : fila[
-                                                    columna.key
-                                                    ]}
-                                            </td>
-                                        )
-                                    )}
-                                </tr>
-                            )
-                        )}
-                    </tbody>
-                </table>
-            </div>
+                  >
+                    {columna.render
+                      ? columna.render(fila[columna.key], fila)
+                      : fila[columna.key]}
+                  </td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
-            {totalPaginas > 1 && (
-                <div
-                    className="
+      {totalPaginas > 1 && (
+        <div
+          className="
                         flex
                         justify-center
                         gap-2
@@ -207,24 +164,16 @@ function Lista({
                         border-[var(--color-lista-borde)]
                         p-4
                     "
-                >
-                    {Array.from(
-                        {
-                            length:
-                                totalPaginas,
-                        },
-                        (_, index) => (
-                            <button
-                                key={
-                                    index + 1
-                                }
-                                onClick={() =>
-                                    setPaginaActual(
-                                        index +
-                                        1
-                                    )
-                                }
-                                className={`
+        >
+          {Array.from(
+            {
+              length: totalPaginas,
+            },
+            (_, index) => (
+              <button
+                key={index + 1}
+                onClick={() => setPaginaActual(index + 1)}
+                className={`
                                     min-w-[34px]
                                     rounded-md
                                     px-3
@@ -232,22 +181,21 @@ function Lista({
                                     text-sm
                                     transition-colors
                                     cursor-pointer
-                                    ${paginaActual ===
-                                        index +
-                                        1
+                                    ${
+                                      paginaActual === index + 1
                                         ? "bg-[var(--color-primario)] text-white"
                                         : "border border-slate-300 text-slate-500 hover:bg-slate-100"
                                     }
                                 `}
-                            >
-                                {index + 1}
-                            </button>
-                        )
-                    )}
-                </div>
-            )}
+              >
+                {index + 1}
+              </button>
+            ),
+          )}
         </div>
-    );
+      )}
+    </div>
+  );
 }
 
 export default Lista;

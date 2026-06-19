@@ -8,21 +8,21 @@
     },
     {
         "numeroVenta": 1049,
-        "fechaHora": "25-04-2026 12:15",
+        "fechaHora": "25-04-2026 14:20",
         "cliente": "María Gómez",
-        "total": "$8,200",
+        "total": "$12,500",
         "estado": "Completado"
     },
     {
         "numeroVenta": 1048,
-        "fechaHora": "25-04-2026 18:45",
+        "fechaHora": "25-04-2026 14:10",
         "cliente": "Consumidor Final",
-        "total": "$3,500",
+        "total": "$12,500",
         "estado": "Completado"
     },
     {
         "numeroVenta": 1047,
-        "fechaHora": "25-04-2026 15:20",
+        "fechaHora": "25-04-2026 13:20",
         "cliente": "Carlos Ruiz",
         "total": "$25,000",
         "estado": "Completado"
