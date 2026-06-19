@@ -4,54 +4,57 @@ import TarjetaInfoSimple from "../../components/TarjetaInfoSimple/TarjetaInfoSim
 import TarjetaInfoCompleta from "../../components/TarjetaInfoCompleta/TarjetaInfoCompleta";
 import dashboard from "../../DATApruebasJSON/inicio.json";
 import "../../styles/variables.scss";
+import { useNavigate } from "react-router-dom";
 import { TrendingUp, CalendarClock, Users, AlertCircle, ShoppingCart } from "lucide-react";
 
 function InicioPage() {
+  const navigate = useNavigate();
+
   return (
     <>
       <BarraSuperior />
 
       <div
         className="
-                    flex
-                    bg-[var(--color-fondo-paginas-primario)]
-                    h-[calc(100vh-50px)]
-                "
+          flex
+          bg-[var(--color-fondo-paginas-primario)]
+          h-[calc(100vh-50px)]
+        "
       >
         <MenuLateral />
 
         <main
           className="
-                        flex-1
-                        p-6
-                        overflow-auto
-                    "
+            flex-1
+            p-6
+            overflow-auto
+          "
         >
           <div
             className="
-                            mb-6
-                            flex
-                            items-start
-                            justify-between
-                        "
+              mb-6
+              flex
+              items-start
+              justify-between
+            "
           >
             <div>
               <h1
                 className="
-                                    text-3xl
-                                    font-bold
-                                    text-[var(--color-texto-primario)]
-                                "
+                  text-3xl
+                  font-bold
+                  text-[var(--color-texto-primario)]
+                "
               >
                 Panel de Control
               </h1>
 
               <p
                 className="
-                                    mt-1
-                                    text-sm
-                                    text-[var(--color-texto-secundario)]
-                                "
+                  mt-1
+                  text-sm
+                  text-[var(--color-texto-secundario)]
+                "
               >
                 Resumen del estado actual de la tienda.
               </p>
@@ -60,20 +63,20 @@ function InicioPage() {
             <div className="flex gap-2">
               <button
                 className="
-                                    flex
-                                    items-center
-                                    gap-2
-                                    rounded-lg
-                                    bg-[var(--color-boton-dashboard-primario)]
-                                    px-4
-                                    py-2
-                                    text-sm
-                                    font-medium
-                                    text-white
-                                    transition-opacity
-                                    hover:opacity-90
-                                    cursor-pointer
-                                "
+                  flex
+                  items-center
+                  gap-2
+                  rounded-lg
+                  bg-[var(--color-boton-dashboard-primario)]
+                  px-4
+                  py-2
+                  text-sm
+                  font-medium
+                  text-white
+                  transition-opacity
+                  hover:opacity-90
+                  cursor-pointer
+                "
               >
                 <ShoppingCart size={16} />
                 Nueva Venta
@@ -81,21 +84,21 @@ function InicioPage() {
 
               <button
                 className="
-                                    flex
-                                    items-center
-                                    gap-2
-                                    rounded-lg
-                                    border
-                                    border-[var(--color-card-borde)]
-                                    bg-white
-                                    px-4
-                                    py-2
-                                    text-sm
-                                    font-medium
-                                    cursor-pointer
-                                    transition-colors
-                                    hover:bg-slate-50
-                                "
+                  flex
+                  items-center
+                  gap-2
+                  rounded-lg
+                  border
+                  border-[var(--color-card-borde)]
+                  bg-white
+                  px-4
+                  py-2
+                  text-sm
+                  font-medium
+                  cursor-pointer
+                  transition-colors
+                  hover:bg-slate-50
+                "
               >
                 <CalendarClock size={16} />
                 Nuevo Alquiler
@@ -105,11 +108,11 @@ function InicioPage() {
 
           <div
             className="
-                            grid
-                            gap-4
-                            md:grid-cols-2
-                            xl:grid-cols-4
-                        "
+              grid
+              gap-4
+              md:grid-cols-2
+              xl:grid-cols-4
+            "
           >
             <TarjetaInfoSimple
               titulo="Ventas de hoy"
@@ -146,25 +149,26 @@ function InicioPage() {
 
           <div
             className="
-                            mt-6
-                            grid
-                            gap-6
-                            xl:grid-cols-2
-                        "
+              mt-6
+              grid
+              gap-6
+              xl:grid-cols-2
+            "
           >
             <TarjetaInfoCompleta
               titulo="Ventas Recientes"
               botonTexto="Ver todas"
+              onClickBoton={() => navigate("/ventas")}
               items={dashboard.ventasRecientes}
               renderItem={(venta) => (
                 <div
                   className="
-                                        flex
-                                        items-center
-                                        justify-between
-                                        px-4
-                                        py-3
-                                    "
+                    flex
+                    items-center
+                    justify-between
+                    px-4
+                    py-3
+                  "
                 >
                   <div>
                     <p className="text-sm font-semibold">
@@ -173,9 +177,9 @@ function InicioPage() {
 
                     <p
                       className="
-                                                text-xs
-                                                text-[var(--color-texto-secundario)]
-                                            "
+                        text-xs
+                        text-[var(--color-texto-secundario)]
+                      "
                     >
                       {venta.producto}
                     </p>
@@ -184,19 +188,19 @@ function InicioPage() {
                   <div className="text-right">
                     <p
                       className="
-                                                text-sm
-                                                font-semibold
-                                                text-green-600
-                                            "
+                        text-sm
+                        font-semibold
+                        text-green-600
+                      "
                     >
                       {venta.importe}
                     </p>
 
                     <p
                       className="
-                                                text-xs
-                                                text-[var(--color-texto-secundario)]
-                                            "
+                        text-xs
+                        text-[var(--color-texto-secundario)]
+                      "
                     >
                       {venta.tiempo}
                     </p>
@@ -208,31 +212,32 @@ function InicioPage() {
             <TarjetaInfoCompleta
               titulo="Devoluciones Pendientes (Hoy)"
               botonTexto="Ver alquileres"
+              onClickBoton={() => navigate("/alquileres")}
               items={dashboard.devolucionesPendientes}
               renderItem={(item) => (
                 <div
                   className="
-                                        flex
-                                        items-center
-                                        justify-between
-                                        px-4
-                                        py-3
-                                    "
+                    flex
+                    items-center
+                    justify-between
+                    px-4
+                    py-3
+                  "
                 >
                   <div className="flex gap-3">
                     <div
                       className="
-                                                flex
-                                                h-8
-                                                w-8
-                                                items-center
-                                                justify-center
-                                                rounded-md
-                                                bg-red-100
-                                                text-red-600
-                                                text-[10px]
-                                                font-bold
-                                            "
+                        flex
+                        h-8
+                        w-8
+                        items-center
+                        justify-center
+                        rounded-md
+                        bg-red-100
+                        text-red-600
+                        text-[10px]
+                        font-bold
+                      "
                     >
                       VHS
                     </div>
@@ -244,9 +249,9 @@ function InicioPage() {
 
                       <p
                         className="
-                                                    text-xs
-                                                    text-[var(--color-texto-secundario)]
-                                                "
+                          text-xs
+                          text-[var(--color-texto-secundario)]
+                        "
                       >
                         {item.titulo}
                       </p>
@@ -254,18 +259,18 @@ function InicioPage() {
                   </div>
 
                   <button
-                    className="   
-                                            rounded-md
-                                            border
-                                            border-[var(--color-card-borde)]
-                                            px-3
-                                            py-1.5
-                                            text-xs
-                                            font-medium
-                                            cursor-pointer
-                                            transition-colors
-                                            hover:bg-slate-50
-                                        "
+                    className="
+                      rounded-md
+                      border
+                      border-[var(--color-card-borde)]
+                      px-3
+                      py-1.5
+                      text-xs
+                      font-medium
+                      cursor-pointer
+                      transition-colors
+                      hover:bg-slate-50
+                    "
                   >
                     Registrar Devolución
                   </button>
