@@ -131,16 +131,6 @@ function TarjetaLogin() {
                     </button>
                 </div>
 
-                <div className="flex items-center text-sm">
-                    <label className="flex items-center gap-2">
-                        <input
-                            type="checkbox"
-                            className="h-4 w-4"
-                        />
-                        Recordarme
-                    </label>
-                </div>
-
                 {error && (
                     <p className="text-sm text-red-500 text-center">{error}</p>
                 )}
