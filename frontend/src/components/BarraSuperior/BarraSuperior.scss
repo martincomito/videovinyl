@@ -1,86 +1,85 @@
 @use "../../styles/variables.scss";
 
 .barra-superior {
-    width: 100%;
-    height: 50px;
-    background-color: variables.$color-barra-superior-primario-fondo;
+  width: 100%;
+  height: 60px;
+  background-color: variables.$color-barra-superior-primario-fondo;
+
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+
+  border-bottom: 1px solid #dcdcdc;
+
+  &__logo {
+    align-self: stretch;
 
     display: flex;
-    align-items: stretch;
-    justify-content: space-between;
+    align-items: center;
+    padding-right: 20px;
+    border-right: 1px solid #dcdcdc;
 
-    border-bottom: 1px solid #dcdcdc;
+    img {
+      height: 50px;
+      width: 210px;
+      object-fit: contain;
+      cursor: pointer;
+    }
+  }
 
-    &__logo {
+  &__usuario {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: sans-serif;
+    cursor: pointer;
+    padding-left: 12px;
+    border-radius: 8px;
+    transition: background-color 0.15s;
 
-        align-self: stretch;
+    &:hover {
+      background-color: #f5f5f5;
+    }
+  }
 
-        display: flex;
-        align-items: center;
-        padding-right: 20px;
-        border-right: 1px solid #dcdcdc;
+  &__datos {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
 
-        img {
-            height: 50px;
-            width: 210px;
-            object-fit: contain;
-            cursor: pointer;
-        }
+    .nombre {
+      font-size: 13px;
+      font-weight: 600;
+      color: #222;
     }
 
-    &__usuario {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        font-family: sans-serif;
-        cursor: pointer;
-        padding-left: 12px;
-        border-radius: 8px;
-        transition: background-color 0.15s;
-
-        &:hover {
-            background-color: #f5f5f5;
-        }
+    .email {
+      font-size: 11px;
+      color: #777;
     }
+  }
 
-    &__datos {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
+  &__avatar {
+    width: 34px;
+    height: 34px;
+    margin-right: 24px;
 
-        .nombre {
-            font-size: 13px;
-            font-weight: 600;
-            color: #222;
-        }
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #f2d6df;
 
-        .email {
-            font-size: 11px;
-            color: #777;
-        }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 14px;
+    font-weight: bold;
+    color: #7d3b53;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
-
-    &__avatar {
-        width: 34px;
-        height: 34px;
-        margin-right: 24px;
-
-        border-radius: 50%;
-        overflow: hidden;
-        background-color: #f2d6df;
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-
-        font-size: 14px;
-        font-weight: bold;
-        color: #7d3b53;
-
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    }
+  }
 }
