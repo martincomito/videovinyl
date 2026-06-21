@@ -1,3 +1,4 @@
+import { Op } from 'sequelize';
 import { sequelize, Venta, VentaProducto, Producto, Cliente, Usuario, MetodoPago } from '../models/index.js';
 
 const ventaConDetalle = (id) =>
@@ -12,20 +13,42 @@ const ventaConDetalle = (id) =>
 
 const getAll = async (req, res, next) => {
   try {
-    const { estado } = req.query;
+    const { estado, q, pagina = 1, limite = 10 } = req.query;
     const where = {};
     if (estado) where.estado = estado;
-    const ventas = await Venta.findAll({
+
+    if (q) {
+      where[Op.or] = [
+        { '$cliente.nombre$': { [Op.iLike]: `%${q}%` } },
+        { '$cliente.apellido$': { [Op.iLike]: `%${q}%` } },
+        { '$cliente.dni$': { [Op.iLike]: `%${q}%` } },
+      ];
+    }
+
+    const limit = Math.min(Math.max(parseInt(limite) || 10, 1), 100);
+    const pg = Math.max(parseInt(pagina) || 1, 1);
+    const offset = (pg - 1) * limit;
+
+    const { count, rows } = await Venta.findAndCountAll({
       where,
       include: [
         { model: Cliente, as: 'cliente', attributes: ['id', 'nombre', 'apellido', 'dni'] },
         { model: Usuario, as: 'usuario', attributes: ['id', 'nombre', 'apellido'] },
         { model: MetodoPago, as: 'metodoPago', attributes: ['id', 'nombre'] },
-        { model: Producto, as: 'productos', through: { attributes: ['cantidad', 'precio_unitario'] } },
       ],
       order: [['fecha', 'DESC']],
+      limit,
+      offset,
+      subQuery: false,
+      distinct: true,
     });
-    res.json(ventas);
+
+    res.json({
+      datos: rows,
+      total: count,
+      pagina: pg,
+      totalPaginas: Math.ceil(count / limit) || 1,
+    });
   } catch (error) {
     next(error);
   }

@@ -1,15 +1,39 @@
+import { Op } from 'sequelize';
 import { Cliente, Venta, Alquiler, Producto, MetodoPago } from '../models/index.js';
 
 const getAll = async (req, res, next) => {
   try {
-    const { estado } = req.query;
+    const { estado, q, pagina = 1, limite = 10 } = req.query;
     const where = {};
     if (estado) where.estado = estado;
-    const clientes = await Cliente.findAll({
+
+    if (q) {
+      where[Op.or] = [
+        { nombre: { [Op.iLike]: `%${q}%` } },
+        { apellido: { [Op.iLike]: `%${q}%` } },
+        { dni: { [Op.iLike]: `%${q}%` } },
+        { email: { [Op.iLike]: `%${q}%` } },
+        { telefono: { [Op.iLike]: `%${q}%` } },
+      ];
+    }
+
+    const limit = Math.min(Math.max(parseInt(limite) || 10, 1), 100);
+    const pg = Math.max(parseInt(pagina) || 1, 1);
+    const offset = (pg - 1) * limit;
+
+    const { count, rows } = await Cliente.findAndCountAll({
       where,
       order: [['apellido', 'ASC'], ['nombre', 'ASC']],
+      limit,
+      offset,
     });
-    res.json(clientes);
+
+    res.json({
+      datos: rows,
+      total: count,
+      pagina: pg,
+      totalPaginas: Math.ceil(count / limit) || 1,
+    });
   } catch (error) {
     next(error);
   }

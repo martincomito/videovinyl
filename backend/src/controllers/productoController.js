@@ -1,4 +1,5 @@
-import { Producto, Alquiler } from '../models/index.js';
+import { Op } from 'sequelize';
+import { Producto, Alquiler, TarifaAlquiler } from '../models/index.js';
 
 const calcularEstadoInventario = (producto, cantidadAlquileresActivos) => {
   if (producto.stock > 0) return 'disponible';
@@ -8,31 +9,48 @@ const calcularEstadoInventario = (producto, cantidadAlquileresActivos) => {
 
 const getAll = async (req, res, next) => {
   try {
-    const { tipo, estado } = req.query;
+    const { tipo, estado: estadoFilter, q, pagina = 1, limite = 10 } = req.query;
     const where = {};
     if (tipo) where.tipo = tipo;
 
-    const productos = await Producto.findAll({
-      where,
-      include: [{
-        model: Alquiler,
-        as: 'alquileres',
-        where: { estado: 'activo' },
-        required: false,
-        attributes: ['id'],
-      }],
-      order: [['titulo', 'ASC']],
-    });
+    if (q) {
+      where[Op.or] = [
+        { titulo: { [Op.iLike]: `%${q}%` } },
+        { descripcion: { [Op.iLike]: `%${q}%` } },
+      ];
+    }
 
-    const result = productos.map(p => {
+    const [productos, tarifas] = await Promise.all([
+      Producto.findAll({
+        where,
+        include: [{ model: Alquiler, as: 'alquileres', where: { estado: 'activo' }, required: false, attributes: ['id'] }],
+        order: [['titulo', 'ASC']],
+      }),
+      TarifaAlquiler.findAll(),
+    ]);
+
+    const tarifaMap = Object.fromEntries(tarifas.map(t => [t.tipo, t.precio_por_dia]));
+
+    let result = productos.map(p => {
       const data = p.toJSON();
       const estadoInventario = calcularEstadoInventario(p, data.alquileres.length);
       delete data.alquileres;
-      return { ...data, estadoInventario };
+      return { ...data, estadoInventario, precioAlquiler: tarifaMap[data.tipo] ?? null };
     });
 
-    const filtered = estado ? result.filter(p => p.estadoInventario === estado) : result;
-    res.json(filtered);
+    if (estadoFilter) result = result.filter(p => p.estadoInventario === estadoFilter);
+
+    const limit = Math.min(Math.max(parseInt(limite) || 10, 1), 100);
+    const pg = Math.max(parseInt(pagina) || 1, 1);
+    const total = result.length;
+    const offset = (pg - 1) * limit;
+
+    res.json({
+      datos: result.slice(offset, offset + limit),
+      total,
+      pagina: pg,
+      totalPaginas: Math.ceil(total / limit) || 1,
+    });
   } catch (error) {
     next(error);
   }

@@ -1,17 +1,39 @@
+import { Op } from 'sequelize';
 import { Usuario } from '../models/index.js';
 
 const getAll = async (req, res, next) => {
   try {
-    const { estado, rol } = req.query;
+    const { estado, rol, q, pagina = 1, limite = 10 } = req.query;
     const where = {};
     if (estado) where.estado = estado;
     if (rol) where.rol = rol;
-    const usuarios = await Usuario.findAll({
+
+    if (q) {
+      where[Op.or] = [
+        { nombre: { [Op.iLike]: `%${q}%` } },
+        { apellido: { [Op.iLike]: `%${q}%` } },
+        { email: { [Op.iLike]: `%${q}%` } },
+      ];
+    }
+
+    const limit = Math.min(Math.max(parseInt(limite) || 10, 1), 100);
+    const pg = Math.max(parseInt(pagina) || 1, 1);
+    const offset = (pg - 1) * limit;
+
+    const { count, rows } = await Usuario.findAndCountAll({
       where,
       attributes: { exclude: ['password'] },
       order: [['apellido', 'ASC'], ['nombre', 'ASC']],
+      limit,
+      offset,
     });
-    res.json(usuarios);
+
+    res.json({
+      datos: rows,
+      total: count,
+      pagina: pg,
+      totalPaginas: Math.ceil(count / limit) || 1,
+    });
   } catch (error) {
     next(error);
   }
