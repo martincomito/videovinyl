@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
+import ModalNuevoCliente from "../../components/Modal/ModalNuevoCliente";
 import { User } from "lucide-react";
 import "../../styles/variables.scss";
 import { getClientes } from "../../api/clientes.js";
@@ -25,6 +26,7 @@ function ClientesPage() {
   const [pagina, setPagina] = useState(1);
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(false);
+  const [modalAbierto, setModalAbierto] = useState(false);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
 
@@ -109,6 +111,7 @@ function ClientesPage() {
               <button
                 className="flex items-center gap-1 rounded-md bg-[var(--color-boton-primario)]
                   px-4 py-2 text-xs font-medium text-white hover:opacity-90 cursor-pointer"
+                onClick={() => setModalAbierto(true)}
               >
                 + Nuevo Cliente
               </button>
@@ -128,6 +131,7 @@ function ClientesPage() {
           />
         </main>
       </div>
+      <ModalNuevoCliente isOpen={modalAbierto} onClose={() => setModalAbierto(false)} />
     </>
   );
 }

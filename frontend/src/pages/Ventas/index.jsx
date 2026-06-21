@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
+import ModalNuevaVenta from "../../components/Modal/ModalNuevaVenta";
 import { ShoppingCart, Eye } from "lucide-react";
 import "../../styles/variables.scss";
 import { getVentas } from "../../api/ventas.js";
@@ -25,6 +26,7 @@ function VentasPage() {
   const [pagina, setPagina] = useState(1);
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(false);
+  const [modalAbierto, setModalAbierto] = useState(false);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
 
@@ -110,6 +112,7 @@ function VentasPage() {
                 px-4 py-2 text-xs font-medium text-white
                 transition-opacity hover:opacity-90
               "
+              onClick={() => setModalAbierto(true)}
             >
               + Nueva Venta
             </button>
@@ -128,6 +131,7 @@ function VentasPage() {
           />
         </main>
       </div>
+      <ModalNuevaVenta isOpen={modalAbierto} onClose={() => setModalAbierto(false)} />
     </>
   );
 }

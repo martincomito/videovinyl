@@ -16,7 +16,7 @@ const Alquiler = sequelize.define('Alquiler', {
   },
   metodoPagoId: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   fecha_inicio: {
     type: DataTypes.DATEONLY,
@@ -39,6 +39,14 @@ const Alquiler = sequelize.define('Alquiler', {
     type: DataTypes.ENUM('activo', 'devuelto', 'vencido'),
     allowNull: false,
     defaultValue: 'activo',
+  },
+  recargo_cobrado: {
+    type: DataTypes.BOOLEAN,
+    allowNull: true,
+  },
+  estado_producto_devuelto: {
+    type: DataTypes.ENUM('bueno', 'malo'),
+    allowNull: true,
   },
 }, {
   tableName: 'alquileres',

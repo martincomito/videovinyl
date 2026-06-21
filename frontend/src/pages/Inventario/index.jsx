@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
+import ModalAgregarProducto from "../../components/Modal/ModalAgregarProducto";
 import { Package } from "lucide-react";
 import "../../styles/variables.scss";
 import { getProductos } from "../../api/productos.js";
@@ -26,6 +27,7 @@ function InventarioPage() {
   const [pagina, setPagina] = useState(1);
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(false);
+  const [modalAbierto, setModalAbierto] = useState(false);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
 
@@ -138,6 +140,7 @@ function InventarioPage() {
               <button
                 className="flex items-center gap-1 rounded-md bg-[var(--color-boton-primario)]
                   px-4 py-2 text-xs font-medium text-white hover:opacity-90 cursor-pointer"
+                onClick={() => setModalAbierto(true)}
               >
                 + Agregar Producto
               </button>
@@ -157,6 +160,7 @@ function InventarioPage() {
           />
         </main>
       </div>
+      <ModalAgregarProducto isOpen={modalAbierto} onClose={() => setModalAbierto(false)} />
     </>
   );
 }

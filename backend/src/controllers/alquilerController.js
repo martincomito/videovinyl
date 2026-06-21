@@ -117,13 +117,24 @@ const registrarDevolucion = async (req, res, next) => {
       await t.rollback();
       return res.status(404).json({ error: 'Alquiler no encontrado' });
     }
-    if (alquiler.estado !== 'activo') {
+    if (alquiler.estado === 'devuelto') {
       await t.rollback();
-      return res.status(400).json({ error: 'El alquiler no está activo' });
+      return res.status(400).json({ error: 'El alquiler ya fue devuelto' });
     }
 
-    const fecha_devolucion_real = req.body.fecha_devolucion_real || new Date().toISOString().split('T')[0];
-    await alquiler.update({ estado: 'devuelto', fecha_devolucion_real }, { transaction: t });
+    const { fecha_devolucion_real, metodoPagoId, recargo_cobrado, estado_producto_devuelto } = req.body;
+    const fechaReal = fecha_devolucion_real || new Date().toISOString().split('T')[0];
+
+    await alquiler.update(
+      {
+        estado: 'devuelto',
+        fecha_devolucion_real: fechaReal,
+        metodoPagoId: metodoPagoId || null,
+        recargo_cobrado: recargo_cobrado ?? false,
+        estado_producto_devuelto: estado_producto_devuelto || null,
+      },
+      { transaction: t }
+    );
 
     const producto = await Producto.findByPk(alquiler.productoId, { transaction: t, lock: true });
     await producto.increment('stock', { by: 1, transaction: t });

@@ -1,7 +1,11 @@
+import { useState } from "react";
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import TarjetaInfoSimple from "../../components/TarjetaInfoSimple/TarjetaInfoSimple";
 import TarjetaInfoCompleta from "../../components/TarjetaInfoCompleta/TarjetaInfoCompleta";
+import ModalNuevaVenta from "../../components/Modal/ModalNuevaVenta";
+import ModalNuevoAlquiler from "../../components/Modal/ModalNuevoAlquiler";
+import ModalRegistrarDevolucion from "../../components/Modal/ModalRegistrarDevolucion";
 import dashboard from "../../DATApruebasJSON/inicio.json";
 import "../../styles/variables.scss";
 import { useNavigate } from "react-router-dom";
@@ -9,6 +13,9 @@ import { TrendingUp, CalendarClock, Users, AlertCircle, ShoppingCart } from "luc
 
 function InicioPage() {
   const navigate = useNavigate();
+  const [modalVenta, setModalVenta] = useState(false);
+  const [modalAlquiler, setModalAlquiler] = useState(false);
+  const [modalDevolucion, setModalDevolucion] = useState(false);
 
   return (
     <>
@@ -77,6 +84,7 @@ function InicioPage() {
                   hover:opacity-90
                   cursor-pointer
                 "
+                onClick={() => setModalVenta(true)}
               >
                 <ShoppingCart size={16} />
                 Nueva Venta
@@ -99,6 +107,7 @@ function InicioPage() {
                   transition-colors
                   hover:bg-slate-50
                 "
+                onClick={() => setModalAlquiler(true)}
               >
                 <CalendarClock size={16} />
                 Nuevo Alquiler
@@ -271,6 +280,7 @@ function InicioPage() {
                       transition-colors
                       hover:bg-slate-50
                     "
+                    onClick={() => setModalDevolucion(true)}
                   >
                     Registrar Devolución
                   </button>
@@ -280,6 +290,9 @@ function InicioPage() {
           </div>
         </main>
       </div>
+      <ModalNuevaVenta isOpen={modalVenta} onClose={() => setModalVenta(false)} />
+      <ModalNuevoAlquiler isOpen={modalAlquiler} onClose={() => setModalAlquiler(false)} />
+      <ModalRegistrarDevolucion isOpen={modalDevolucion} onClose={() => setModalDevolucion(false)} />
     </>
   );
 }

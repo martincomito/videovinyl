@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
+import ModalNuevoAlquiler from "../../components/Modal/ModalNuevoAlquiler";
+import ModalRegistrarDevolucion from "../../components/Modal/ModalRegistrarDevolucion";
 import { CalendarClock } from "lucide-react";
 import "../../styles/variables.scss";
 import { getAlquileres } from "../../api/alquileres.js";
@@ -25,6 +27,8 @@ function AlquileresPage() {
   const [pagina, setPagina] = useState(1);
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(false);
+  const [modalAlquiler, setModalAlquiler] = useState(false);
+  const [modalDevolucion, setModalDevolucion] = useState(false);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
 
@@ -118,12 +122,14 @@ function AlquileresPage() {
                 className="flex items-center gap-1 rounded-md border border-[var(--color-lista-borde)]
                   bg-white px-4 py-2 text-xs font-medium text-[var(--color-texto-primario)]
                   hover:bg-slate-50 cursor-pointer"
+                onClick={() => setModalDevolucion(true)}
               >
                 Registrar Devolución
               </button>
               <button
                 className="flex items-center gap-1 rounded-md bg-[var(--color-boton-primario)]
                   px-4 py-2 text-xs font-medium text-white hover:opacity-90 cursor-pointer"
+                onClick={() => setModalAlquiler(true)}
               >
                 + Nuevo Alquiler
               </button>
@@ -144,6 +150,8 @@ function AlquileresPage() {
           />
         </main>
       </div>
+      <ModalNuevoAlquiler isOpen={modalAlquiler} onClose={() => setModalAlquiler(false)} />
+      <ModalRegistrarDevolucion isOpen={modalDevolucion} onClose={() => setModalDevolucion(false)} />
     </>
   );
 }

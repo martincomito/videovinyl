@@ -1,0 +1,208 @@
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.45);
+  animation: modal-fade-in 0.15s ease;
+}
+
+.modal-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  animation: modal-scale-in 0.15s ease;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 20px 14px;
+  border-bottom: 1px solid var(--color-lista-borde);
+  flex-shrink: 0;
+}
+
+.modal-titulo {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-texto-primario);
+  margin: 0;
+}
+
+.modal-cerrar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--color-texto-secundario);
+  cursor: pointer;
+  transition: background 0.1s;
+
+  &:hover {
+    background: #f1f5f9;
+    color: var(--color-texto-primario);
+  }
+}
+
+.modal-body {
+  padding: 20px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 14px 20px;
+  border-top: 1px solid var(--color-lista-borde);
+  flex-shrink: 0;
+}
+
+.modal-btn-cancelar {
+  padding: 7px 16px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid var(--color-lista-borde);
+  background: #ffffff;
+  color: var(--color-texto-primario);
+  cursor: pointer;
+  transition: background 0.1s;
+
+  &:hover:not(:disabled) {
+    background: #f8fafc;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.modal-btn-confirmar {
+  padding: 7px 16px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  background: var(--color-boton-primario);
+  color: #ffffff;
+  cursor: pointer;
+  transition: opacity 0.1s;
+
+  &:hover:not(:disabled) {
+    opacity: 0.88;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// Clase compartida por todos los subcomponentes de modal
+.modal-input {
+  width: 100%;
+  border: 1px solid var(--color-lista-borde);
+  border-radius: 6px;
+  padding: 7px 10px;
+  font-size: 0.8125rem;
+  color: var(--color-texto-primario);
+  outline: none;
+  transition: border-color 0.15s;
+  background: #fff;
+
+  &::placeholder {
+    color: #b0b8c4;
+  }
+
+  &:focus {
+    border-color: var(--color-primario);
+  }
+}
+
+// Guardia de cierre — overlay sobre la card
+.modal-guardia-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.88);
+  border-radius: 10px;
+  backdrop-filter: blur(3px);
+  animation: modal-fade-in 0.1s ease;
+}
+
+.modal-guardia-card {
+  background: #fff;
+  border: 1px solid var(--color-lista-borde);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  padding: 24px 20px 20px;
+  width: 90%;
+  max-width: 310px;
+  text-align: center;
+}
+
+.modal-guardia-icono {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+  color: #f59e0b;
+}
+
+.modal-guardia-texto {
+  font-size: 0.8125rem;
+  color: var(--color-texto-primario);
+  line-height: 1.55;
+  margin: 0 0 18px;
+}
+
+.modal-guardia-botones {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.modal-btn-descartar {
+  padding: 7px 16px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: none;
+  background: #ef4444;
+  color: #ffffff;
+  cursor: pointer;
+  transition: opacity 0.1s;
+
+  &:hover {
+    opacity: 0.88;
+  }
+}
+
+@keyframes modal-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes modal-scale-in {
+  from { opacity: 0; transform: scale(0.96) translateY(-6px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
+import ModalAnadirUsuario from "../../components/Modal/ModalAnadirUsuario";
 import { Settings } from "lucide-react";
 import "../../styles/variables.scss";
 import { getUsuarios } from "../../api/usuarios.js";
@@ -21,6 +22,7 @@ function UsuariosPage() {
   const [pagina, setPagina] = useState(1);
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(false);
+  const [modalAbierto, setModalAbierto] = useState(false);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
 
@@ -96,6 +98,7 @@ function UsuariosPage() {
 
             <button
               className="rounded-md bg-[var(--color-boton-primario)] px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-90"
+              onClick={() => setModalAbierto(true)}
             >
               + Añadir Usuario
             </button>
@@ -114,6 +117,7 @@ function UsuariosPage() {
           />
         </main>
       </div>
+      <ModalAnadirUsuario isOpen={modalAbierto} onClose={() => setModalAbierto(false)} />
     </>
   );
 }
