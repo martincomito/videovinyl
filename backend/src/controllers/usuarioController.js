@@ -103,4 +103,22 @@ const remove = async (req, res, next) => {
   }
 };
 
-export { getAll, getById, create, update, remove };
+const cambiarPassword = async (req, res, next) => {
+  try {
+    const { nuevaPassword } = req.body;
+    if (!nuevaPassword || nuevaPassword.length < 6) {
+      return res.status(400).json({ error: 'La contraseña debe tener al menos 6 caracteres.' });
+    }
+    const usuario = await Usuario.findByPk(req.usuario.id);
+    if (!usuario) return res.status(404).json({ error: 'Usuario no encontrado' });
+    await usuario.update({
+      password: await bcrypt.hash(nuevaPassword, 10),
+      debe_cambiar_password: false,
+    });
+    res.json({ ok: true });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { getAll, getById, create, update, remove, cambiarPassword };

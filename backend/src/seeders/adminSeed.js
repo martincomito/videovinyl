@@ -22,6 +22,7 @@ const [usuario, created] = await Usuario.upsert({
   apellido: 'VideoVinyl',
   rol: 'admin',
   estado: 'activo',
+  debe_cambiar_password: false,
 });
 
 console.log(created ? 'Usuario admin creado.' : 'Usuario admin actualizado.');

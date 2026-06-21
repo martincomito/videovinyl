@@ -39,6 +39,7 @@ const login = async (req, res, next) => {
         email: usuario.email,
         rol: usuario.rol,
         avatar: usuario.avatar || null,
+        debe_cambiar_password: usuario.debe_cambiar_password,
       },
     });
   } catch (error) {
