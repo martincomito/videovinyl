@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Search, AlertTriangle, CheckCircle2, ChevronRight } from "lucide-react";
 import Modal from "./Modal";
+import { useToast } from "../../context/ToastContext";
 import { getAlquileres, registrarDevolucion } from "../../api/alquileres";
 import { getClientes } from "../../api/clientes";
 import { getMetodosPago } from "../../api/metodosPago";
@@ -24,6 +25,7 @@ function calcularDiasRetraso(fechaEsperada) {
 }
 
 function ModalRegistrarDevolucion({ isOpen, onClose, onSuccess, preseleccionada = null }) {
+  const showToast = useToast();
   const [form, setForm] = useState(estadoInicial);
   const [resultadosCliente, setResultadosCliente] = useState([]);
   const [alquileresCliente, setAlquileresCliente] = useState([]);
@@ -132,6 +134,7 @@ function ModalRegistrarDevolucion({ isOpen, onClose, onSuccess, preseleccionada 
       setForm(estadoInicial);
       setResultadosCliente([]);
       setAlquileresCliente([]);
+      showToast('success', 'Devolución registrada');
       onSuccess?.();
       onClose();
     } catch (err) {

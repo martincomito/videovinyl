@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { ShieldCheck, User, Eye, EyeOff, Trash2, AlertTriangle } from "lucide-react";
 import Modal from "./Modal";
 import { updateUsuario, deleteUsuario } from "../../api/usuarios";
+import { useToast } from "../../context/ToastContext";
 
 const ROLES = [
   {
@@ -42,6 +43,7 @@ const estadoDesdeUsuario = (u) =>
       };
 
 function ModalEditarUsuario({ isOpen, onClose, onSuccess, usuario }) {
+  const showToast = useToast();
   const [form, setForm] = useState(() => estadoDesdeUsuario(usuario));
   const estadoInicialRef = useRef(estadoDesdeUsuario(usuario));
   const [verPassword, setVerPassword] = useState(false);
@@ -114,6 +116,7 @@ function ModalEditarUsuario({ isOpen, onClose, onSuccess, usuario }) {
       };
       if (form.nuevaPassword) payload.password = form.nuevaPassword;
       await updateUsuario(usuario.id, payload);
+      showToast('success', 'Usuario actualizado');
       onSuccess?.();
       onClose();
     } catch (err) {
@@ -129,6 +132,7 @@ function ModalEditarUsuario({ isOpen, onClose, onSuccess, usuario }) {
     setCargandoEliminar(true);
     try {
       await deleteUsuario(usuario.id);
+      showToast('success', 'Usuario eliminado');
       onSuccess?.();
       onClose();
     } catch (err) {

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { UserX, UserCheck, AlertTriangle } from "lucide-react";
 import Modal from "./Modal";
 import { updateCliente } from "../../api/clientes";
+import { useToast } from "../../context/ToastContext";
 
 const estadoDesdeCliente = (c) =>
   c
@@ -15,6 +16,7 @@ const estadoDesdeCliente = (c) =>
     : { nombre: "", apellido: "", documento: "", telefono: "", email: "" };
 
 function ModalEditarCliente({ isOpen, onClose, onSuccess, cliente }) {
+  const showToast = useToast();
   const [form, setForm] = useState(() => estadoDesdeCliente(cliente));
   const estadoInicialRef = useRef(estadoDesdeCliente(cliente));
   const [confirmandoDeshabilitar, setConfirmandoDeshabilitar] = useState(false);
@@ -56,6 +58,7 @@ function ModalEditarCliente({ isOpen, onClose, onSuccess, cliente }) {
         telefono: form.telefono.trim(),
         email: form.email.trim() || null,
       });
+      showToast('success', 'Cliente actualizado');
       onSuccess?.();
       onClose();
     } catch (err) {
@@ -73,6 +76,7 @@ function ModalEditarCliente({ isOpen, onClose, onSuccess, cliente }) {
       await updateCliente(cliente.id, {
         estado: esInactivo ? "activo" : "inactivo",
       });
+      showToast('success', esInactivo ? 'Cliente habilitado' : 'Cliente deshabilitado');
       onSuccess?.();
       onClose();
     } catch (err) {

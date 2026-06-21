@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Disc3, Film } from "lucide-react";
 import Modal from "./Modal";
 import { getTarifasAlquiler, updateTarifaAlquiler } from "../../api/productos";
+import { useToast } from "../../context/ToastContext";
 
 const FORMATOS = [
   { tipo: "DVD", label: "DVD", Icono: Disc3 },
@@ -17,6 +18,7 @@ const estadoDesde = (tarifas) => {
 };
 
 function ModalTarifasAlquiler({ isOpen, onClose }) {
+  const showToast = useToast();
   const [form, setForm] = useState({ DVD: "", VHS: "" });
   const estadoInicialRef = useRef({ DVD: "", VHS: "" });
   const [cargandoDatos, setCargandoDatos] = useState(false);
@@ -60,6 +62,7 @@ function ModalTarifasAlquiler({ isOpen, onClose }) {
       if (form.VHS !== estadoInicialRef.current.VHS)
         promesas.push(updateTarifaAlquiler("VHS", parseFloat(form.VHS)));
       await Promise.all(promesas);
+      showToast('success', 'Tarifas actualizadas');
       onClose();
     } catch (err) {
       setError(

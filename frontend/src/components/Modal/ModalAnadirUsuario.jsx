@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ShieldCheck, User, Eye, EyeOff } from "lucide-react";
 import Modal from "./Modal";
 import { createUsuario } from "../../api/usuarios";
+import { useToast } from "../../context/ToastContext";
 
 const estadoInicial = { nombre: "", apellido: "", email: "", password: "", rol: "empleado" };
 
@@ -22,6 +23,7 @@ const ROLES = [
 ];
 
 function ModalAnadirUsuario({ isOpen, onClose, onSuccess }) {
+  const showToast = useToast();
   const [form, setForm] = useState(estadoInicial);
   const [verPassword, setVerPassword] = useState(false);
   const [cargando, setCargando] = useState(false);
@@ -51,6 +53,7 @@ function ModalAnadirUsuario({ isOpen, onClose, onSuccess }) {
         estado: "activo",
       });
       setForm(estadoInicial);
+      showToast('success', 'Usuario agregado');
       onSuccess?.();
       onClose();
     } catch (err) {

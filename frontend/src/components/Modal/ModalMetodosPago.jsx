@@ -2,8 +2,10 @@ import { useState, useEffect, useRef } from "react";
 import { Plus, Trash2 } from "lucide-react";
 import Modal from "./Modal";
 import { getMetodosPago, createMetodoPago, updateMetodoPago } from "../../api/metodosPago";
+import { useToast } from "../../context/ToastContext";
 
 function ModalMetodosPago({ isOpen, onClose }) {
+  const showToast = useToast();
   const [metodos, setMetodos] = useState([]);
   const originalesRef = useRef([]);
   const [nuevo, setNuevo] = useState("");
@@ -58,6 +60,7 @@ function ModalMetodosPago({ isOpen, onClose }) {
       }
 
       await Promise.all(promesas);
+      showToast('success', 'Métodos de pago actualizados');
       onClose();
     } catch (err) {
       setError(

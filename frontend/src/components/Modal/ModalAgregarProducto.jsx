@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import Modal from "./Modal";
 import { createProducto, getTarifasAlquiler } from "../../api/productos";
+import { useToast } from "../../context/ToastContext";
 
 const TIPOS_ALQUILABLES = ["VHS", "DVD"];
 const estadoInicial = { titulo: "", formato: "VHS", cantidad: "1", precioVenta: "" };
 
 function ModalAgregarProducto({ isOpen, onClose, onSuccess }) {
+  const showToast = useToast();
   const [form, setForm] = useState(estadoInicial);
   const [tarifas, setTarifas] = useState([]);
   const [cargando, setCargando] = useState(false);
@@ -39,6 +41,7 @@ function ModalAgregarProducto({ isOpen, onClose, onSuccess }) {
         stock: parseInt(form.cantidad, 10),
       });
       setForm(estadoInicial);
+      showToast('success', 'Producto agregado');
       onSuccess?.();
       onClose();
     } catch (err) {

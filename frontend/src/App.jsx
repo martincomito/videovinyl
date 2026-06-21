@@ -1,4 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastProvider } from "./context/ToastContext";
 import InicioPage from "./pages/Inicio/index.jsx";
 import VentasPage from "./pages/Ventas/index.jsx";
 import AlquileresPage from "./pages/Alquileres/index.jsx";
@@ -12,6 +13,7 @@ import AdminRoute from "./components/AdminRoute/AdminRoute.jsx";
 
 function App() {
   return (
+    <ToastProvider>
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<LoginPage />} />
@@ -28,6 +30,7 @@ function App() {
         </Route>
       </Routes>
     </BrowserRouter>
+    </ToastProvider>
   );
 }
 

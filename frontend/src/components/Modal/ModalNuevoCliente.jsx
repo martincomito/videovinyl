@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Modal from "./Modal";
 import { createCliente } from "../../api/clientes";
+import { useToast } from "../../context/ToastContext";
 
 const estadoInicial = {
   nombre: "",
@@ -12,6 +13,7 @@ const estadoInicial = {
 };
 
 function ModalNuevoCliente({ isOpen, onClose, onSuccess }) {
+  const showToast = useToast();
   const [form, setForm] = useState(estadoInicial);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState(null);
@@ -41,6 +43,7 @@ function ModalNuevoCliente({ isOpen, onClose, onSuccess }) {
         direccion: form.direccion.trim(),
       });
       setForm(estadoInicial);
+      showToast('success', 'Cliente agregado');
       onSuccess?.();
       onClose();
     } catch (err) {

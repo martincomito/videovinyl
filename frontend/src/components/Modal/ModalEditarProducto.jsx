@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Trash2, AlertTriangle } from "lucide-react";
 import Modal from "./Modal";
+import { useToast } from "../../context/ToastContext";
 import {
   updateProducto,
   deleteProducto,
@@ -19,6 +20,7 @@ const estadoDesdeProducto = (p) =>
     : { titulo: "", stock: "0", precioVenta: "" };
 
 function ModalEditarProducto({ isOpen, onClose, onSuccess, producto }) {
+  const showToast = useToast();
   const [form, setForm] = useState(() => estadoDesdeProducto(producto));
   const estadoInicialRef = useRef(estadoDesdeProducto(producto));
   const [tarifas, setTarifas] = useState([]);
@@ -63,6 +65,7 @@ function ModalEditarProducto({ isOpen, onClose, onSuccess, producto }) {
         stock: parseInt(form.stock, 10),
         precio_venta: form.precioVenta ? parseFloat(form.precioVenta) : null,
       });
+      showToast('success', 'Producto actualizado');
       onSuccess?.();
       onClose();
     } catch (err) {
@@ -78,6 +81,7 @@ function ModalEditarProducto({ isOpen, onClose, onSuccess, producto }) {
     setCargandoEliminar(true);
     try {
       await deleteProducto(producto.id);
+      showToast('success', 'Producto eliminado');
       onSuccess?.();
       onClose();
     } catch (err) {

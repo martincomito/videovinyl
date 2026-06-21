@@ -5,6 +5,7 @@ import { getClientes } from "../../api/clientes";
 import { getProductos } from "../../api/productos";
 import { getMetodosPago } from "../../api/metodosPago";
 import { createVenta } from "../../api/ventas";
+import { useToast } from "../../context/ToastContext";
 
 const estadoInicial = {
   clienteBusqueda: "",
@@ -16,6 +17,7 @@ const estadoInicial = {
 };
 
 function ModalNuevaVenta({ isOpen, onClose, onSuccess }) {
+  const showToast = useToast();
   const [form, setForm] = useState(estadoInicial);
   const [resultadosCliente, setResultadosCliente] = useState([]);
   const [resultadosProducto, setResultadosProducto] = useState([]);
@@ -140,6 +142,7 @@ function ModalNuevaVenta({ isOpen, onClose, onSuccess }) {
       setForm(estadoInicial);
       setResultadosCliente([]);
       setResultadosProducto([]);
+      showToast('success', 'Venta registrada');
       onSuccess?.();
       onClose();
     } catch (err) {

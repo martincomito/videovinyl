@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
 import Modal from "./Modal";
+import { useToast } from "../../context/ToastContext";
 import { getClientes } from "../../api/clientes";
 import { getProductos } from "../../api/productos";
 import { createAlquiler } from "../../api/alquileres";
@@ -22,6 +23,7 @@ function calcularTotal(producto, fechaDevolucion) {
 }
 
 function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
+  const showToast = useToast();
   const [form, setForm] = useState(estadoInicial);
   const [resultadosCliente, setResultadosCliente] = useState([]);
   const [resultadosProducto, setResultadosProducto] = useState([]);
@@ -109,6 +111,7 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
       setForm(estadoInicial);
       setResultadosCliente([]);
       setResultadosProducto([]);
+      showToast('success', 'Alquiler registrado');
       onSuccess?.();
       onClose();
     } catch (err) {
