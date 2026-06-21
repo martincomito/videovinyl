@@ -123,14 +123,16 @@ const getDeuda = async (req, res, next) => {
 
     const items = [
       ...ventas.map(v => {
-        const pagado = v.pagos.reduce((s, p) => s + parseFloat(p.monto), 0);
-        const saldo = parseFloat(v.total) - pagado;
-        return { id: v.id, tipo: 'venta', descripcion: `Venta #${v.id}`, total: parseFloat(v.total), pagado, saldo, fecha: v.fecha };
+        const pagado = v.pagos.reduce((s, p) => s + (p.monto != null ? parseFloat(p.monto) : 0), 0);
+        const total = v.total != null ? parseFloat(v.total) : 0;
+        const saldo = total - pagado;
+        return { id: v.id, tipo: 'venta', descripcion: `Venta #${v.id}`, total, pagado, saldo, fecha: v.fecha };
       }).filter(v => v.saldo > 0.001),
       ...alquileres.map(a => {
-        const pagado = a.pagos.reduce((s, p) => s + parseFloat(p.monto), 0);
-        const saldo = parseFloat(a.monto) - pagado;
-        return { id: a.id, tipo: 'alquiler', descripcion: a.producto?.titulo ?? `Alquiler #${a.id}`, total: parseFloat(a.monto), pagado, saldo, fecha: a.fecha_inicio };
+        const pagado = a.pagos.reduce((s, p) => s + (p.monto != null ? parseFloat(p.monto) : 0), 0);
+        const total = a.monto != null ? parseFloat(a.monto) : 0;
+        const saldo = total - pagado;
+        return { id: a.id, tipo: 'alquiler', descripcion: a.producto?.titulo ?? `Alquiler #${a.id}`, total, pagado, saldo, fecha: a.fecha_inicio };
       }).filter(a => a.saldo > 0.001),
     ];
 

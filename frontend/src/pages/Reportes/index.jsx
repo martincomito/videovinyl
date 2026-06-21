@@ -182,7 +182,7 @@ function ReportesPage() {
       head: [["Formato", "Total ingresos"]],
       body: ingresosPorFormato.map((r) => [
         r.tipo,
-        `$${r.total.toLocaleString("es-AR")}`,
+        `$${(r.total ?? 0).toLocaleString("es-AR")}`,
       ]),
       styles: { fontSize: 10 },
       headStyles: { fillColor: AZUL },
@@ -202,7 +202,7 @@ function ReportesPage() {
         formatearFechaHora(t.fechaHora),
         t.tipo,
         t.detalle,
-        `$${t.monto.toLocaleString("es-AR")}`,
+        `$${(t.monto ?? 0).toLocaleString("es-AR")}`,
       ]),
       styles: { fontSize: 9 },
       headStyles: { fillColor: AZUL },

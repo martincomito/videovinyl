@@ -82,7 +82,7 @@ const getReportes = async (req, res, next) => {
         : v.productos?.[0]?.titulo
           ? `${v.productos[0].titulo} (${v.productos[0].tipo})`
           : '—',
-      monto: parseFloat(v.total),
+      monto: v.total != null ? parseFloat(v.total) : 0,
     }));
 
     const txAlquileres = alquileres.map((a) => ({
@@ -90,7 +90,7 @@ const getReportes = async (req, res, next) => {
       fechaHora: a.fecha_inicio,
       tipo: 'Alquiler',
       detalle: a.producto ? `${a.producto.titulo} (${a.producto.tipo})` : '—',
-      monto: parseFloat(a.monto),
+      monto: a.monto != null ? parseFloat(a.monto) : 0,
     }));
 
     const transacciones = [...txVentas, ...txAlquileres]

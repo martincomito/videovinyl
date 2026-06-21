@@ -87,7 +87,7 @@ const getDashboard = async (req, res, next) => {
         _alquiler: {
           id: a.id,
           fecha_devolucion_esperada: a.fecha_devolucion_esperada,
-          monto: parseFloat(a.monto),
+          monto: a.monto != null ? parseFloat(a.monto) : 0,
           producto: { tipo: a.producto.tipo, titulo: a.producto.titulo },
         },
       })),
