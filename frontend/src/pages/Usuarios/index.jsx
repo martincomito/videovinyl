@@ -4,7 +4,8 @@ import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
 import ModalAnadirUsuario from "../../components/Modal/ModalAnadirUsuario";
 import ModalEditarUsuario from "../../components/Modal/ModalEditarUsuario";
-import { Settings, Pencil } from "lucide-react";
+import ModalMetodosPago from "../../components/Modal/ModalMetodosPago";
+import { Settings, Pencil, CreditCard } from "lucide-react";
 import "../../styles/variables.scss";
 import { getUsuarios } from "../../api/usuarios.js";
 import useDebouncedValue from "../../hooks/useDebouncedValue.js";
@@ -29,6 +30,7 @@ function UsuariosPage() {
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(false);
   const [modalAbierto, setModalAbierto] = useState(false);
+  const [modalMetodosPago, setModalMetodosPago] = useState(false);
   const [usuarioParaEditar, setUsuarioParaEditar] = useState(null);
   const [version, setVersion] = useState(0);
 
@@ -105,12 +107,21 @@ function UsuariosPage() {
               </p>
             </div>
 
-            <button
-              className="rounded-md bg-[var(--color-boton-primario)] px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-90"
-              onClick={() => setModalAbierto(true)}
-            >
-              + Añadir Usuario
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                className="flex items-center gap-1.5 rounded-md border border-[var(--color-lista-borde)] bg-white px-4 py-2 text-xs font-medium text-[var(--color-texto-primario)] hover:bg-slate-50 cursor-pointer"
+                onClick={() => setModalMetodosPago(true)}
+              >
+                <CreditCard size={13} />
+                Métodos de pago
+              </button>
+              <button
+                className="rounded-md bg-[var(--color-boton-primario)] px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-90"
+                onClick={() => setModalAbierto(true)}
+              >
+                + Añadir Usuario
+              </button>
+            </div>
           </div>
 
           <Lista
@@ -126,6 +137,10 @@ function UsuariosPage() {
           />
         </main>
       </div>
+      <ModalMetodosPago
+        isOpen={modalMetodosPago}
+        onClose={() => setModalMetodosPago(false)}
+      />
       <ModalAnadirUsuario
         isOpen={modalAbierto}
         onClose={() => setModalAbierto(false)}
