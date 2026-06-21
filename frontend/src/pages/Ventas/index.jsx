@@ -3,6 +3,7 @@ import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
 import ModalNuevaVenta from "../../components/Modal/ModalNuevaVenta";
+import ModalDetalleVenta from "../../components/Modal/ModalDetalleVenta";
 import { ShoppingCart, Eye } from "lucide-react";
 import "../../styles/variables.scss";
 import { getVentas } from "../../api/ventas.js";
@@ -27,6 +28,7 @@ function VentasPage() {
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(false);
   const [modalAbierto, setModalAbierto] = useState(false);
+  const [ventaDetalle, setVentaDetalle] = useState(null);
   const [version, setVersion] = useState(0);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
@@ -72,12 +74,10 @@ function VentasPage() {
     {
       key: "acciones",
       label: "Acciones",
-      render: () => (
+      render: (_, fila) => (
         <button
-          className="
-            flex items-center gap-1 rounded border border-slate-300
-            px-2 py-1 text-xs hover:bg-slate-50
-          "
+          className="flex items-center gap-1 rounded border border-slate-300 px-2 py-1 text-xs hover:bg-slate-50 cursor-pointer"
+          onClick={() => setVentaDetalle(fila.id)}
         >
           <Eye size={12} />
           Ver Detalle
@@ -136,6 +136,11 @@ function VentasPage() {
         isOpen={modalAbierto}
         onClose={() => setModalAbierto(false)}
         onSuccess={() => setVersion((v) => v + 1)}
+      />
+      <ModalDetalleVenta
+        isOpen={ventaDetalle !== null}
+        onClose={() => setVentaDetalle(null)}
+        ventaId={ventaDetalle}
       />
     </>
   );
