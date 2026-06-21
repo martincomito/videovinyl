@@ -38,6 +38,12 @@ function UsuariosPage() {
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
 
   useEffect(() => {
+    const handler = () => setVersion((v) => v + 1);
+    window.addEventListener('usuario-actualizado', handler);
+    return () => window.removeEventListener('usuario-actualizado', handler);
+  }, []);
+
+  useEffect(() => {
     setPagina(1);
   }, [busquedaDebounced]);
 
@@ -172,15 +178,7 @@ function UsuariosPage() {
       <ModalEditarUsuario
         isOpen={usuarioParaEditar !== null}
         onClose={() => setUsuarioParaEditar(null)}
-        onSuccess={(actualizado) => {
-          if (actualizado) {
-            setDatos((prev) =>
-              prev.map((u) => u.id === actualizado.id ? transformar(actualizado) : u)
-            );
-          } else {
-            setVersion((v) => v + 1);
-          }
-        }}
+        onSuccess={() => {}}
         usuario={usuarioParaEditar}
       />
     </>

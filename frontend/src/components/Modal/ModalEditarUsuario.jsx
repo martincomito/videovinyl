@@ -131,6 +131,7 @@ function ModalEditarUsuario({ isOpen, onClose, onSuccess, usuario }) {
         }));
       }
       showToast('success', 'Usuario actualizado');
+      window.dispatchEvent(new CustomEvent('usuario-actualizado'));
       onSuccess?.(usuarioActualizado);
       onClose();
     } catch (err) {
