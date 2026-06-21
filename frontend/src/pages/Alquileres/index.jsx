@@ -155,7 +155,7 @@ function AlquileresPage() {
             columnas={columnas}
             datos={datos}
             mostrarBuscador
-            placeholderBuscador="Buscar por Cliente, DNI o Producto..."
+            placeholderBuscador="Buscar por Cliente o Producto..."
             totalRegistros={total}
             paginaActual={pagina}
             onCambioPagina={setPagina}
