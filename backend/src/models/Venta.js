@@ -4,7 +4,7 @@ import sequelize from '../config/database.js';
 const Venta = sequelize.define('Venta', {
   clienteId: {
     type: DataTypes.INTEGER,
-    allowNull: false,
+    allowNull: true,
   },
   usuarioId: {
     type: DataTypes.INTEGER,

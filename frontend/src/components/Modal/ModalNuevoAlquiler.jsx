@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search } from "lucide-react";
 import Modal from "./Modal";
 import { useToast } from "../../context/ToastContext";
 import { getClientes } from "../../api/clientes";
 import { getProductos } from "../../api/productos";
 import { createAlquiler } from "../../api/alquileres";
+import { getMetodosPago } from "../../api/metodosPago";
 import { calcularAlquiler } from "../../utils/calculos.js";
 
 const estadoInicial = {
@@ -13,6 +14,7 @@ const estadoInicial = {
   productoBusqueda: "",
   productoSeleccionado: null,
   fechaDevolucion: "",
+  metodoPagoId: "",
 };
 
 function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
@@ -24,8 +26,16 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
   const [buscandoProducto, setBuscandoProducto] = useState(false);
   const [sinResultadosCliente, setSinResultadosCliente] = useState(false);
   const [sinResultadosProducto, setSinResultadosProducto] = useState(false);
+  const [metodosPago, setMetodosPago] = useState([]);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    getMetodosPago()
+      .then((res) => setMetodosPago(res.data.filter((m) => m.activo)))
+      .catch(() => setMetodosPago([]));
+  }, [isOpen]);
 
   const handleBuscarCliente = async () => {
     if (!form.clienteBusqueda.trim()) return;
@@ -88,7 +98,8 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
     form.productoSeleccionado !== null &&
     form.productoSeleccionado?.stock > 0 &&
     form.productoSeleccionado?.precioAlquiler != null &&
-    form.fechaDevolucion !== "";
+    form.fechaDevolucion !== "" &&
+    form.metodoPagoId !== "";
 
   const handleConfirmar = async () => {
     setCargando(true);
@@ -99,6 +110,7 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
         clienteId: form.clienteSeleccionado.id,
         productoId: form.productoSeleccionado.id,
         usuarioId,
+        metodoPagoId: parseInt(form.metodoPagoId, 10),
         fecha_devolucion_esperada: form.fechaDevolucion,
       });
       setForm(estadoInicial);
@@ -339,6 +351,23 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
               className="modal-input bg-slate-50 text-[var(--color-texto-secundario)]"
             />
           </div>
+        </div>
+
+        {/* Método de pago */}
+        <div className="flex flex-col gap-1">
+          <label className="text-xs font-medium text-[var(--color-texto-primario)]">
+            Método de Pago
+          </label>
+          <select
+            value={form.metodoPagoId}
+            onChange={(e) => setForm((prev) => ({ ...prev, metodoPagoId: e.target.value }))}
+            className="modal-input"
+          >
+            <option value="">Seleccionar método de pago...</option>
+            {metodosPago.map((m) => (
+              <option key={m.id} value={m.id}>{m.nombre}</option>
+            ))}
+          </select>
         </div>
 
         {error && (
