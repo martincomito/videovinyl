@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+@layer base {
+  button,
+  [role="button"],
+  select,
+  label[for],
+  summary {
+    cursor: pointer;
+  }
+}
