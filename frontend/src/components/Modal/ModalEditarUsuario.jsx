@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { ShieldCheck, User, Eye, EyeOff, Trash2, AlertTriangle } from "lucide-react";
 import Modal from "./Modal";
+import AvatarPicker from "../AvatarPicker/AvatarPicker";
 import { updateUsuario, deleteUsuario } from "../../api/usuarios";
 import { useToast } from "../../context/ToastContext";
 
@@ -29,6 +30,7 @@ const estadoDesdeUsuario = (u) =>
         email: u._email,
         rol: u._rol,
         estado: u._estado,
+        avatar: u._avatar || "",
         nuevaPassword: "",
         repetirPassword: "",
       }
@@ -38,6 +40,7 @@ const estadoDesdeUsuario = (u) =>
         email: "",
         rol: "empleado",
         estado: "activo",
+        avatar: "",
         nuevaPassword: "",
         repetirPassword: "",
       };
@@ -113,9 +116,20 @@ function ModalEditarUsuario({ isOpen, onClose, onSuccess, usuario }) {
         email: form.email.trim(),
         rol: form.rol,
         estado: form.estado,
+        avatar: form.avatar || null,
       };
       if (form.nuevaPassword) payload.password = form.nuevaPassword;
       await updateUsuario(usuario.id, payload);
+      if (esPropiacuenta) {
+        const actual = JSON.parse(localStorage.getItem("usuario") || "{}");
+        localStorage.setItem("usuario", JSON.stringify({
+          ...actual,
+          nombre: payload.nombre,
+          apellido: payload.apellido,
+          email: payload.email,
+          avatar: payload.avatar,
+        }));
+      }
       showToast('success', 'Usuario actualizado');
       onSuccess?.();
       onClose();
@@ -177,6 +191,15 @@ function ModalEditarUsuario({ isOpen, onClose, onSuccess, usuario }) {
       accionIzquierda={botonEliminar}
     >
       <div className="flex flex-col gap-4">
+
+        <div className="flex justify-center">
+          <AvatarPicker
+            value={form.avatar}
+            onChange={(v) => setForm((prev) => ({ ...prev, avatar: v }))}
+            nombre={form.nombre}
+            apellido={form.apellido}
+          />
+        </div>
 
         <div className="flex gap-3">
           <div className="flex flex-col gap-1 flex-1">

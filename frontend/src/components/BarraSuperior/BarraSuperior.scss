@@ -33,6 +33,14 @@
         align-items: center;
         gap: 12px;
         font-family: sans-serif;
+        cursor: pointer;
+        padding-left: 12px;
+        border-radius: 8px;
+        transition: background-color 0.15s;
+
+        &:hover {
+            background-color: #f5f5f5;
+        }
     }
 
     &__datos {
@@ -58,6 +66,7 @@
         margin-right: 24px;
 
         border-radius: 50%;
+        overflow: hidden;
         background-color: #f2d6df;
 
         display: flex;

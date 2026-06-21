@@ -35,6 +35,10 @@ const Usuario = sequelize.define('Usuario', {
     allowNull: false,
     defaultValue: false,
   },
+  avatar: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
 }, {
   tableName: 'usuarios',
   timestamps: true,

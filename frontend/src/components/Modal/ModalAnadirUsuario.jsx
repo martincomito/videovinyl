@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { ShieldCheck, User, Eye, EyeOff } from "lucide-react";
 import Modal from "./Modal";
+import AvatarPicker from "../AvatarPicker/AvatarPicker";
 import { createUsuario } from "../../api/usuarios";
 import { useToast } from "../../context/ToastContext";
 
-const estadoInicial = { nombre: "", apellido: "", email: "", password: "", rol: "empleado" };
+const estadoInicial = { nombre: "", apellido: "", email: "", password: "", rol: "empleado", avatar: "" };
 
 const ROLES = [
   {
@@ -51,6 +52,7 @@ function ModalAnadirUsuario({ isOpen, onClose, onSuccess }) {
         password: form.password,
         rol: form.rol,
         estado: "activo",
+        avatar: form.avatar || null,
       });
       setForm(estadoInicial);
       showToast('success', 'Usuario agregado');
@@ -81,6 +83,15 @@ function ModalAnadirUsuario({ isOpen, onClose, onSuccess }) {
       puedeConfirmar={isValid}
     >
       <div className="flex flex-col gap-4">
+
+        <div className="flex justify-center">
+          <AvatarPicker
+            value={form.avatar}
+            onChange={(v) => setForm((prev) => ({ ...prev, avatar: v }))}
+            nombre={form.nombre}
+            apellido={form.apellido}
+          />
+        </div>
 
         <div className="flex gap-3">
           <div className="flex flex-col gap-1 flex-1">

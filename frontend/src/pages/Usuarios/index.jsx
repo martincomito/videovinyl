@@ -21,6 +21,7 @@ const transformar = (u) => ({
   _email: u.email,
   _rol: u.rol,
   _estado: u.estado,
+  _avatar: u.avatar || "",
 });
 
 function UsuariosPage() {
@@ -53,7 +54,29 @@ function UsuariosPage() {
 
   const columnas = [
     { key: "id", label: "ID" },
-    { key: "nombre", label: "Nombre" },
+    {
+      key: "nombre",
+      label: "Nombre",
+      render: (valor, fila) => (
+        <div className="flex items-center gap-2.5">
+          {fila._avatar ? (
+            <img
+              src={fila._avatar}
+              alt=""
+              className="w-7 h-7 rounded-full object-cover shrink-0"
+            />
+          ) : (
+            <div className="w-7 h-7 rounded-full bg-slate-200 flex items-center justify-center shrink-0">
+              <span className="text-[10px] font-semibold text-slate-500">
+                {(fila._nombre[0] || "").toUpperCase()}
+                {(fila._apellido[0] || "").toUpperCase()}
+              </span>
+            </div>
+          )}
+          <span>{valor}</span>
+        </div>
+      ),
+    },
     { key: "email", label: "Email" },
     {
       key: "rol",

@@ -6,7 +6,7 @@ import errorHandler from './middlewares/errorHandler.js';
 const app = express();
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '5mb' }));
 app.use('/api', routes);
 app.use(errorHandler);
 

@@ -54,9 +54,9 @@ const getById = async (req, res, next) => {
 
 const create = async (req, res, next) => {
   try {
-    const { nombre, apellido, email, password, rol, estado } = req.body;
+    const { nombre, apellido, email, password, rol, estado, avatar } = req.body;
     const hash = await bcrypt.hash(password, 10);
-    const usuario = await Usuario.create({ nombre, apellido, email, password: hash, rol, estado });
+    const usuario = await Usuario.create({ nombre, apellido, email, password: hash, rol, estado, avatar: avatar || null });
     const { password: _, ...data } = usuario.toJSON();
     res.status(201).json(data);
   } catch (error) {
@@ -69,7 +69,7 @@ const update = async (req, res, next) => {
     const usuario = await Usuario.findByPk(req.params.id);
     if (!usuario) return res.status(404).json({ error: 'Usuario no encontrado' });
 
-    const { nombre, apellido, email, password, rol, estado } = req.body;
+    const { nombre, apellido, email, password, rol, estado, avatar } = req.body;
     const esPropioUsuario = parseInt(req.params.id) === req.usuario.id;
 
     if (esPropioUsuario && estado === 'inactivo') {
@@ -82,6 +82,7 @@ const update = async (req, res, next) => {
     if (email !== undefined) datos.email = email;
     if (rol !== undefined) datos.rol = rol;
     if (estado !== undefined) datos.estado = estado;
+    if (avatar !== undefined) datos.avatar = avatar || null;
     if (password) datos.password = await bcrypt.hash(password, 10);
     await usuario.update(datos);
     const { password: _, ...data } = usuario.toJSON();
