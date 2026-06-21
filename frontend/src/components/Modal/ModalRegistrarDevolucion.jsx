@@ -54,7 +54,7 @@ function ModalRegistrarDevolucion({ isOpen, onClose, onSuccess, preseleccionada 
     setSinResultadosCliente(false);
     Promise.all([getMetodosPago(), getTarifasAlquiler()])
       .then(([metRes, tarRes]) => {
-        setMetodosPago(metRes.data);
+        setMetodosPago(metRes.data.filter((m) => m.activo));
         setTarifas(tarRes.data);
       })
       .catch(() => {});

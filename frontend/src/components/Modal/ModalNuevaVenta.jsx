@@ -32,7 +32,7 @@ function ModalNuevaVenta({ isOpen, onClose, onSuccess }) {
   useEffect(() => {
     if (!isOpen) return;
     getMetodosPago()
-      .then((res) => setMetodosPago(res.data))
+      .then((res) => setMetodosPago(res.data.filter((m) => m.activo)))
       .catch(() => setMetodosPago([]));
   }, [isOpen]);
 
