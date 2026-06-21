@@ -8,6 +8,7 @@ import UsuariosPage from "./pages/Usuarios/index.jsx";
 import ReportesPage from "./pages/Reportes/index.jsx";
 import LoginPage from "./pages/Login/index.jsx";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute.jsx";
+import AdminRoute from "./components/AdminRoute/AdminRoute.jsx";
 
 function App() {
   return (
@@ -20,8 +21,10 @@ function App() {
           <Route path="/alquileres" element={<AlquileresPage />} />
           <Route path="/inventario" element={<InventarioPage />} />
           <Route path="/clientes" element={<ClientesPage />} />
-          <Route path="/usuarios" element={<UsuariosPage />} />
-          <Route path="/reportes" element={<ReportesPage />} />
+          <Route element={<AdminRoute />}>
+            <Route path="/usuarios" element={<UsuariosPage />} />
+            <Route path="/reportes" element={<ReportesPage />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

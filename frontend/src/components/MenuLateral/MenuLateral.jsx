@@ -2,53 +2,29 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import "../../styles/variables.scss";
 import { House, ShoppingCart, CalendarClock, Package, Users, Settings, BarChart3, LogOut } from "lucide-react";
 
+const ITEMS = [
+    { texto: "Inicio", ruta: "/", icono: House },
+    { texto: "Ventas", ruta: "/ventas", icono: ShoppingCart },
+    { texto: "Alquileres", ruta: "/alquileres", icono: CalendarClock },
+    { texto: "Inventario", ruta: "/inventario", icono: Package },
+    { texto: "Clientes", ruta: "/clientes", icono: Users },
+    { texto: "Usuarios", ruta: "/usuarios", icono: Settings, soloAdmin: true },
+    { texto: "Reportes", ruta: "/reportes", icono: BarChart3, soloAdmin: true },
+];
+
 const MenuLateral = () => {
     const location = useLocation();
     const navigate = useNavigate();
+
+    const usuario = JSON.parse(localStorage.getItem("usuario") || "{}");
+    const esAdmin = usuario?.rol === "admin";
+    const items = ITEMS.filter((item) => !item.soloAdmin || esAdmin);
 
     const handleLogout = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("usuario");
         navigate("/login");
     };
-
-    const items = [
-        {
-            texto: "Inicio",
-            ruta: "/",
-            icono: House,
-        },
-        {
-            texto: "Ventas",
-            ruta: "/ventas",
-            icono: ShoppingCart,
-        },
-        {
-            texto: "Alquileres",
-            ruta: "/alquileres",
-            icono: CalendarClock,
-        },
-        {
-            texto: "Inventario",
-            ruta: "/inventario",
-            icono: Package,
-        },
-        {
-            texto: "Clientes",
-            ruta: "/clientes",
-            icono: Users,
-        },
-        {
-            texto: "Usuarios",
-            ruta: "/usuarios",
-            icono: Settings,
-        },
-        {
-            texto: "Reportes",
-            ruta: "/reportes",
-            icono: BarChart3,
-        },
-    ];
 
     return (
         <aside
