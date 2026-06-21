@@ -1,9 +1,10 @@
 import express from 'express';
-import { getAll, getById, create, update, remove } from '../controllers/clienteController.js';
+import { getAll, getById, create, update, remove, getDeuda } from '../controllers/clienteController.js';
 
 const router = express.Router();
 
 router.get('/', getAll);
+router.get('/:id/deuda', getDeuda);
 router.get('/:id', getById);
 router.post('/', create);
 router.put('/:id', update);

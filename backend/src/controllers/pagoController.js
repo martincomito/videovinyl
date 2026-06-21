@@ -1,4 +1,5 @@
 import { Pago, Venta, Alquiler, MetodoPago } from '../models/index.js';
+import { sincronizarEstadoCliente } from '../utils/clienteUtils.js';
 
 const getAll = async (req, res, next) => {
   try {
@@ -42,7 +43,28 @@ const create = async (req, res, next) => {
     if (ventaId && alquilerId) {
       return res.status(400).json({ error: 'El pago debe asociarse a una venta O un alquiler, no a ambos' });
     }
+
     const pago = await Pago.create({ metodoPagoId, ventaId, alquilerId, monto, fecha: fecha || new Date(), notas });
+
+    let clienteId = null;
+    if (ventaId) {
+      const venta = await Venta.findByPk(ventaId, {
+        include: [{ model: Pago, as: 'pagos', attributes: ['monto'] }],
+      });
+      clienteId = venta?.clienteId;
+      if (venta) {
+        const totalPagado = venta.pagos.reduce((s, p) => s + parseFloat(p.monto), 0);
+        if (totalPagado >= parseFloat(venta.total) - 0.001) {
+          await venta.update({ estado: 'completada' });
+        }
+      }
+    } else if (alquilerId) {
+      const alquiler = await Alquiler.findByPk(alquilerId);
+      clienteId = alquiler?.clienteId;
+    }
+
+    if (clienteId) await sincronizarEstadoCliente(clienteId);
+
     res.status(201).json(pago);
   } catch (error) {
     next(error);

@@ -1,6 +1,7 @@
 import { Op } from 'sequelize';
 import { sequelize, Venta, VentaProducto, Producto, Cliente, Usuario, MetodoPago } from '../models/index.js';
 import { calcularTotalVenta } from '../utils/calculos.js';
+import { sincronizarEstadoCliente } from '../utils/clienteUtils.js';
 
 const ventaConDetalle = (id) =>
   Venta.findByPk(id, {
@@ -109,6 +110,11 @@ const create = async (req, res, next) => {
     }
 
     await t.commit();
+
+    if (clienteId && (estado || 'completada') === 'pendiente') {
+      await sincronizarEstadoCliente(clienteId);
+    }
+
     res.status(201).json(await ventaConDetalle(venta.id));
   } catch (error) {
     await t.rollback();

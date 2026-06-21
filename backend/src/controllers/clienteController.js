@@ -1,5 +1,5 @@
 import { Op } from 'sequelize';
-import { Cliente, Venta, Alquiler, Producto, MetodoPago } from '../models/index.js';
+import { Cliente, Venta, Alquiler, Producto, MetodoPago, Pago } from '../models/index.js';
 
 const getAll = async (req, res, next) => {
   try {
@@ -98,4 +98,47 @@ const remove = async (req, res, next) => {
   }
 };
 
-export { getAll, getById, create, update, remove };
+const getDeuda = async (req, res, next) => {
+  try {
+    const clienteId = req.params.id;
+    const cliente = await Cliente.findByPk(clienteId);
+    if (!cliente) return res.status(404).json({ error: 'Cliente no encontrado' });
+
+    const ventas = await Venta.findAll({
+      where: { clienteId, estado: 'pendiente' },
+      include: [{ model: Pago, as: 'pagos', attributes: ['monto'] }],
+    });
+
+    const alquileres = await Alquiler.findAll({
+      where: {
+        clienteId,
+        estado: 'activo',
+        fecha_devolucion_esperada: { [Op.lt]: new Date() },
+      },
+      include: [
+        { model: Pago, as: 'pagos', attributes: ['monto'] },
+        { model: Producto, as: 'producto', attributes: ['id', 'titulo'] },
+      ],
+    });
+
+    const items = [
+      ...ventas.map(v => {
+        const pagado = v.pagos.reduce((s, p) => s + parseFloat(p.monto), 0);
+        const saldo = parseFloat(v.total) - pagado;
+        return { id: v.id, tipo: 'venta', descripcion: `Venta #${v.id}`, total: parseFloat(v.total), pagado, saldo, fecha: v.fecha };
+      }).filter(v => v.saldo > 0.001),
+      ...alquileres.map(a => {
+        const pagado = a.pagos.reduce((s, p) => s + parseFloat(p.monto), 0);
+        const saldo = parseFloat(a.monto) - pagado;
+        return { id: a.id, tipo: 'alquiler', descripcion: a.producto?.titulo ?? `Alquiler #${a.id}`, total: parseFloat(a.monto), pagado, saldo, fecha: a.fecha_inicio };
+      }).filter(a => a.saldo > 0.001),
+    ];
+
+    const totalDeuda = items.reduce((sum, i) => sum + i.saldo, 0);
+    res.json({ items, totalDeuda });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export { getAll, getById, create, update, remove, getDeuda };

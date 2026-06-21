@@ -4,6 +4,7 @@ import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
 import ModalNuevoCliente from "../../components/Modal/ModalNuevoCliente";
 import ModalEditarCliente from "../../components/Modal/ModalEditarCliente";
+import ModalCobrar from "../../components/Modal/ModalCobrar";
 import { User, Pencil } from "lucide-react";
 import "../../styles/variables.scss";
 import { getClientes } from "../../api/clientes.js";
@@ -33,6 +34,7 @@ function ClientesPage() {
   const [cargando, setCargando] = useState(false);
   const [modalAbierto, setModalAbierto] = useState(false);
   const [clienteParaEditar, setClienteParaEditar] = useState(null);
+  const [clienteParaCobrar, setClienteParaCobrar] = useState(null);
   const [version, setVersion] = useState(0);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
@@ -91,8 +93,8 @@ function ClientesPage() {
           </button>
           {fila.estado === "Con Deuda" && (
             <button
-              className="rounded border px-3 py-1 text-xs hover:bg-slate-50 cursor-pointer"
-              onClick={() => console.log("Cobrar:", fila.nSocio)}
+              className="rounded border border-red-300 px-3 py-1 text-xs text-red-600 hover:bg-red-50 cursor-pointer"
+              onClick={() => setClienteParaCobrar(fila)}
             >
               Cobrar
             </button>
@@ -157,6 +159,12 @@ function ClientesPage() {
         onClose={() => setClienteParaEditar(null)}
         onSuccess={() => setVersion((v) => v + 1)}
         cliente={clienteParaEditar}
+      />
+      <ModalCobrar
+        isOpen={clienteParaCobrar !== null}
+        onClose={() => setClienteParaCobrar(null)}
+        onSuccess={() => setVersion((v) => v + 1)}
+        cliente={clienteParaCobrar}
       />
     </>
   );

@@ -1,6 +1,7 @@
 import { Op } from 'sequelize';
 import { sequelize, Alquiler, Producto, Cliente, Usuario, MetodoPago, TarifaAlquiler } from '../models/index.js';
 import { calcularDiasAlquiler, calcularMontoAlquiler } from '../utils/calculos.js';
+import { sincronizarEstadoCliente } from '../utils/clienteUtils.js';
 
 const alquilerConDetalle = (id) =>
   Alquiler.findByPk(id, {
@@ -142,6 +143,9 @@ const registrarDevolucion = async (req, res, next) => {
     await producto.increment('stock', { by: 1, transaction: t });
 
     await t.commit();
+
+    await sincronizarEstadoCliente(alquiler.clienteId);
+
     res.json(await alquilerConDetalle(alquiler.id));
   } catch (error) {
     await t.rollback();
