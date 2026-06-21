@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ShieldCheck, User } from "lucide-react";
+import { ShieldCheck, User, Eye, EyeOff } from "lucide-react";
 import Modal from "./Modal";
 import { createUsuario } from "../../api/usuarios";
 
@@ -23,6 +23,7 @@ const ROLES = [
 
 function ModalAnadirUsuario({ isOpen, onClose }) {
   const [form, setForm] = useState(estadoInicial);
+  const [verPassword, setVerPassword] = useState(false);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState(null);
 
@@ -117,13 +118,23 @@ function ModalAnadirUsuario({ isOpen, onClose }) {
           <label className="text-xs font-medium text-[var(--color-texto-primario)]">
             Contraseña Temporal
           </label>
-          <input
-            type="password"
-            placeholder="Mínimo 8 caracteres"
-            value={form.password}
-            onChange={set("password")}
-            className="modal-input"
-          />
+          <div className="relative">
+            <input
+              type={verPassword ? "text" : "password"}
+              placeholder="Mínimo 8 caracteres"
+              value={form.password}
+              onChange={set("password")}
+              className="modal-input pr-9"
+            />
+            <button
+              type="button"
+              onClick={() => setVerPassword((v) => !v)}
+              tabIndex={-1}
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
+            >
+              {verPassword ? <EyeOff size={14} /> : <Eye size={14} />}
+            </button>
+          </div>
           <span className="text-[10px] text-[var(--color-texto-secundario)]">
             El usuario deberá cambiarla en el próximo inicio de sesión.
           </span>

@@ -101,7 +101,7 @@ function Modal({
                 <AlertTriangle size={20} />
               </div>
               <p className="modal-guardia-texto">
-                ¿Querés interrumpir la operación? Se van a perder los datos
+                ¿Querés cancelar la operación? Se van a perder los datos
                 ingresados.
               </p>
               <div className="modal-guardia-botones">
@@ -117,7 +117,7 @@ function Modal({
                   className="modal-btn-descartar"
                   onClick={handleForzarCierre}
                 >
-                  Sí, descartar
+                  Sí, cancelar
                 </button>
               </div>
             </div>

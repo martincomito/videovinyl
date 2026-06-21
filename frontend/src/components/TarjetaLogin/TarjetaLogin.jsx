@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Mail, Lock } from "lucide-react";
+import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import logo from "../../img/videovinyl-logo.png";
 import "../../styles/variables.scss";
 import { login } from "../../api/auth.js";
@@ -9,6 +9,7 @@ function TarjetaLogin() {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [verPassword, setVerPassword] = useState(false);
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
 
@@ -95,7 +96,7 @@ function TarjetaLogin() {
                         "
                     />
                     <input
-                        type="password"
+                        type={verPassword ? "text" : "password"}
                         placeholder="Contraseña"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -107,12 +108,27 @@ function TarjetaLogin() {
                             border-[var(--color-login-input-borde)]
                             py-2.5
                             pl-10
-                            pr-3
+                            pr-10
                             text-sm
                             outline-none
                             focus:border-[var(--color-login-input-focus)]
                         "
                     />
+                    <button
+                        type="button"
+                        onClick={() => setVerPassword((v) => !v)}
+                        tabIndex={-1}
+                        className="
+                            absolute
+                            right-3
+                            top-1/2
+                            -translate-y-1/2
+                            text-slate-400
+                            hover:text-slate-600
+                        "
+                    >
+                        {verPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                    </button>
                 </div>
 
                 <div className="flex items-center justify-between text-sm">
