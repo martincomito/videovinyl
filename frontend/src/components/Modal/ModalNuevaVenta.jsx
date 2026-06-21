@@ -16,7 +16,7 @@ const estadoInicial = {
   metodoPagoId: "",
 };
 
-function ModalNuevaVenta({ isOpen, onClose }) {
+function ModalNuevaVenta({ isOpen, onClose, onSuccess }) {
   const [form, setForm] = useState(estadoInicial);
   const [resultadosCliente, setResultadosCliente] = useState([]);
   const [resultadosProducto, setResultadosProducto] = useState([]);
@@ -122,6 +122,7 @@ function ModalNuevaVenta({ isOpen, onClose }) {
       setForm(estadoInicial);
       setResultadosCliente([]);
       setResultadosProducto([]);
+      onSuccess?.();
       onClose();
     } catch (err) {
       setError(err.response?.data?.error || "Ocurrió un error al registrar la venta.");

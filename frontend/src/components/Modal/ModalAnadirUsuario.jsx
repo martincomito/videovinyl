@@ -21,7 +21,7 @@ const ROLES = [
   },
 ];
 
-function ModalAnadirUsuario({ isOpen, onClose }) {
+function ModalAnadirUsuario({ isOpen, onClose, onSuccess }) {
   const [form, setForm] = useState(estadoInicial);
   const [verPassword, setVerPassword] = useState(false);
   const [cargando, setCargando] = useState(false);
@@ -51,6 +51,7 @@ function ModalAnadirUsuario({ isOpen, onClose }) {
         estado: "activo",
       });
       setForm(estadoInicial);
+      onSuccess?.();
       onClose();
     } catch (err) {
       setError(err.response?.data?.error || "Ocurrió un error al crear el usuario.");

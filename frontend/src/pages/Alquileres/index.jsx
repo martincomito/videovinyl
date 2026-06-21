@@ -29,6 +29,7 @@ function AlquileresPage() {
   const [cargando, setCargando] = useState(false);
   const [modalAlquiler, setModalAlquiler] = useState(false);
   const [modalDevolucion, setModalDevolucion] = useState(false);
+  const [version, setVersion] = useState(0);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
 
@@ -45,7 +46,7 @@ function AlquileresPage() {
       })
       .catch(console.error)
       .finally(() => setCargando(false));
-  }, [pagina, busquedaDebounced]);
+  }, [pagina, busquedaDebounced, version]);
 
   const columnas = [
     { key: "codigo", label: "ID" },
@@ -150,8 +151,16 @@ function AlquileresPage() {
           />
         </main>
       </div>
-      <ModalNuevoAlquiler isOpen={modalAlquiler} onClose={() => setModalAlquiler(false)} />
-      <ModalRegistrarDevolucion isOpen={modalDevolucion} onClose={() => setModalDevolucion(false)} />
+      <ModalNuevoAlquiler
+        isOpen={modalAlquiler}
+        onClose={() => setModalAlquiler(false)}
+        onSuccess={() => setVersion((v) => v + 1)}
+      />
+      <ModalRegistrarDevolucion
+        isOpen={modalDevolucion}
+        onClose={() => setModalDevolucion(false)}
+        onSuccess={() => setVersion((v) => v + 1)}
+      />
     </>
   );
 }

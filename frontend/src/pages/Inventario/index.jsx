@@ -28,6 +28,7 @@ function InventarioPage() {
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(false);
   const [modalAbierto, setModalAbierto] = useState(false);
+  const [version, setVersion] = useState(0);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
 
@@ -44,7 +45,7 @@ function InventarioPage() {
       })
       .catch(console.error)
       .finally(() => setCargando(false));
-  }, [pagina, busquedaDebounced]);
+  }, [pagina, busquedaDebounced, version]);
 
   const columnas = [
     { key: "codigo", label: "Cód." },
@@ -160,7 +161,11 @@ function InventarioPage() {
           />
         </main>
       </div>
-      <ModalAgregarProducto isOpen={modalAbierto} onClose={() => setModalAbierto(false)} />
+      <ModalAgregarProducto
+        isOpen={modalAbierto}
+        onClose={() => setModalAbierto(false)}
+        onSuccess={() => setVersion((v) => v + 1)}
+      />
     </>
   );
 }

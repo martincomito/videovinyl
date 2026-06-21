@@ -27,6 +27,7 @@ function VentasPage() {
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(false);
   const [modalAbierto, setModalAbierto] = useState(false);
+  const [version, setVersion] = useState(0);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
 
@@ -43,7 +44,7 @@ function VentasPage() {
       })
       .catch(console.error)
       .finally(() => setCargando(false));
-  }, [pagina, busquedaDebounced]);
+  }, [pagina, busquedaDebounced, version]);
 
   const columnas = [
     { key: "numeroVenta", label: "N° Venta" },
@@ -131,7 +132,11 @@ function VentasPage() {
           />
         </main>
       </div>
-      <ModalNuevaVenta isOpen={modalAbierto} onClose={() => setModalAbierto(false)} />
+      <ModalNuevaVenta
+        isOpen={modalAbierto}
+        onClose={() => setModalAbierto(false)}
+        onSuccess={() => setVersion((v) => v + 1)}
+      />
     </>
   );
 }

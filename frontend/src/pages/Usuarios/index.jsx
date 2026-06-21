@@ -23,6 +23,7 @@ function UsuariosPage() {
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(false);
   const [modalAbierto, setModalAbierto] = useState(false);
+  const [version, setVersion] = useState(0);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
 
@@ -39,7 +40,7 @@ function UsuariosPage() {
       })
       .catch(console.error)
       .finally(() => setCargando(false));
-  }, [pagina, busquedaDebounced]);
+  }, [pagina, busquedaDebounced, version]);
 
   const columnas = [
     { key: "id", label: "ID" },
@@ -117,7 +118,11 @@ function UsuariosPage() {
           />
         </main>
       </div>
-      <ModalAnadirUsuario isOpen={modalAbierto} onClose={() => setModalAbierto(false)} />
+      <ModalAnadirUsuario
+        isOpen={modalAbierto}
+        onClose={() => setModalAbierto(false)}
+        onSuccess={() => setVersion((v) => v + 1)}
+      />
     </>
   );
 }

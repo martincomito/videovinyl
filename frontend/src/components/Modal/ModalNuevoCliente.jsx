@@ -11,7 +11,7 @@ const estadoInicial = {
   direccion: "",
 };
 
-function ModalNuevoCliente({ isOpen, onClose }) {
+function ModalNuevoCliente({ isOpen, onClose, onSuccess }) {
   const [form, setForm] = useState(estadoInicial);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState(null);
@@ -41,6 +41,7 @@ function ModalNuevoCliente({ isOpen, onClose }) {
         direccion: form.direccion.trim(),
       });
       setForm(estadoInicial);
+      onSuccess?.();
       onClose();
     } catch (err) {
       setError(

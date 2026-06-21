@@ -27,6 +27,7 @@ function ClientesPage() {
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(false);
   const [modalAbierto, setModalAbierto] = useState(false);
+  const [version, setVersion] = useState(0);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
 
@@ -43,7 +44,7 @@ function ClientesPage() {
       })
       .catch(console.error)
       .finally(() => setCargando(false));
-  }, [pagina, busquedaDebounced]);
+  }, [pagina, busquedaDebounced, version]);
 
   const columnas = [
     { key: "nSocio", label: "ID" },
@@ -131,7 +132,11 @@ function ClientesPage() {
           />
         </main>
       </div>
-      <ModalNuevoCliente isOpen={modalAbierto} onClose={() => setModalAbierto(false)} />
+      <ModalNuevoCliente
+        isOpen={modalAbierto}
+        onClose={() => setModalAbierto(false)}
+        onSuccess={() => setVersion((v) => v + 1)}
+      />
     </>
   );
 }

@@ -21,7 +21,7 @@ function calcularTotal(producto, fechaDevolucion) {
   return { dias, total: dias * parseFloat(producto.precioAlquiler) };
 }
 
-function ModalNuevoAlquiler({ isOpen, onClose }) {
+function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
   const [form, setForm] = useState(estadoInicial);
   const [resultadosCliente, setResultadosCliente] = useState([]);
   const [resultadosProducto, setResultadosProducto] = useState([]);
@@ -91,6 +91,7 @@ function ModalNuevoAlquiler({ isOpen, onClose }) {
       setForm(estadoInicial);
       setResultadosCliente([]);
       setResultadosProducto([]);
+      onSuccess?.();
       onClose();
     } catch (err) {
       setError(err.response?.data?.error || "Ocurrió un error al registrar el alquiler.");

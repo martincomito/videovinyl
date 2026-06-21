@@ -21,7 +21,7 @@ function calcularDiasRetraso(fechaEsperada) {
   return Math.max(0, Math.ceil((hoy - esperada) / (1000 * 60 * 60 * 24)));
 }
 
-function ModalRegistrarDevolucion({ isOpen, onClose }) {
+function ModalRegistrarDevolucion({ isOpen, onClose, onSuccess }) {
   const [form, setForm] = useState(estadoInicial);
   const [metodosPago, setMetodosPago] = useState([]);
   const [tarifas, setTarifas] = useState([]);
@@ -84,6 +84,7 @@ function ModalRegistrarDevolucion({ isOpen, onClose }) {
         estado_producto_devuelto: form.estadoProducto,
       });
       setForm(estadoInicial);
+      onSuccess?.();
       onClose();
     } catch (err) {
       setError(err.response?.data?.error || "Ocurrió un error al registrar la devolución.");

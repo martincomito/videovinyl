@@ -5,7 +5,7 @@ import { createProducto, getTarifasAlquiler } from "../../api/productos";
 const TIPOS_ALQUILABLES = ["VHS", "DVD"];
 const estadoInicial = { titulo: "", formato: "VHS", cantidad: "1", precioVenta: "" };
 
-function ModalAgregarProducto({ isOpen, onClose }) {
+function ModalAgregarProducto({ isOpen, onClose, onSuccess }) {
   const [form, setForm] = useState(estadoInicial);
   const [tarifas, setTarifas] = useState([]);
   const [cargando, setCargando] = useState(false);
@@ -39,6 +39,7 @@ function ModalAgregarProducto({ isOpen, onClose }) {
         stock: parseInt(form.cantidad, 10),
       });
       setForm(estadoInicial);
+      onSuccess?.();
       onClose();
     } catch (err) {
       setError(err.response?.data?.error || "Ocurrió un error al agregar el producto.");
