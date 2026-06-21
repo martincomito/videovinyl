@@ -34,7 +34,10 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
     if (!form.clienteBusqueda.trim()) return;
     setBuscandoCliente(true);
     try {
-      const res = await getClientes({ q: form.clienteBusqueda.trim(), limite: 5 });
+      const res = await getClientes({
+        q: form.clienteBusqueda.trim(),
+        limite: 5,
+      });
       setResultadosCliente(res.data.datos ?? res.data);
     } catch {
       setResultadosCliente([]);
@@ -44,7 +47,11 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
   };
 
   const handleSeleccionarCliente = (cliente) => {
-    setForm((prev) => ({ ...prev, clienteSeleccionado: cliente, clienteBusqueda: "" }));
+    setForm((prev) => ({
+      ...prev,
+      clienteSeleccionado: cliente,
+      clienteBusqueda: "",
+    }));
     setResultadosCliente([]);
   };
 
@@ -52,7 +59,10 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
     if (!form.productoBusqueda.trim()) return;
     setBuscandoProducto(true);
     try {
-      const res = await getProductos({ q: form.productoBusqueda.trim(), limite: 5 });
+      const res = await getProductos({
+        q: form.productoBusqueda.trim(),
+        limite: 5,
+      });
       const datos = res.data.datos ?? res.data;
       setResultadosProducto(datos.filter((p) => p.precioAlquiler != null));
     } catch {
@@ -63,11 +73,18 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
   };
 
   const handleSeleccionarProducto = (producto) => {
-    setForm((prev) => ({ ...prev, productoSeleccionado: producto, productoBusqueda: "" }));
+    setForm((prev) => ({
+      ...prev,
+      productoSeleccionado: producto,
+      productoBusqueda: "",
+    }));
     setResultadosProducto([]);
   };
 
-  const estimado = calcularTotal(form.productoSeleccionado, form.fechaDevolucion);
+  const estimado = calcularTotal(
+    form.productoSeleccionado,
+    form.fechaDevolucion,
+  );
 
   const isDirty = JSON.stringify(form) !== JSON.stringify(estadoInicial);
   const isValid =
@@ -94,7 +111,10 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
       onSuccess?.();
       onClose();
     } catch (err) {
-      setError(err.response?.data?.error || "Ocurrió un error al registrar el alquiler.");
+      setError(
+        err.response?.data?.error ||
+          "Ocurrió un error al registrar el alquiler.",
+      );
     } finally {
       setCargando(false);
     }
@@ -120,7 +140,6 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
       puedeConfirmar={isValid}
     >
       <div className="flex flex-col gap-4">
-
         {/* Socio / Cliente */}
         <div className="flex flex-col gap-1">
           <label className="text-xs font-medium text-[var(--color-texto-primario)]">
@@ -130,7 +149,8 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
             <div className="flex items-center justify-between rounded-lg border border-[var(--color-lista-borde)] bg-slate-50 px-3 py-2">
               <div>
                 <p className="text-xs font-semibold text-[var(--color-texto-primario)]">
-                  {form.clienteSeleccionado.nombre} {form.clienteSeleccionado.apellido}
+                  {form.clienteSeleccionado.nombre}{" "}
+                  {form.clienteSeleccionado.apellido}
                 </p>
                 <p className="text-[11px] text-[var(--color-texto-secundario)]">
                   DNI {form.clienteSeleccionado.dni}
@@ -139,7 +159,9 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
               <button
                 type="button"
                 className="text-[11px] text-[var(--color-primario)] hover:underline"
-                onClick={() => setForm((prev) => ({ ...prev, clienteSeleccionado: null }))}
+                onClick={() =>
+                  setForm((prev) => ({ ...prev, clienteSeleccionado: null }))
+                }
               >
                 Cambiar
               </button>
@@ -150,7 +172,12 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
                 type="text"
                 placeholder="Buscar por Nombre o DNI..."
                 value={form.clienteBusqueda}
-                onChange={(e) => setForm((prev) => ({ ...prev, clienteBusqueda: e.target.value }))}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    clienteBusqueda: e.target.value,
+                  }))
+                }
                 onKeyDown={(e) => e.key === "Enter" && handleBuscarCliente()}
                 className="modal-input"
               />
@@ -176,7 +203,9 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
                   <span className="font-semibold text-[var(--color-texto-primario)]">
                     {c.nombre} {c.apellido}
                   </span>
-                  <span className="text-[var(--color-texto-secundario)]">DNI {c.dni}</span>
+                  <span className="text-[var(--color-texto-secundario)]">
+                    DNI {c.dni}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -196,19 +225,23 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
                 </p>
                 <p
                   className={`text-[11px] ${
-                    form.productoSeleccionado.stock > 0 ? "text-emerald-600" : "text-red-500"
+                    form.productoSeleccionado.stock > 0
+                      ? "text-emerald-600"
+                      : "text-red-500"
                   }`}
                 >
                   {form.productoSeleccionado.tipo} ·{" "}
                   {form.productoSeleccionado.stock > 0
-                    ? `Disponible — $${parseFloat(form.productoSeleccionado.precioAlquiler).toLocaleString("es-AR")} x día`
+                    ? `Disponible: $${parseFloat(form.productoSeleccionado.precioAlquiler).toLocaleString("es-AR")} x día`
                     : "Sin stock"}
                 </p>
               </div>
               <button
                 type="button"
                 className="text-[11px] text-[var(--color-primario)] hover:underline"
-                onClick={() => setForm((prev) => ({ ...prev, productoSeleccionado: null }))}
+                onClick={() =>
+                  setForm((prev) => ({ ...prev, productoSeleccionado: null }))
+                }
               >
                 Cambiar
               </button>
@@ -219,7 +252,12 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
                 type="text"
                 placeholder="Buscar por título..."
                 value={form.productoBusqueda}
-                onChange={(e) => setForm((prev) => ({ ...prev, productoBusqueda: e.target.value }))}
+                onChange={(e) =>
+                  setForm((prev) => ({
+                    ...prev,
+                    productoBusqueda: e.target.value,
+                  }))
+                }
                 onKeyDown={(e) => e.key === "Enter" && handleBuscarProducto()}
                 className="modal-input"
               />
@@ -246,11 +284,13 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
                     {p.titulo}
                   </span>
                   <span
-                    className={p.stock > 0 ? "text-emerald-600" : "text-red-500"}
+                    className={
+                      p.stock > 0 ? "text-emerald-600" : "text-red-500"
+                    }
                   >
                     {p.tipo} ·{" "}
                     {p.stock > 0
-                      ? `Disponible — $${parseFloat(p.precioAlquiler).toLocaleString("es-AR")}/día`
+                      ? `Disponible - $${parseFloat(p.precioAlquiler).toLocaleString("es-AR")}/día`
                       : "Sin stock"}
                   </span>
                 </li>
@@ -268,7 +308,12 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
             <input
               type="date"
               value={form.fechaDevolucion}
-              onChange={(e) => setForm((prev) => ({ ...prev, fechaDevolucion: e.target.value }))}
+              onChange={(e) =>
+                setForm((prev) => ({
+                  ...prev,
+                  fechaDevolucion: e.target.value,
+                }))
+              }
               className="modal-input"
             />
           </div>
@@ -295,7 +340,6 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
             {error}
           </p>
         )}
-
       </div>
     </Modal>
   );

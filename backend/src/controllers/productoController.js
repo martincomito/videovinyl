@@ -10,7 +10,7 @@ const calcularEstadoInventario = (producto, cantidadAlquileresActivos) => {
 const getAll = async (req, res, next) => {
   try {
     const { tipo, estado: estadoFilter, q, pagina = 1, limite = 10 } = req.query;
-    const where = {};
+    const where = { eliminado: false };
     if (tipo) where.tipo = tipo;
 
     if (q) {
@@ -92,8 +92,12 @@ const update = async (req, res, next) => {
   try {
     const producto = await Producto.findByPk(req.params.id);
     if (!producto) return res.status(404).json({ error: 'Producto no encontrado' });
-    const { titulo, tipo, descripcion, precio_venta, stock } = req.body;
-    await producto.update({ titulo, tipo, descripcion, precio_venta, stock });
+    const { titulo, precio_venta, stock } = req.body;
+    const datos = {};
+    if (titulo !== undefined) datos.titulo = titulo;
+    if (precio_venta !== undefined) datos.precio_venta = precio_venta;
+    if (stock !== undefined) datos.stock = stock;
+    await producto.update(datos);
     res.json(producto);
   } catch (error) {
     next(error);
@@ -104,7 +108,7 @@ const remove = async (req, res, next) => {
   try {
     const producto = await Producto.findByPk(req.params.id);
     if (!producto) return res.status(404).json({ error: 'Producto no encontrado' });
-    await producto.destroy();
+    await producto.update({ eliminado: true });
     res.status(204).send();
   } catch (error) {
     next(error);

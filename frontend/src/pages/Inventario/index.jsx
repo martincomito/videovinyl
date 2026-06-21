@@ -3,7 +3,8 @@ import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
 import ModalAgregarProducto from "../../components/Modal/ModalAgregarProducto";
-import { Package } from "lucide-react";
+import ModalEditarProducto from "../../components/Modal/ModalEditarProducto";
+import { Package, Pencil } from "lucide-react";
 import "../../styles/variables.scss";
 import { getProductos } from "../../api/productos.js";
 import useDebouncedValue from "../../hooks/useDebouncedValue.js";
@@ -19,6 +20,7 @@ const transformar = (p) => ({
   precioAlquiler: p.precioAlquiler ? parseFloat(p.precioAlquiler) : null,
   precioVenta: parseFloat(p.precio_venta),
   estado: ESTADOS[p.estadoInventario] ?? p.estadoInventario,
+  _precioVenta: p.precio_venta != null ? String(parseFloat(p.precio_venta)) : "",
 });
 
 function InventarioPage() {
@@ -28,6 +30,7 @@ function InventarioPage() {
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(false);
   const [modalAbierto, setModalAbierto] = useState(false);
+  const [productoParaEditar, setProductoParaEditar] = useState(null);
   const [version, setVersion] = useState(0);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
@@ -98,20 +101,13 @@ function InventarioPage() {
       key: "acciones",
       label: "Acciones",
       render: (_, fila) => (
-        <div className="flex gap-2">
-          <button
-            className="rounded border px-2 py-1 text-xs hover:bg-slate-50 cursor-pointer"
-            onClick={() => console.log("Editar:", fila.id)}
-          >
-            ✏
-          </button>
-          <button
-            className="rounded border px-2 py-1 text-xs hover:bg-slate-50 cursor-pointer"
-            onClick={() => console.log("Eliminar:", fila.id)}
-          >
-            🗑
-          </button>
-        </div>
+        <button
+          className="flex items-center gap-1 rounded border px-2 py-1 text-xs hover:bg-slate-50 cursor-pointer"
+          onClick={() => setProductoParaEditar(fila)}
+        >
+          <Pencil size={12} />
+          Editar
+        </button>
       ),
     },
   ];
@@ -165,6 +161,12 @@ function InventarioPage() {
         isOpen={modalAbierto}
         onClose={() => setModalAbierto(false)}
         onSuccess={() => setVersion((v) => v + 1)}
+      />
+      <ModalEditarProducto
+        isOpen={productoParaEditar !== null}
+        onClose={() => setProductoParaEditar(null)}
+        onSuccess={() => setVersion((v) => v + 1)}
+        producto={productoParaEditar}
       />
     </>
   );

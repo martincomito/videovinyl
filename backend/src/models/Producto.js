@@ -24,6 +24,11 @@ const Producto = sequelize.define('Producto', {
     defaultValue: 0,
     validate: { min: 0 },
   },
+  eliminado: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
 }, {
   tableName: 'productos',
   timestamps: true,

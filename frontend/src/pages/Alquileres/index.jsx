@@ -4,7 +4,8 @@ import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
 import ModalNuevoAlquiler from "../../components/Modal/ModalNuevoAlquiler";
 import ModalRegistrarDevolucion from "../../components/Modal/ModalRegistrarDevolucion";
-import { CalendarClock } from "lucide-react";
+import ModalTarifasAlquiler from "../../components/Modal/ModalTarifasAlquiler";
+import { CalendarClock, DollarSign } from "lucide-react";
 import "../../styles/variables.scss";
 import { getAlquileres } from "../../api/alquileres.js";
 import useDebouncedValue from "../../hooks/useDebouncedValue.js";
@@ -29,6 +30,7 @@ function AlquileresPage() {
   const [cargando, setCargando] = useState(false);
   const [modalAlquiler, setModalAlquiler] = useState(false);
   const [modalDevolucion, setModalDevolucion] = useState(false);
+  const [modalTarifas, setModalTarifas] = useState(false);
   const [version, setVersion] = useState(0);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
@@ -123,6 +125,15 @@ function AlquileresPage() {
                 className="flex items-center gap-1 rounded-md border border-[var(--color-lista-borde)]
                   bg-white px-4 py-2 text-xs font-medium text-[var(--color-texto-primario)]
                   hover:bg-slate-50 cursor-pointer"
+                onClick={() => setModalTarifas(true)}
+              >
+                <DollarSign size={13} />
+                Precios alquiler
+              </button>
+              <button
+                className="flex items-center gap-1 rounded-md border border-[var(--color-lista-borde)]
+                  bg-white px-4 py-2 text-xs font-medium text-[var(--color-texto-primario)]
+                  hover:bg-slate-50 cursor-pointer"
                 onClick={() => setModalDevolucion(true)}
               >
                 Registrar Devolución
@@ -151,6 +162,10 @@ function AlquileresPage() {
           />
         </main>
       </div>
+      <ModalTarifasAlquiler
+        isOpen={modalTarifas}
+        onClose={() => setModalTarifas(false)}
+      />
       <ModalNuevoAlquiler
         isOpen={modalAlquiler}
         onClose={() => setModalAlquiler(false)}
