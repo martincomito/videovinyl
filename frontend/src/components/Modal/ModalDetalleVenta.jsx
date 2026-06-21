@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { AlertTriangle } from "lucide-react";
 import Modal from "./Modal";
-import { getVentaById } from "../../api/ventas";
+import { getVentaById, anularVenta } from "../../api/ventas";
 import { formatearFechaHora, formatearMonto } from "../../utils/format";
+import { useToast } from "../../context/ToastContext";
 
 const ESTADOS = {
   completada: { label: "Completada", clase: "bg-green-100 text-green-700" },
@@ -9,23 +11,53 @@ const ESTADOS = {
   anulada:    { label: "Anulada",    clase: "bg-red-100 text-red-700" },
 };
 
-function ModalDetalleVenta({ isOpen, onClose, ventaId }) {
+function ModalDetalleVenta({ isOpen, onClose, ventaId, onAnulada }) {
+  const showToast = useToast();
   const [venta, setVenta] = useState(null);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState(null);
+  const [confirmandoAnular, setConfirmandoAnular] = useState(false);
+  const [anulando, setAnulando] = useState(false);
 
   useEffect(() => {
     if (!isOpen || !ventaId) return;
     setCargando(true);
     setError(null);
     setVenta(null);
+    setConfirmandoAnular(false);
     getVentaById(ventaId)
       .then((res) => setVenta(res.data))
       .catch(() => setError("No se pudo cargar el detalle de la venta."))
       .finally(() => setCargando(false));
   }, [isOpen, ventaId]);
 
+  const handleAnular = async () => {
+    setAnulando(true);
+    try {
+      await anularVenta(venta.id);
+      showToast("success", "Venta anulada");
+      onAnulada?.();
+      onClose();
+    } catch (err) {
+      setError(err.response?.data?.error || "No se pudo anular la venta.");
+      setConfirmandoAnular(false);
+    } finally {
+      setAnulando(false);
+    }
+  };
+
   const estado = venta ? (ESTADOS[venta.estado] ?? { label: venta.estado, clase: "bg-slate-100 text-slate-600" }) : null;
+
+  const botonAnular = venta && venta.estado !== "anulada" && (
+    <button
+      type="button"
+      className="modal-btn-eliminar"
+      onClick={() => setConfirmandoAnular(true)}
+      disabled={anulando}
+    >
+      Anular venta
+    </button>
+  );
 
   return (
     <Modal
@@ -34,6 +66,7 @@ function ModalDetalleVenta({ isOpen, onClose, ventaId }) {
       titulo={venta ? `Venta #${venta.id}` : "Detalle de Venta"}
       labelCancelar="Cerrar"
       isDirty={false}
+      accionIzquierda={botonAnular}
     >
       <div className="flex flex-col gap-4">
 
@@ -48,7 +81,7 @@ function ModalDetalleVenta({ isOpen, onClose, ventaId }) {
         )}
 
         {venta && (
-          <>
+          <div className="relative">
             {/* Encabezado */}
             <div className="flex items-center justify-between">
               <div className="flex flex-col gap-0.5">
@@ -144,7 +177,38 @@ function ModalDetalleVenta({ isOpen, onClose, ventaId }) {
                 </tbody>
               </table>
             </div>
-          </>
+
+            {confirmandoAnular && (
+              <div className="modal-guardia-overlay">
+                <div className="modal-guardia-card">
+                  <div className="modal-guardia-icono">
+                    <AlertTriangle size={20} />
+                  </div>
+                  <p className="modal-guardia-texto">
+                    ¿Anular la venta <strong>#{venta.id}</strong>? Se repondrá el stock de los productos. Esta acción no se puede deshacer.
+                  </p>
+                  <div className="modal-guardia-botones">
+                    <button
+                      type="button"
+                      className="modal-btn-cancelar"
+                      onClick={() => setConfirmandoAnular(false)}
+                      disabled={anulando}
+                    >
+                      Cancelar
+                    </button>
+                    <button
+                      type="button"
+                      className="modal-btn-descartar"
+                      onClick={handleAnular}
+                      disabled={anulando}
+                    >
+                      {anulando ? "Anulando..." : "Sí, anular"}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         )}
 
       </div>

@@ -141,6 +141,7 @@ function VentasPage() {
         isOpen={ventaDetalle !== null}
         onClose={() => setVentaDetalle(null)}
         ventaId={ventaDetalle}
+        onAnulada={() => { setVentaDetalle(null); setVersion((v) => v + 1); }}
       />
     </>
   );
