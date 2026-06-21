@@ -6,10 +6,12 @@ function TarjetaInfo({
     icono: Icono,
     colorIcono = "bg-indigo-100",
     colorTextoIcono = "text-indigo-600",
+    onClick,
 }) {
     return (
         <div
-            className="
+            onClick={onClick}
+            className={`
                 flex
                 items-center
                 gap-4
@@ -18,7 +20,8 @@ function TarjetaInfo({
                 border-[var(--color-card-borde)]
                 bg-[var(--color-card-fondo)]
                 p-5
-            "
+                ${onClick ? "cursor-pointer hover:bg-slate-50 transition-colors" : ""}
+            `}
         >
             <div
                 className={`

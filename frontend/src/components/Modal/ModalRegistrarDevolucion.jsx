@@ -210,13 +210,15 @@ function ModalRegistrarDevolucion({ isOpen, onClose, onSuccess, preseleccionada 
                   DNI {form.clienteSeleccionado.dni}
                 </p>
               </div>
-              <button
-                type="button"
-                className="text-[11px] text-[var(--color-primario)] hover:underline"
-                onClick={handleCambiarCliente}
-              >
-                {preseleccionada ? "Cerrar" : "Cambiar"}
-              </button>
+              {!preseleccionada && (
+                <button
+                  type="button"
+                  className="text-[11px] text-[var(--color-primario)] hover:underline"
+                  onClick={handleCambiarCliente}
+                >
+                  Cambiar
+                </button>
+              )}
             </div>
           ) : (
             <div className="flex gap-2">
@@ -318,13 +320,15 @@ function ModalRegistrarDevolucion({ isOpen, onClose, onSuccess, preseleccionada 
                 <label className="text-xs font-medium text-[var(--color-texto-primario)]">
                   Alquiler seleccionado
                 </label>
-                <button
-                  type="button"
-                  className="text-[11px] text-[var(--color-primario)] hover:underline"
-                  onClick={handleCambiarAlquiler}
-                >
-                  {preseleccionada ? "Cerrar" : "Cambiar"}
-                </button>
+                {!preseleccionada && (
+                  <button
+                    type="button"
+                    className="text-[11px] text-[var(--color-primario)] hover:underline"
+                    onClick={handleCambiarAlquiler}
+                  >
+                    Cambiar
+                  </button>
+                )}
               </div>
               <div
                 className={`rounded-lg border p-3 ${

@@ -8,6 +8,7 @@ import usuarioRoutes from './usuarioRoutes.js';
 import tarifaAlquilerRoutes from './tarifaAlquilerRoutes.js';
 import metodoPagoRoutes from './metodoPagoRoutes.js';
 import pagoRoutes from './pagoRoutes.js';
+import dashboardRoutes from './dashboardRoutes.js';
 import authMiddleware from '../middlewares/authMiddleware.js';
 
 const router = express.Router();
@@ -22,5 +23,6 @@ router.use('/usuarios', usuarioRoutes);
 router.use('/tarifas-alquiler', tarifaAlquilerRoutes);
 router.use('/metodos-pago', metodoPagoRoutes);
 router.use('/pagos', pagoRoutes);
+router.use('/dashboard', dashboardRoutes);
 
 export default router;
