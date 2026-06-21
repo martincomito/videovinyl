@@ -13,9 +13,10 @@ const alquilerConDetalle = (id) =>
 
 const getAll = async (req, res, next) => {
   try {
-    const { estado, q, pagina = 1, limite = 10 } = req.query;
+    const { estado, q, clienteId, pagina = 1, limite = 10 } = req.query;
     const where = {};
     if (estado) where.estado = estado;
+    if (clienteId) where.clienteId = clienteId;
 
     if (q) {
       where[Op.or] = [

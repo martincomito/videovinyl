@@ -20,6 +20,8 @@ const transformar = (a) => ({
   fechaRetiro: a.fecha_inicio,
   fechaVencimiento: a.fecha_devolucion_esperada,
   estado: ESTADOS[a.estado] ?? a.estado,
+  _cliente: { id: a.cliente.id, nombre: a.cliente.nombre, apellido: a.cliente.apellido, dni: a.cliente.dni },
+  _alquiler: { id: a.id, producto: { titulo: a.producto.titulo, tipo: a.producto.tipo }, fecha_devolucion_esperada: a.fecha_devolucion_esperada },
 });
 
 function AlquileresPage() {
@@ -30,6 +32,7 @@ function AlquileresPage() {
   const [cargando, setCargando] = useState(false);
   const [modalAlquiler, setModalAlquiler] = useState(false);
   const [modalDevolucion, setModalDevolucion] = useState(false);
+  const [devolucionPreseleccionada, setDevolucionPreseleccionada] = useState(null);
   const [modalTarifas, setModalTarifas] = useState(false);
   const [version, setVersion] = useState(0);
 
@@ -89,7 +92,7 @@ function AlquileresPage() {
         fila.estado !== "Devuelto" ? (
           <button
             className="flex items-center gap-1 rounded border border-slate-300 px-2 py-1 text-xs hover:bg-slate-50 cursor-pointer"
-            onClick={() => console.log("Devolver:", fila.id)}
+            onClick={() => { setDevolucionPreseleccionada({ cliente: fila._cliente, alquiler: fila._alquiler }); setModalDevolucion(true); }}
           >
             Devolver
           </button>
@@ -173,8 +176,9 @@ function AlquileresPage() {
       />
       <ModalRegistrarDevolucion
         isOpen={modalDevolucion}
-        onClose={() => setModalDevolucion(false)}
+        onClose={() => { setModalDevolucion(false); setDevolucionPreseleccionada(null); }}
         onSuccess={() => setVersion((v) => v + 1)}
+        preseleccionada={devolucionPreseleccionada}
       />
     </>
   );
