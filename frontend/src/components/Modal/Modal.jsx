@@ -10,6 +10,7 @@ function Modal({
   children,
   labelConfirmar,
   onConfirmar,
+  labelCancelar = "Cancelar",
   cargando = false,
   isDirty = false,
   puedeConfirmar = true,
@@ -78,7 +79,7 @@ function Modal({
               onClick={handleClose}
               disabled={cargando}
             >
-              Cancelar
+              {labelCancelar}
             </button>
             {labelConfirmar && onConfirmar && (
               <button

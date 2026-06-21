@@ -32,6 +32,7 @@ function ModalDetalleVenta({ isOpen, onClose, ventaId }) {
       isOpen={isOpen}
       onClose={onClose}
       titulo={venta ? `Venta #${venta.id}` : "Detalle de Venta"}
+      labelCancelar="Cerrar"
       isDirty={false}
     >
       <div className="flex flex-col gap-4">
