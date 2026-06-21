@@ -1,5 +1,6 @@
 import { Op } from 'sequelize';
 import { sequelize, Venta, VentaProducto, Producto, Cliente, Usuario, MetodoPago } from '../models/index.js';
+import { calcularTotalVenta } from '../utils/calculos.js';
 
 const ventaConDetalle = (id) =>
   Venta.findByPk(id, {
@@ -74,7 +75,6 @@ const create = async (req, res, next) => {
       return res.status(400).json({ error: 'La venta debe incluir al menos un producto' });
     }
 
-    let total = 0;
     const itemsResueltos = [];
 
     for (const item of items) {
@@ -90,9 +90,10 @@ const create = async (req, res, next) => {
         });
       }
       const precio_unitario = parseFloat(producto.precio_venta);
-      total += precio_unitario * item.cantidad;
       itemsResueltos.push({ productoId: item.productoId, cantidad: item.cantidad, precio_unitario, producto });
     }
+
+    const total = calcularTotalVenta(itemsResueltos);
 
     const venta = await Venta.create(
       { clienteId, usuarioId, metodoPagoId, total, estado: estado || 'completada', fecha: fecha || new Date() },

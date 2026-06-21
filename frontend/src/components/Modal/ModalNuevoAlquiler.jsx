@@ -5,6 +5,7 @@ import { useToast } from "../../context/ToastContext";
 import { getClientes } from "../../api/clientes";
 import { getProductos } from "../../api/productos";
 import { createAlquiler } from "../../api/alquileres";
+import { calcularAlquiler } from "../../utils/calculos.js";
 
 const estadoInicial = {
   clienteBusqueda: "",
@@ -13,14 +14,6 @@ const estadoInicial = {
   productoSeleccionado: null,
   fechaDevolucion: "",
 };
-
-function calcularTotal(producto, fechaDevolucion) {
-  if (!producto || !fechaDevolucion || !producto.precioAlquiler) return null;
-  const hoy = new Date();
-  const fechaFin = new Date(fechaDevolucion);
-  const dias = Math.max(1, Math.ceil((fechaFin - hoy) / (1000 * 60 * 60 * 24)));
-  return { dias, total: dias * parseFloat(producto.precioAlquiler) };
-}
 
 function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
   const showToast = useToast();
@@ -84,9 +77,9 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
     setResultadosProducto([]);
   };
 
-  const estimado = calcularTotal(
-    form.productoSeleccionado,
+  const estimado = calcularAlquiler(
     form.fechaDevolucion,
+    form.productoSeleccionado?.precioAlquiler,
   );
 
   const isDirty = JSON.stringify(form) !== JSON.stringify(estadoInicial);

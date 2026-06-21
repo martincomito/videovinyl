@@ -6,6 +6,7 @@ import { getProductos } from "../../api/productos";
 import { getMetodosPago } from "../../api/metodosPago";
 import { createVenta } from "../../api/ventas";
 import { useToast } from "../../context/ToastContext";
+import { calcularTotalVenta } from "../../utils/calculos.js";
 
 const estadoInicial = {
   clienteBusqueda: "",
@@ -119,7 +120,7 @@ function ModalNuevaVenta({ isOpen, onClose, onSuccess }) {
   const handleEliminarItem = (id) =>
     setForm((prev) => ({ ...prev, items: prev.items.filter((i) => i.id !== id) }));
 
-  const total = form.items.reduce((acc, i) => acc + i.precio * i.cantidad, 0);
+  const total = calcularTotalVenta(form.items);
 
   const isDirty = JSON.stringify(form) !== JSON.stringify(estadoInicial);
   const isValid =

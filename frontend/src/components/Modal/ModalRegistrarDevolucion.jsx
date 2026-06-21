@@ -6,6 +6,7 @@ import { getAlquileres, registrarDevolucion } from "../../api/alquileres";
 import { getClientes } from "../../api/clientes";
 import { getMetodosPago } from "../../api/metodosPago";
 import { getTarifasAlquiler } from "../../api/productos";
+import { calcularDiasRetraso } from "../../utils/calculos.js";
 
 const estadoInicial = {
   clienteBusqueda: "",
@@ -15,14 +16,6 @@ const estadoInicial = {
   estadoProducto: "",
   metodoPagoId: "",
 };
-
-function calcularDiasRetraso(fechaEsperada) {
-  if (!fechaEsperada) return 0;
-  const hoy = new Date();
-  hoy.setHours(0, 0, 0, 0);
-  const esperada = new Date(fechaEsperada);
-  return Math.max(0, Math.ceil((hoy - esperada) / (1000 * 60 * 60 * 24)));
-}
 
 function ModalRegistrarDevolucion({ isOpen, onClose, onSuccess, preseleccionada = null }) {
   const showToast = useToast();

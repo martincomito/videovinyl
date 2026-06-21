@@ -1,5 +1,6 @@
 import { Op } from 'sequelize';
 import { sequelize, Alquiler, Producto, Cliente, Usuario, MetodoPago, TarifaAlquiler } from '../models/index.js';
+import { calcularDiasAlquiler, calcularMontoAlquiler } from '../utils/calculos.js';
 
 const alquilerConDetalle = (id) =>
   Alquiler.findByPk(id, {
@@ -93,8 +94,8 @@ const create = async (req, res, next) => {
 
     const inicio = new Date(fecha_inicio || Date.now());
     const fin = new Date(fecha_devolucion_esperada);
-    const dias = Math.max(1, Math.ceil((fin - inicio) / (1000 * 60 * 60 * 24)));
-    const monto = parseFloat(tarifa.precio_por_dia) * dias;
+    const dias = calcularDiasAlquiler(inicio, fin);
+    const monto = calcularMontoAlquiler(dias, tarifa.precio_por_dia);
 
     const alquiler = await Alquiler.create(
       { clienteId, productoId, usuarioId, metodoPagoId, fecha_inicio: inicio, fecha_devolucion_esperada: fin, monto, estado: 'activo' },
