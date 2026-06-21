@@ -1,4 +1,4 @@
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import "../../styles/variables.scss";
 
 function Lista({
@@ -61,19 +61,35 @@ function Lista({
               placeholder={placeholderBuscador}
               value={textoBusqueda}
               onChange={(e) => onCambioBusqueda?.(e.target.value)}
-              className="
+              className={`
                 w-full
                 rounded-md
                 border
                 border-[var(--color-lista-borde)]
                 py-2
                 pl-10
-                pr-3
                 text-sm
                 outline-none
                 focus:border-[var(--color-primario)]
-              "
+                ${textoBusqueda ? "pr-8" : "pr-3"}
+              `}
             />
+            {textoBusqueda && (
+              <button
+                onClick={() => onCambioBusqueda?.("")}
+                className="
+                  absolute
+                  right-3
+                  top-1/2
+                  -translate-y-1/2
+                  text-slate-400
+                  hover:text-slate-600
+                  cursor-pointer
+                "
+              >
+                <X size={14} />
+              </button>
+            )}
           </div>
         </div>
       )}
