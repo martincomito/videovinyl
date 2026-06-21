@@ -27,18 +27,20 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
   const [resultadosProducto, setResultadosProducto] = useState([]);
   const [buscandoCliente, setBuscandoCliente] = useState(false);
   const [buscandoProducto, setBuscandoProducto] = useState(false);
+  const [sinResultadosCliente, setSinResultadosCliente] = useState(false);
+  const [sinResultadosProducto, setSinResultadosProducto] = useState(false);
   const [cargando, setCargando] = useState(false);
   const [error, setError] = useState(null);
 
   const handleBuscarCliente = async () => {
     if (!form.clienteBusqueda.trim()) return;
     setBuscandoCliente(true);
+    setSinResultadosCliente(false);
     try {
-      const res = await getClientes({
-        q: form.clienteBusqueda.trim(),
-        limite: 5,
-      });
-      setResultadosCliente(res.data.datos ?? res.data);
+      const res = await getClientes({ q: form.clienteBusqueda.trim(), limite: 5 });
+      const datos = res.data.datos ?? res.data;
+      setResultadosCliente(datos);
+      setSinResultadosCliente(datos.length === 0);
     } catch {
       setResultadosCliente([]);
     } finally {
@@ -58,13 +60,12 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
   const handleBuscarProducto = async () => {
     if (!form.productoBusqueda.trim()) return;
     setBuscandoProducto(true);
+    setSinResultadosProducto(false);
     try {
-      const res = await getProductos({
-        q: form.productoBusqueda.trim(),
-        limite: 5,
-      });
-      const datos = res.data.datos ?? res.data;
-      setResultadosProducto(datos.filter((p) => p.precioAlquiler != null));
+      const res = await getProductos({ q: form.productoBusqueda.trim(), limite: 5 });
+      const datos = (res.data.datos ?? res.data).filter((p) => p.precioAlquiler != null);
+      setResultadosProducto(datos);
+      setSinResultadosProducto(datos.length === 0);
     } catch {
       setResultadosProducto([]);
     } finally {
@@ -124,6 +125,8 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
     setForm(estadoInicial);
     setResultadosCliente([]);
     setResultadosProducto([]);
+    setSinResultadosCliente(false);
+    setSinResultadosProducto(false);
     setError(null);
     onClose();
   };
@@ -172,12 +175,10 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
                 type="text"
                 placeholder="Buscar por Nombre o DNI..."
                 value={form.clienteBusqueda}
-                onChange={(e) =>
-                  setForm((prev) => ({
-                    ...prev,
-                    clienteBusqueda: e.target.value,
-                  }))
-                }
+                onChange={(e) => {
+                  setForm((prev) => ({ ...prev, clienteBusqueda: e.target.value }));
+                  setSinResultadosCliente(false);
+                }}
                 onKeyDown={(e) => e.key === "Enter" && handleBuscarCliente()}
                 className="modal-input"
               />
@@ -191,6 +192,11 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
                 {buscandoCliente ? "Buscando..." : "Buscar"}
               </button>
             </div>
+          )}
+          {sinResultadosCliente && (
+            <p className="text-[11px] text-[var(--color-texto-secundario)] mt-0.5">
+              No se encontraron clientes con ese criterio.
+            </p>
           )}
           {resultadosCliente.length > 0 && (
             <ul className="mt-1 rounded-lg border border-[var(--color-lista-borde)] bg-white shadow-sm overflow-hidden">
@@ -252,12 +258,10 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
                 type="text"
                 placeholder="Buscar por título..."
                 value={form.productoBusqueda}
-                onChange={(e) =>
-                  setForm((prev) => ({
-                    ...prev,
-                    productoBusqueda: e.target.value,
-                  }))
-                }
+                onChange={(e) => {
+                  setForm((prev) => ({ ...prev, productoBusqueda: e.target.value }));
+                  setSinResultadosProducto(false);
+                }}
                 onKeyDown={(e) => e.key === "Enter" && handleBuscarProducto()}
                 className="modal-input"
               />
@@ -271,6 +275,11 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
                 {buscandoProducto ? "Buscando..." : "Buscar"}
               </button>
             </div>
+          )}
+          {sinResultadosProducto && (
+            <p className="text-[11px] text-[var(--color-texto-secundario)] mt-0.5">
+              No se encontraron productos VHS/DVD con ese título.
+            </p>
           )}
           {resultadosProducto.length > 0 && (
             <ul className="mt-1 rounded-lg border border-[var(--color-lista-borde)] bg-white shadow-sm overflow-hidden">

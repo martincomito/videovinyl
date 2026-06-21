@@ -28,6 +28,7 @@ function ModalRegistrarDevolucion({ isOpen, onClose, onSuccess, preseleccionada 
   const [resultadosCliente, setResultadosCliente] = useState([]);
   const [alquileresCliente, setAlquileresCliente] = useState([]);
   const [buscandoCliente, setBuscandoCliente] = useState(false);
+  const [sinResultadosCliente, setSinResultadosCliente] = useState(false);
   const [cargandoAlquileres, setCargandoAlquileres] = useState(false);
   const [metodosPago, setMetodosPago] = useState([]);
   const [tarifas, setTarifas] = useState([]);
@@ -48,6 +49,7 @@ function ModalRegistrarDevolucion({ isOpen, onClose, onSuccess, preseleccionada 
     }
     setResultadosCliente([]);
     setAlquileresCliente([]);
+    setSinResultadosCliente(false);
     Promise.all([getMetodosPago(), getTarifasAlquiler()])
       .then(([metRes, tarRes]) => {
         setMetodosPago(metRes.data);
@@ -59,9 +61,12 @@ function ModalRegistrarDevolucion({ isOpen, onClose, onSuccess, preseleccionada 
   const handleBuscarCliente = async () => {
     if (!form.clienteBusqueda.trim()) return;
     setBuscandoCliente(true);
+    setSinResultadosCliente(false);
     try {
       const res = await getClientes({ q: form.clienteBusqueda.trim(), limite: 5 });
-      setResultadosCliente(res.data.datos ?? res.data);
+      const datos = res.data.datos ?? res.data;
+      setResultadosCliente(datos);
+      setSinResultadosCliente(datos.length === 0);
     } catch {
       setResultadosCliente([]);
     } finally {
@@ -216,9 +221,10 @@ function ModalRegistrarDevolucion({ isOpen, onClose, onSuccess, preseleccionada 
                 type="text"
                 placeholder="Buscar por Nombre o DNI..."
                 value={form.clienteBusqueda}
-                onChange={(e) =>
-                  setForm((prev) => ({ ...prev, clienteBusqueda: e.target.value }))
-                }
+                onChange={(e) => {
+                  setForm((prev) => ({ ...prev, clienteBusqueda: e.target.value }));
+                  setSinResultadosCliente(false);
+                }}
                 onKeyDown={(e) => e.key === "Enter" && handleBuscarCliente()}
                 className="modal-input"
               />
@@ -232,6 +238,11 @@ function ModalRegistrarDevolucion({ isOpen, onClose, onSuccess, preseleccionada 
                 {buscandoCliente ? "Buscando..." : "Buscar"}
               </button>
             </div>
+          )}
+          {sinResultadosCliente && (
+            <p className="text-[11px] text-[var(--color-texto-secundario)] mt-0.5">
+              No se encontraron clientes con ese criterio.
+            </p>
           )}
           {resultadosCliente.length > 0 && (
             <ul className="mt-1 rounded-lg border border-[var(--color-lista-borde)] bg-white shadow-sm overflow-hidden">
