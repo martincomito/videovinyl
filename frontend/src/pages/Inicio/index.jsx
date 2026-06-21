@@ -69,47 +69,18 @@ function InicioPage() {
 
             <div className="flex gap-2">
               <button
-                className="
-                  flex
-                  items-center
-                  gap-2
-                  rounded-lg
-                  bg-[var(--color-boton-dashboard-primario)]
-                  px-4
-                  py-2
-                  text-sm
-                  font-medium
-                  text-white
-                  transition-opacity
-                  hover:opacity-90
-                  cursor-pointer
-                "
+                className="flex items-center gap-1.5 rounded-md bg-[var(--color-boton-dashboard-primario)] px-4 py-2 text-xs font-medium text-white transition-opacity hover:opacity-90 cursor-pointer"
                 onClick={() => setModalVenta(true)}
               >
-                <ShoppingCart size={16} />
+                <ShoppingCart size={13} />
                 Nueva Venta
               </button>
 
               <button
-                className="
-                  flex
-                  items-center
-                  gap-2
-                  rounded-lg
-                  border
-                  border-[var(--color-card-borde)]
-                  bg-white
-                  px-4
-                  py-2
-                  text-sm
-                  font-medium
-                  cursor-pointer
-                  transition-colors
-                  hover:bg-slate-50
-                "
+                className="flex items-center gap-1.5 rounded-md border border-[var(--color-card-borde)] bg-white px-4 py-2 text-xs font-medium cursor-pointer transition-colors hover:bg-slate-50"
                 onClick={() => setModalAlquiler(true)}
               >
-                <CalendarClock size={16} />
+                <CalendarClock size={13} />
                 Nuevo Alquiler
               </button>
             </div>
