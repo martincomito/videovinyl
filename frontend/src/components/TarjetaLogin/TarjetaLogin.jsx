@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff } from "lucide-react";
 import logo from "../../img/videovinyl-logo.png";
 import "../../styles/variables.scss";
@@ -131,7 +131,7 @@ function TarjetaLogin() {
                     </button>
                 </div>
 
-                <div className="flex items-center justify-between text-sm">
+                <div className="flex items-center text-sm">
                     <label className="flex items-center gap-2">
                         <input
                             type="checkbox"
@@ -139,16 +139,6 @@ function TarjetaLogin() {
                         />
                         Recordarme
                     </label>
-
-                    <Link
-                        to="/recuperar-password"
-                        className="
-                            text-[var(--color-login-link)]
-                            hover:underline
-                        "
-                    >
-                        ¿Olvidaste tu contraseña?
-                    </Link>
                 </div>
 
                 {error && (
