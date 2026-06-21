@@ -51,29 +51,29 @@ console.log('✓ Usuarios empleados (password: Password1)');
 // ── Clientes ─────────────────────────────────────────────────────────────────
 const clientesData = [
   { nombre: 'Ana',       apellido: 'Bogado',     dni: '28541230', telefono: '1145231890', email: 'ana.bogado@gmail.com' },
-  { nombre: 'Carlos',    apellido: 'Villalba',   dni: '31204567', telefono: '1167893412', email: 'carlos.v@gmail.com' },
+  { nombre: 'Carlos',    apellido: 'Villalba',   dni: '31204567', telefono: '1167893412', email: 'carlos.villalba@gmail.com' },
   { nombre: 'María',     apellido: 'Acosta',     dni: '25678901', telefono: '1134562378', email: 'maria.acosta@hotmail.com' },
-  { nombre: 'Roberto',   apellido: 'Herrera',    dni: '29345678', telefono: '1156781234', email: null },
+  { nombre: 'Roberto',   apellido: 'Herrera',    dni: '29345678', telefono: '1156781234', email: 'roberto.herrera@gmail.com' },
   { nombre: 'Patricia',  apellido: 'Romero',     dni: '33112345', telefono: '1178904567', email: 'patriciaromero@yahoo.com' },
-  { nombre: 'Jorge',     apellido: 'Medina',     dni: '27890123', telefono: '1189012345', email: null },
+  { nombre: 'Jorge',     apellido: 'Medina',     dni: '27890123', telefono: '1189012345', email: 'jorge.medina@gmail.com' },
   { nombre: 'Claudia',   apellido: 'Suárez',     dni: '30567890', telefono: '1190123456', email: 'claudia.suarez@gmail.com' },
-  { nombre: 'Marcelo',   apellido: 'Pereyra',    dni: '26234567', telefono: '1101234567', email: null },
+  { nombre: 'Marcelo',   apellido: 'Pereyra',    dni: '26234567', telefono: '1101234567', email: 'marcelo.pereyra@hotmail.com' },
   { nombre: 'Sandra',    apellido: 'Molina',     dni: '34789012', telefono: '1112345678', email: 'smolina@gmail.com' },
-  { nombre: 'Gustavo',   apellido: 'Benítez',    dni: '22345678', telefono: '1123456789', email: null },
+  { nombre: 'Gustavo',   apellido: 'Benítez',    dni: '22345678', telefono: '1123456789', email: 'gustavo.benitez@gmail.com' },
   { nombre: 'Adriana',   apellido: 'Castro',     dni: '31901234', telefono: '1134567890', email: 'adriana.castro@gmail.com' },
-  { nombre: 'Fernando',  apellido: 'Morales',    dni: '28012345', telefono: '1145678901', email: null },
+  { nombre: 'Fernando',  apellido: 'Morales',    dni: '28012345', telefono: '1145678901', email: 'fernando.morales@hotmail.com' },
   { nombre: 'Verónica',  apellido: 'Giménez',    dni: '35456789', telefono: '1156789012', email: 'verogimenez@hotmail.com' },
-  { nombre: 'Alejandro', apellido: 'Ríos',       dni: '24123456', telefono: '1167890123', email: null },
+  { nombre: 'Alejandro', apellido: 'Ríos',       dni: '24123456', telefono: '1167890123', email: 'alejandro.rios@gmail.com' },
   { nombre: 'Beatriz',   apellido: 'Álvarez',    dni: '29678901', telefono: '1178901234', email: 'beatriz.alvarez@gmail.com' },
-  { nombre: 'Horacio',   apellido: 'Núñez',      dni: '27234567', telefono: '1189012346', email: null },
+  { nombre: 'Horacio',   apellido: 'Núñez',      dni: '27234567', telefono: '1189012346', email: 'horacio.nunez@gmail.com' },
   { nombre: 'Graciela',  apellido: 'Vega',       dni: '32890123', telefono: '1190123457', email: 'gracielavega@gmail.com' },
-  { nombre: 'Ricardo',   apellido: 'Flores',     dni: '23456789', telefono: '1101234568', email: null },
+  { nombre: 'Ricardo',   apellido: 'Flores',     dni: '23456789', telefono: '1101234568', email: 'ricardo.flores@hotmail.com' },
   { nombre: 'Silvia',    apellido: 'Cabrera',    dni: '36012345', telefono: '1112345679', email: 'silvia.cabrera@gmail.com' },
-  { nombre: 'Néstor',    apellido: 'Palacios',   dni: '25789012', telefono: '1123456780', email: null },
+  { nombre: 'Néstor',    apellido: 'Palacios',   dni: '25789012', telefono: '1123456780', email: 'nestor.palacios@gmail.com' },
   { nombre: 'Miriam',    apellido: 'Ibáñez',     dni: '30345678', telefono: '1134567891', email: 'miriam.ibanez@hotmail.com' },
-  { nombre: 'Osvaldo',   apellido: 'Vera',       dni: '28901234', telefono: '1145678902', email: null },
+  { nombre: 'Osvaldo',   apellido: 'Vera',       dni: '28901234', telefono: '1145678902', email: 'osvaldo.vera@gmail.com' },
   { nombre: 'Roxana',    apellido: 'Paredes',    dni: '33567890', telefono: '1156789013', email: 'roxana.paredes@gmail.com' },
-  { nombre: 'Leandro',   apellido: 'Aguirre',    dni: '24678901', telefono: '1167890124', email: null },
+  { nombre: 'Leandro',   apellido: 'Aguirre',    dni: '24678901', telefono: '1167890124', email: 'leandro.aguirre@hotmail.com' },
   { nombre: 'Norma',     apellido: 'Delgado',    dni: '31123456', telefono: '1178901235', email: 'norma.delgado@gmail.com' },
 ];
 
@@ -159,7 +159,7 @@ for (const v of ventasData) {
     producto: productosCreados[i.pi],
     cantidad: i.q,
   }));
-  const total = items.reduce((s, i) => s + Number(i.producto.precio_venta) * i.q, 0);
+  const total = items.reduce((s, i) => s + Number(i.producto.precio_venta) * i.cantidad, 0);
 
   const venta = await Venta.create({
     clienteId: clientesCreados[v.ci].id,
