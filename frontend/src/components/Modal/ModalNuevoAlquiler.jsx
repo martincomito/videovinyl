@@ -320,6 +320,7 @@ function ModalNuevoAlquiler({ isOpen, onClose, onSuccess }) {
             <input
               type="date"
               value={form.fechaDevolucion}
+              min={(() => { const h = new Date(); return `${h.getFullYear()}-${String(h.getMonth()+1).padStart(2,'0')}-${String(h.getDate()).padStart(2,'0')}`; })()}
               onChange={(e) =>
                 setForm((prev) => ({
                   ...prev,
