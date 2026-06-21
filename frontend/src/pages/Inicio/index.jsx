@@ -149,7 +149,7 @@ function InicioPage() {
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-semibold text-green-600">
-                      ${venta.total.toLocaleString("es-AR")}
+                      ${(venta.total ?? 0).toLocaleString("es-AR")}
                     </p>
                     <p className="text-xs text-[var(--color-texto-secundario)]">
                       {tiempoRelativo(venta.fecha)}

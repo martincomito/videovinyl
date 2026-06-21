@@ -73,7 +73,7 @@ const getDashboard = async (req, res, next) => {
         numero: `#${String(v.id).padStart(4, '0')}`,
         cliente: v.cliente ? `${v.cliente.nombre} ${v.cliente.apellido}` : 'Cliente no socio',
         producto: v.productos?.[0]?.titulo ?? '—',
-        total: parseFloat(v.total),
+        total: v.total != null ? parseFloat(v.total) : 0,
         fecha: v.fecha,
       })),
       devolucionesPendientes: devolucionesPendientes.map((a) => ({
