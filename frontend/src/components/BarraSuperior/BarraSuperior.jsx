@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import "./BarraSuperior.scss";
 import ModalEditarUsuario from "../Modal/ModalEditarUsuario";
+import logo from "../../img/videovinyl-logo.png";
+import userIcon from "../../img/user-icon.jpg";
 
 const BarraSuperior = () => {
     const [modalAbierto, setModalAbierto] = useState(false);
@@ -24,7 +26,7 @@ const BarraSuperior = () => {
             <header className="barra-superior">
                 <div className="barra-superior__logo">
                     <Link to="/">
-                        <img src={"/src/img/videovinyl-logo.png"} alt="VideoVinyl Logo" />
+                        <img src={logo} alt="VideoVinyl Logo" />
                     </Link>
                 </div>
 
@@ -42,7 +44,7 @@ const BarraSuperior = () => {
 
                     <div className="barra-superior__avatar">
                         <img
-                            src={raw.avatar || "/src/img/user-icon.jpg"}
+                            src={raw.avatar || userIcon}
                             alt="USUARIO"
                         />
                     </div>
