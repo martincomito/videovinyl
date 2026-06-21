@@ -119,7 +119,7 @@ function ModalEditarUsuario({ isOpen, onClose, onSuccess, usuario }) {
         avatar: form.avatar || null,
       };
       if (form.nuevaPassword) payload.password = form.nuevaPassword;
-      await updateUsuario(usuario.id, payload);
+      const { data: usuarioActualizado } = await updateUsuario(usuario.id, payload);
       if (esPropiacuenta) {
         const actual = JSON.parse(localStorage.getItem("usuario") || "{}");
         localStorage.setItem("usuario", JSON.stringify({
@@ -131,7 +131,7 @@ function ModalEditarUsuario({ isOpen, onClose, onSuccess, usuario }) {
         }));
       }
       showToast('success', 'Usuario actualizado');
-      onSuccess?.();
+      onSuccess?.(usuarioActualizado);
       onClose();
     } catch (err) {
       setError(

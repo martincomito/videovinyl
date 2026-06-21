@@ -172,7 +172,15 @@ function UsuariosPage() {
       <ModalEditarUsuario
         isOpen={usuarioParaEditar !== null}
         onClose={() => setUsuarioParaEditar(null)}
-        onSuccess={() => setVersion((v) => v + 1)}
+        onSuccess={(actualizado) => {
+          if (actualizado) {
+            setDatos((prev) =>
+              prev.map((u) => u.id === actualizado.id ? transformar(actualizado) : u)
+            );
+          } else {
+            setVersion((v) => v + 1);
+          }
+        }}
         usuario={usuarioParaEditar}
       />
     </>
