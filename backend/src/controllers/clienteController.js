@@ -91,7 +91,7 @@ const remove = async (req, res, next) => {
   try {
     const cliente = await Cliente.findByPk(req.params.id);
     if (!cliente) return res.status(404).json({ error: 'Cliente no encontrado' });
-    await cliente.destroy();
+    await cliente.update({ estado: 'inactivo' });
     res.status(204).send();
   } catch (error) {
     next(error);

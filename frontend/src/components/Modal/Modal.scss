@@ -71,6 +71,16 @@
   padding: 14px 20px;
   border-top: 1px solid var(--color-lista-borde);
   flex-shrink: 0;
+
+  &.modal-footer--split {
+    justify-content: space-between;
+  }
+}
+
+.modal-footer-derecha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .modal-btn-cancelar {
@@ -179,6 +189,54 @@
   display: flex;
   gap: 8px;
   justify-content: center;
+}
+
+.modal-btn-eliminar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid #fca5a5;
+  background: #fff;
+  color: #ef4444;
+  cursor: pointer;
+  transition: background 0.1s;
+
+  &:hover:not(:disabled) {
+    background: #fef2f2;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.modal-btn-habilitar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 7px 14px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  border-radius: 6px;
+  border: 1px solid #86efac;
+  background: #fff;
+  color: #16a34a;
+  cursor: pointer;
+  transition: background 0.1s;
+
+  &:hover:not(:disabled) {
+    background: #f0fdf4;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
 }
 
 .modal-btn-descartar {

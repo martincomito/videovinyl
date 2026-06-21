@@ -3,7 +3,8 @@ import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
 import ModalAnadirUsuario from "../../components/Modal/ModalAnadirUsuario";
-import { Settings } from "lucide-react";
+import ModalEditarUsuario from "../../components/Modal/ModalEditarUsuario";
+import { Settings, Pencil } from "lucide-react";
 import "../../styles/variables.scss";
 import { getUsuarios } from "../../api/usuarios.js";
 import useDebouncedValue from "../../hooks/useDebouncedValue.js";
@@ -14,6 +15,11 @@ const transformar = (u) => ({
   email: u.email,
   rol: u.rol.charAt(0).toUpperCase() + u.rol.slice(1),
   estado: u.estado === "activo",
+  _nombre: u.nombre,
+  _apellido: u.apellido,
+  _email: u.email,
+  _rol: u.rol,
+  _estado: u.estado,
 });
 
 function UsuariosPage() {
@@ -23,6 +29,7 @@ function UsuariosPage() {
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(false);
   const [modalAbierto, setModalAbierto] = useState(false);
+  const [usuarioParaEditar, setUsuarioParaEditar] = useState(null);
   const [version, setVersion] = useState(0);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
@@ -67,10 +74,11 @@ function UsuariosPage() {
       label: "Acciones",
       render: (_, fila) => (
         <button
-          className="flex items-center gap-1 rounded border border-slate-300 px-2 py-1 text-xs hover:bg-slate-50"
-          onClick={() => console.log("Gestionar usuario:", fila.id)}
+          className="flex items-center gap-1 rounded border border-slate-300 px-2 py-1 text-xs hover:bg-slate-50 cursor-pointer text-slate-600"
+          onClick={() => setUsuarioParaEditar(fila)}
         >
-          Gestionar Permisos
+          <Pencil size={12} />
+          Editar
         </button>
       ),
     },
@@ -122,6 +130,12 @@ function UsuariosPage() {
         isOpen={modalAbierto}
         onClose={() => setModalAbierto(false)}
         onSuccess={() => setVersion((v) => v + 1)}
+      />
+      <ModalEditarUsuario
+        isOpen={usuarioParaEditar !== null}
+        onClose={() => setUsuarioParaEditar(null)}
+        onSuccess={() => setVersion((v) => v + 1)}
+        usuario={usuarioParaEditar}
       />
     </>
   );

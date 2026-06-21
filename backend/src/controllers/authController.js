@@ -15,8 +15,8 @@ const login = async (req, res, next) => {
       return res.status(401).json({ error: 'Credenciales inválidas' });
     }
 
-    if (usuario.estado === 'inactivo') {
-      return res.status(401).json({ error: 'Usuario inactivo' });
+    if (usuario.eliminado || usuario.estado === 'inactivo') {
+      return res.status(401).json({ error: 'Credenciales inválidas' });
     }
 
     const passwordValida = await bcrypt.compare(password, usuario.password);

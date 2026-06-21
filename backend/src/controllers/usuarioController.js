@@ -1,10 +1,11 @@
 import { Op } from 'sequelize';
+import bcrypt from 'bcrypt';
 import { Usuario } from '../models/index.js';
 
 const getAll = async (req, res, next) => {
   try {
     const { estado, rol, q, pagina = 1, limite = 10 } = req.query;
-    const where = {};
+    const where = { eliminado: false };
     if (estado) where.estado = estado;
     if (rol) where.rol = rol;
 
@@ -54,7 +55,8 @@ const getById = async (req, res, next) => {
 const create = async (req, res, next) => {
   try {
     const { nombre, apellido, email, password, rol, estado } = req.body;
-    const usuario = await Usuario.create({ nombre, apellido, email, password, rol, estado });
+    const hash = await bcrypt.hash(password, 10);
+    const usuario = await Usuario.create({ nombre, apellido, email, password: hash, rol, estado });
     const { password: _, ...data } = usuario.toJSON();
     res.status(201).json(data);
   } catch (error) {
@@ -66,9 +68,21 @@ const update = async (req, res, next) => {
   try {
     const usuario = await Usuario.findByPk(req.params.id);
     if (!usuario) return res.status(404).json({ error: 'Usuario no encontrado' });
+
     const { nombre, apellido, email, password, rol, estado } = req.body;
-    const datos = { nombre, apellido, email, rol, estado };
-    if (password) datos.password = password;
+    const esPropioUsuario = parseInt(req.params.id) === req.usuario.id;
+
+    if (esPropioUsuario && estado === 'inactivo') {
+      return res.status(403).json({ error: 'No podés deshabilitar tu propia cuenta.' });
+    }
+
+    const datos = {};
+    if (nombre !== undefined) datos.nombre = nombre;
+    if (apellido !== undefined) datos.apellido = apellido;
+    if (email !== undefined) datos.email = email;
+    if (rol !== undefined) datos.rol = rol;
+    if (estado !== undefined) datos.estado = estado;
+    if (password) datos.password = await bcrypt.hash(password, 10);
     await usuario.update(datos);
     const { password: _, ...data } = usuario.toJSON();
     res.json(data);
@@ -81,7 +95,7 @@ const remove = async (req, res, next) => {
   try {
     const usuario = await Usuario.findByPk(req.params.id);
     if (!usuario) return res.status(404).json({ error: 'Usuario no encontrado' });
-    await usuario.destroy();
+    await usuario.update({ eliminado: true });
     res.status(204).send();
   } catch (error) {
     next(error);

@@ -3,7 +3,8 @@ import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
 import ModalNuevoCliente from "../../components/Modal/ModalNuevoCliente";
-import { User } from "lucide-react";
+import ModalEditarCliente from "../../components/Modal/ModalEditarCliente";
+import { User, Pencil } from "lucide-react";
 import "../../styles/variables.scss";
 import { getClientes } from "../../api/clientes.js";
 import useDebouncedValue from "../../hooks/useDebouncedValue.js";
@@ -18,6 +19,10 @@ const transformar = (c) => ({
   email: c.email ?? "-",
   telefono: c.telefono,
   estado: ESTADOS[c.estado] ?? c.estado,
+  _nombre: c.nombre,
+  _apellido: c.apellido,
+  _email: c.email ?? "",
+  _estado: c.estado,
 });
 
 function ClientesPage() {
@@ -27,6 +32,7 @@ function ClientesPage() {
   const [busqueda, setBusqueda] = useState("");
   const [cargando, setCargando] = useState(false);
   const [modalAbierto, setModalAbierto] = useState(false);
+  const [clienteParaEditar, setClienteParaEditar] = useState(null);
   const [version, setVersion] = useState(0);
 
   const busquedaDebounced = useDebouncedValue(busqueda, 500);
@@ -73,17 +79,26 @@ function ClientesPage() {
     {
       key: "acciones",
       label: "Acciones",
-      render: (_, fila) =>
-        fila.estado === "Con Deuda" ? (
+      render: (_, fila) => (
+        <div className="flex items-center gap-2">
           <button
-            className="rounded border px-3 py-1 text-xs hover:bg-slate-50 cursor-pointer"
-            onClick={() => console.log("Cobrar:", fila.nSocio)}
+            className="flex items-center gap-1 rounded border border-slate-300 px-2 py-1 text-xs hover:bg-slate-50 cursor-pointer text-slate-600"
+            onClick={() => setClienteParaEditar(fila)}
+            title="Editar cliente"
           >
-            Cobrar
+            <Pencil size={12} />
+            Editar
           </button>
-        ) : (
-          <span className="text-xs text-slate-400">—</span>
-        ),
+          {fila.estado === "Con Deuda" && (
+            <button
+              className="rounded border px-3 py-1 text-xs hover:bg-slate-50 cursor-pointer"
+              onClick={() => console.log("Cobrar:", fila.nSocio)}
+            >
+              Cobrar
+            </button>
+          )}
+        </div>
+      ),
     },
   ];
 
@@ -136,6 +151,12 @@ function ClientesPage() {
         isOpen={modalAbierto}
         onClose={() => setModalAbierto(false)}
         onSuccess={() => setVersion((v) => v + 1)}
+      />
+      <ModalEditarCliente
+        isOpen={clienteParaEditar !== null}
+        onClose={() => setClienteParaEditar(null)}
+        onSuccess={() => setVersion((v) => v + 1)}
+        cliente={clienteParaEditar}
       />
     </>
   );

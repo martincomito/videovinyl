@@ -13,6 +13,7 @@ function Modal({
   cargando = false,
   isDirty = false,
   puedeConfirmar = true,
+  accionIzquierda = null,
 }) {
   const [confirmandoCierre, setConfirmandoCierre] = useState(false);
 
@@ -68,30 +69,33 @@ function Modal({
 
         <div className="modal-body">{children}</div>
 
-        <div className="modal-footer">
-          <button
-            type="button"
-            className="modal-btn-cancelar"
-            onClick={handleClose}
-            disabled={cargando}
-          >
-            Cancelar
-          </button>
-          {labelConfirmar && onConfirmar && (
+        <div className={`modal-footer${accionIzquierda ? " modal-footer--split" : ""}`}>
+          {accionIzquierda && <div>{accionIzquierda}</div>}
+          <div className="modal-footer-derecha">
             <button
               type="button"
-              className="modal-btn-confirmar"
-              onClick={onConfirmar}
-              disabled={cargando || !puedeConfirmar}
-              title={
-                !puedeConfirmar
-                  ? "Completá todos los campos requeridos"
-                  : undefined
-              }
+              className="modal-btn-cancelar"
+              onClick={handleClose}
+              disabled={cargando}
             >
-              {cargando ? "Procesando..." : labelConfirmar}
+              Cancelar
             </button>
-          )}
+            {labelConfirmar && onConfirmar && (
+              <button
+                type="button"
+                className="modal-btn-confirmar"
+                onClick={onConfirmar}
+                disabled={cargando || !puedeConfirmar}
+                title={
+                  !puedeConfirmar
+                    ? "Completá todos los campos requeridos"
+                    : undefined
+                }
+              >
+                {cargando ? "Procesando..." : labelConfirmar}
+              </button>
+            )}
+          </div>
         </div>
 
         {confirmandoCierre && (
