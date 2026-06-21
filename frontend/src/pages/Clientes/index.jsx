@@ -1,11 +1,48 @@
+import { useState, useEffect } from "react";
 import BarraSuperior from "../../components/BarraSuperior/BarraSuperior";
 import MenuLateral from "../../components/MenuLateral/MenuLateral";
 import Lista from "../../components/Lista/Lista";
-import clientes from "../../DATApruebasJSON/clientes.json";
 import { User } from "lucide-react";
 import "../../styles/variables.scss";
+import { getClientes } from "../../api/clientes.js";
+import useDebouncedValue from "../../hooks/useDebouncedValue.js";
+
+const ESTADOS = { activo: "Activo", inactivo: "Inactivo", con_deuda: "Con Deuda" };
+
+const transformar = (c) => ({
+  id: c.id,
+  nSocio: c.id,
+  nombre: `${c.nombre} ${c.apellido}`,
+  dni: c.dni,
+  email: c.email ?? "-",
+  telefono: c.telefono,
+  estado: ESTADOS[c.estado] ?? c.estado,
+});
 
 function ClientesPage() {
+  const [datos, setDatos] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [pagina, setPagina] = useState(1);
+  const [busqueda, setBusqueda] = useState("");
+  const [cargando, setCargando] = useState(false);
+
+  const busquedaDebounced = useDebouncedValue(busqueda, 500);
+
+  useEffect(() => {
+    setPagina(1);
+  }, [busquedaDebounced]);
+
+  useEffect(() => {
+    setCargando(true);
+    getClientes({ pagina, limite: 10, q: busquedaDebounced || undefined })
+      .then(({ data }) => {
+        setDatos(data.datos.map(transformar));
+        setTotal(data.total);
+      })
+      .catch(console.error)
+      .finally(() => setCargando(false));
+  }, [pagina, busquedaDebounced]);
+
   const columnas = [
     { key: "nSocio", label: "ID" },
     { key: "nombre", label: "Cliente" },
@@ -23,9 +60,7 @@ function ClientesPage() {
         };
         return (
           <span
-            className={`rounded-full px-3 py-1 text-xs font-medium ${
-              clases[valor] ?? "bg-slate-100 text-slate-600"
-            }`}
+            className={`rounded-full px-3 py-1 text-xs font-medium ${clases[valor] ?? "bg-slate-100 text-slate-600"}`}
           >
             {valor}
           </span>
@@ -49,60 +84,52 @@ function ClientesPage() {
     },
   ];
 
-
   return (
     <>
-      
-    <BarraSuperior />
+      <BarraSuperior />
 
-      <div className="flex 
-                      bg-[var(--color-fondo-paginas-primario)]
-                      h-[calc(100vh-50px)]">
-        
+      <div className="flex bg-[var(--color-fondo-paginas-primario)] h-[calc(100vh-50px)]">
         <MenuLateral />
 
         <main className="flex-1 p-6 overflow-auto">
-          <div className="mb-5
-                          flex
-                          items-start
-                          justify-between">
-
+          <div className="mb-5 flex items-start justify-between">
             <div>
               <div className="flex items-center gap-2">
-                <User size={18} className=" text-[var(--color-primario)]"/>
-
-                <h1 className="text-lg
-                               font-semibold
-                               text-[var(--color-texto-primario)]">Directorio de Clientes</h1>
+                <User size={18} className="text-[var(--color-primario)]" />
+                <h1 className="text-lg font-semibold text-[var(--color-texto-primario)]">
+                  Directorio de Clientes
+                </h1>
+              </div>
+              <p className="mt-1 text-xs text-[var(--color-texto-secundario)]">
+                Registra nuevos clientes para el sistema de alquileres.
+              </p>
             </div>
-                
-            <p className="mt-1
-                          text-xs
-                          text-[var(--color-texto-secundario)]">Registra nuevos clientes para el sistema de alquileres.</p> 
-          </div>
-                           
-          <div className="flex items-center gap-2">
-            <button className="flex items-center gap-1
-                               rounded-md
-                               bg-[var(--color-boton-primario)]
-                               px-4 py-2
-                               text-xs font-medium
-                               text-white
-                               hover:opacity-90
-                               cursor-pointer"> + Nuevo Cliente
-            </button>
-          </div>
-        </div>
 
-        <Lista
-          columnas={columnas}
-          datos={clientes}
-          mostrarBuscador={true}/>
+            <div className="flex items-center gap-2">
+              <button
+                className="flex items-center gap-1 rounded-md bg-[var(--color-boton-primario)]
+                  px-4 py-2 text-xs font-medium text-white hover:opacity-90 cursor-pointer"
+              >
+                + Nuevo Cliente
+              </button>
+            </div>
+          </div>
 
+          <Lista
+            columnas={columnas}
+            datos={datos}
+            mostrarBuscador
+            totalRegistros={total}
+            paginaActual={pagina}
+            onCambioPagina={setPagina}
+            textoBusqueda={busqueda}
+            onCambioBusqueda={setBusqueda}
+            cargando={cargando}
+          />
         </main>
       </div>
     </>
- );
+  );
 }
 
 export default ClientesPage;
